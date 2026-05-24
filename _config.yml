@@ -1,0 +1,55 @@
+title: "Sthitaprajna Biswal"
+name: "Sthitaprajna Biswal"
+description: "Cybersecurity Engineer | Application Security | Cloud Security | VAPT Specialist | Wazuh SIEM"
+url: "https://SthitaprajnaBiswal.github.io"
+baseurl: ""
+
+# Author Settings
+author:
+  name: "Sthitaprajna Biswal"
+  bio: "Cybersecurity Engineer | VAPT | Cloud Security | Wazuh SIEM"
+  location: "Bhubaneswar, India"
+  avatar: "https://github.com/SthitaprajnaBiswal.png"
+  links:
+    - label: "Email"
+      icon: "fas fa-fw fa-envelope-square"
+      url: "mailto:sthitabiswal2002@gmail.com"
+    - label: "LinkedIn"
+      icon: "fab fa-fw fa-linkedin"
+      url: "https://www.linkedin.com/in/SthitaprajnaBiswal"
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/SthitaprajnaBiswal"
+
+# Theme Settings
+remote_theme: mmistakes/minimal-mistakes
+minimal_mistakes_skin: "dark"
+search: true
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-include-cache
+
+# Build settings
+markdown: kramdown
+kramdown:
+  input: GFM
+
+# Collections
+collections:
+  projects:
+    output: true
+    permalink: /projects/:path/
+  certifications:
+    output: true
+    permalink: /certifications/:path/
+
+# Pagination
+paginate: 5
+paginate_path: "/blog/page:num/"
+
+# Repository
+repository: SthitaprajnaBiswal/SthitaprajnaBiswal.github.io
