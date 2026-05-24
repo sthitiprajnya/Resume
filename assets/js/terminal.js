@@ -1,48 +1,38 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const terminalInput = document.getElementById("terminal-input");
-    const terminalOutput = document.getElementById("terminal-output");
+document.addEventListener('DOMContentLoaded', () => {
+    const output = document.getElementById('terminal-output');
+    const input = document.getElementById('terminal-input');
+    const prompt = '<span class="prompt">guest@sthitaprajna:~$</span> ';
 
-    if (!terminalInput || !terminalOutput) return;
+    input.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') {
+            const command = input.value.trim().toLowerCase();
+            input.value = '';
 
-    const commands = {
-        'help': 'Available commands: help, whoami, skills, clear',
-        'whoami': 'Sthitaprajna Biswal - Cybersecurity Engineer | VAPT Specialist',
-        'skills': 'AppSec, Cloud Security, Red Teaming, DevSecOps, Wazuh SIEM, Python, Bash',
-        'clear': ''
-    };
-
-    terminalInput.addEventListener("keydown", function(event) {
-        if (event.key === "Enter") {
-            const inputVal = terminalInput.value.trim();
-            terminalInput.value = '';
-
-            if (inputVal === '') return;
-
-            const newOutput = document.createElement("div");
-            newOutput.className = "terminal-line";
-            newOutput.innerHTML = `<span class="prompt">visitor@sthitabiswal:~$</span> ${inputVal}`;
-            terminalOutput.appendChild(newOutput);
-
-            if (inputVal === 'clear') {
-                terminalOutput.innerHTML = '';
-            } else {
-                const response = commands[inputVal.toLowerCase()] || `Command not found: ${inputVal}. Type 'help' for available commands.`;
-                const responseDiv = document.createElement("div");
-                responseDiv.className = "terminal-response";
-                responseDiv.textContent = response;
-                terminalOutput.appendChild(responseDiv);
+            let response = '';
+            switch (command) {
+                case 'whoami':
+                    response = 'Sthitaprajna Biswal - Cloud Security Expert | Application VAPT Specialist | AppSec Professional | Red Team Practitioner';
+                    break;
+                case 'skills':
+                    response = 'Burp Suite Pro, Nessus, Postman, OWASP ZAP, Nmap, SQLMap, Nuclei, Ffuf, Metasploit, GCP SCC, AWS Security Hub, Kubernetes (GKE), Docker, Wazuh, Python 3.x, Bash, Google Apps Script';
+                    break;
+                case 'help':
+                    response = 'Available commands: whoami, skills, help, clear';
+                    break;
+                case 'clear':
+                    output.innerHTML = '';
+                    return; // exit early to not append empty response
+                case '':
+                    break; // Just enter pressed
+                default:
+                    response = `Command not found: ${command}. Type 'help' for available commands.`;
             }
 
-            // Scroll to bottom
-            terminalOutput.scrollTop = terminalOutput.scrollHeight;
+            const commandLine = `<div>${prompt}${command}</div>`;
+            const responseLine = response ? `<div>${response}</div>` : '';
+
+            output.innerHTML += commandLine + responseLine;
+            output.scrollTop = output.scrollHeight; // auto-scroll
         }
     });
-
-    // Focus terminal input when clicking inside the terminal
-    const terminalWrapper = document.getElementById("terminal");
-    if (terminalWrapper) {
-        terminalWrapper.addEventListener("click", function() {
-            terminalInput.focus();
-        });
-    }
 });

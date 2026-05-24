@@ -1,9 +1,7 @@
-vendor/
-.env
-.DS_Store
-.bundle/
 _site/
 .sass-cache/
 .jekyll-cache/
 .jekyll-metadata
+vendor/
 .bundle/
+.env

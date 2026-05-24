@@ -1,55 +1,33 @@
-title: "Sthitaprajna Biswal"
-name: "Sthitaprajna Biswal"
-description: "Cybersecurity Engineer | Application Security | Cloud Security | VAPT Specialist | Wazuh SIEM"
-url: "https://SthitaprajnaBiswal.github.io"
+title: "Sthitaprajna Biswal | Cybersecurity Engineer"
+email: "sthitabiswal2002@gmail.com"
+description: >-
+  Cybersecurity Expert with 2+ years delivering measurable risk reduction across web applications, REST/SOAP APIs, mobile apps, cloud, and Kubernetes environments in FinTech.
+url: "https://sthitaprajna-biswal.github.io"
 baseurl: ""
-
-# Author Settings
-author:
-  name: "Sthitaprajna Biswal"
-  bio: "Cybersecurity Engineer | VAPT | Cloud Security | Wazuh SIEM"
-  location: "Bhubaneswar, India"
-  avatar: "https://github.com/SthitaprajnaBiswal.png"
-  links:
-    - label: "Email"
-      icon: "fas fa-fw fa-envelope-square"
-      url: "mailto:sthitabiswal2002@gmail.com"
-    - label: "LinkedIn"
-      icon: "fab fa-fw fa-linkedin"
-      url: "https://www.linkedin.com/in/SthitaprajnaBiswal"
-    - label: "GitHub"
-      icon: "fab fa-fw fa-github"
-      url: "https://github.com/SthitaprajnaBiswal"
-
-# Theme Settings
-remote_theme: mmistakes/minimal-mistakes
+remote_theme: "mmistakes/minimal-mistakes"
 minimal_mistakes_skin: "dark"
-search: true
-
-# Plugins
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
   - jekyll-sitemap
   - jekyll-include-cache
-
-# Build settings
+author:
+  name: "Sthitaprajna Biswal"
+  avatar: "https://github.com/Sthitaprajna.png"
+  bio: "Cloud Security Expert | AppSec Professional | Red Team Practitioner"
+  location: "Bhubaneswar, India"
+  links:
+    - label: "LinkedIn"
+      icon: "fab fa-linkedin"
+      url: "https://www.linkedin.com/in/sthitaprajna-biswal-0175b7171"
+    - label: "GitHub"
+      icon: "fab fa-github"
+      url: "https://github.com/Sthitaprajna"
 markdown: kramdown
-kramdown:
-  input: GFM
-
-# Collections
+highlighter: rouge
+paginate: 5
+include:
+  - _pages
 collections:
   projects:
     output: true
-    permalink: /projects/:path/
-  certifications:
-    output: true
-    permalink: /certifications/:path/
-
-# Pagination
-paginate: 5
-paginate_path: "/blog/page:num/"
-
-# Repository
-repository: SthitaprajnaBiswal/SthitaprajnaBiswal.github.io

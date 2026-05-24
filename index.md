@@ -1,48 +1,36 @@
 ---
 layout: home
-title: "Sthitaprajna Biswal"
-header:
-  overlay_color: "#333"
-  overlay_filter: "0.5"
+title: "Executive Summary"
+author_profile: true
 ---
 
-<link rel="stylesheet" href="{{ '/assets/css/custom.css' | relative_url }}">
+## Sthitaprajna Biswal
+**Cloud Security Expert | Application VAPT Specialist | AppSec Professional | Red Team Practitioner**
 
-## Executive Summary
-
-I am a Cybersecurity Engineer with deep expertise in both **Application Security** and **Cloud Infrastructure**. By combining Red Team methodologies with DevSecOps principles, I deliver measurable risk reduction across complex financial technology environments.
-
-My primary focus areas include:
-- Web & Mobile Application VAPT (Burp Suite Pro)
-- Cloud Security & Attack Surface Reduction (GCP / AWS)
-- SIEM Deployment & Detection Engineering (Wazuh)
-- Compliance Audits (PCI DSS, ISO 27001, SOC 2)
+Cybersecurity Expert with 2+ years delivering measurable risk reduction across web applications, REST/SOAP APIs, mobile apps, cloud, and Kubernetes environments in FinTech.
 
 ### Key Metrics
-* **VAPT Engagements:** Led 50+ full-scope penetration tests.
-* **Vulnerabilities Identified:** Uncovered 230+ unique vulnerabilities (IDOR, SQLi, SSRF, broken access controls).
-* **Cloud Hardening:** Secured 92+ GCP Storage buckets, eliminating 100% of public exposure paths.
-* **Threat Detection:** Built Wazuh SIEM rules cutting cryptojacking MTTD by 80%.
-
-<div style="margin: 2em 0; text-align: center;">
-  <a href="/resume/" class="btn btn--primary btn--large"><i class="fas fa-file-pdf"></i> View & Download Résumé</a>
-</div>
+* **Offensive Security:** Executed 50+ end-to-end penetration tests identifying 230+ unique vulnerabilities.
+* **Compliance & Auditing:** Delivered PCI DSS v4.0.1, ISO 27001:2022, and SOC 2 Type 2 audits for major banks (NPCI, UIDAI, Axis Bank).
+* **Cloud Defense:** Hardened 92+ GCP Cloud Storage buckets eliminating 100% of public exposure paths.
+* **Detection Engineering:** Authored Wazuh SIEM rules reducing cryptojacking MTTD by 80%.
 
 ### Interactive Terminal
-
-<div id="terminal">
-  <div id="terminal-header">
-    <div class="terminal-button terminal-close"></div>
-    <div class="terminal-button terminal-minimize"></div>
-    <div class="terminal-button terminal-maximize"></div>
-  </div>
-  <div id="terminal-output">
-    <div class="terminal-response">Welcome to the interactive terminal. Type 'help' to see available commands.</div>
-  </div>
-  <div class="terminal-input-line">
-    <span class="prompt">visitor@sthitabiswal:~$</span>
-    <input type="text" id="terminal-input" autocomplete="off" spellcheck="false" autofocus>
-  </div>
+<div class="terminal-window">
+    <div class="terminal-header">
+        <div class="terminal-buttons">
+            <span class="terminal-btn close"></span>
+            <span class="terminal-btn minimize"></span>
+            <span class="terminal-btn maximize"></span>
+        </div>
+    </div>
+    <div class="terminal-body">
+        <div id="terminal-output">Welcome to Sthitaprajna's Portfolio Terminal. Type 'help' for commands.</div>
+        <div class="terminal-input-line">
+            <span class="prompt">guest@sthitaprajna:~$</span>
+            <input type="text" id="terminal-input" autofocus autocomplete="off" spellcheck="false">
+        </div>
+    </div>
 </div>
 
-<script src="{{ '/assets/js/terminal.js' | relative_url }}"></script>
+<script src="/assets/js/terminal.js"></script>
