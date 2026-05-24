@@ -1,0 +1,23 @@
+<!-- Mermaid.js support for Markdown diagrams -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+
+    // Find all pre > code.language-mermaid elements and replace them with mermaid divs
+    const mermaidBlocks = document.querySelectorAll('pre > code.language-mermaid');
+    mermaidBlocks.forEach(function(block) {
+      const parentPre = block.parentNode;
+      const newDiv = document.createElement('div');
+      newDiv.className = 'mermaid';
+      newDiv.textContent = block.textContent;
+      parentPre.parentNode.replaceChild(newDiv, parentPre);
+    });
+
+    // Initialize again after DOM manipulation
+    mermaid.init(undefined, document.querySelectorAll('.mermaid'));
+  });
+</script>
+
+<!-- Content Security Policy -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; connect-src 'self'">
