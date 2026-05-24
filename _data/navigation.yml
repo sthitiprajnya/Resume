@@ -1,15 +1,11 @@
 main:
   - title: "Home"
     url: /
-  - title: "Skills"
-    url: /skills/
   - title: "Experience"
     url: /experience/
+  - title: "Skills"
+    url: /skills/
   - title: "Certifications"
     url: /certifications/
-  - title: "Projects"
-    url: /projects/
-  - title: "Blog"
-    url: /blog/
-  - title: "Résumé"
+  - title: "Resume"
     url: /resume/

@@ -1,24 +1,21 @@
 ---
-title: "Professional Experience"
 layout: single
+title: "Professional Experience"
 permalink: /experience/
 author_profile: true
 ---
 
-## Information Security Engineer / Penetration Tester
-**iServeU Technology Pvt. Ltd.** | Bhubaneswar, India | *Dec 2023 – Present*
+### **iServeU Technology Pvt. Ltd.**
+**Information Security Engineer / Penetration Tester** | *Dec 2023 - Present*
 
-### Application VAPT
-* **Context:** FinTech, BFSI, and payment platforms required rigorous security validation ahead of compliance deadlines.
-* **Action:** Led 50+ full-scope web application penetration tests using Burp Suite Pro, and performed targeted API security assessments on BBPS and UPI gateways. Executed Android/iOS mobile VAPT including traffic interception and reverse engineering.
-* **Result:** Uncovered 200+ unique vulnerabilities (IDOR, auth bypass, SQLi, XXE, etc.). Identified and closed 12 critical/high findings in IndusInd Bank API integrations within a 3-week window. Delivered threat-aware architecture reviews reducing subsequent VAPT findings by ~55%.
+* **Web App VAPT:** Led 50+ full-scope tests using Burp Suite Pro; uncovered 200+ vulns (IDOR, SSRF, SQLi).
+* **API Security:** Found and closed 12 critical/high findings in IndusInd Bank integrations.
+* **AppSec Architecture:** Mapped 40+ design-level attack vectors via DFDs, reducing subsequent VAPT findings by 55%.
+* **Container Security:** Deployed Nessus across GKE/GCP, triaging 38 CVEs and reducing container attack surface by 72%.
+* **Automation & DLP:** Built a Python 3.10 Google DLP API pipeline to mask PCI/PII across 500+ daily transactions. Developed JIRA API automation reducing reporting effort by 8 hours/week.
 
-### Cloud, Infrastructure & Adversarial Ops
-* **Context:** Expanding cloud footprint across GCP/AWS and internal Kubernetes infrastructure required proactive threat mitigation and hardening.
-* **Action:** Enumerated and exploited misconfigurations across 92+ GCP Cloud Storage buckets. Conducted internal VAPT of GCP compute instances and Kubernetes nodes. Led red-team investigation of a live cryptojacking incident.
-* **Result:** Eliminated 100% of identified public exposure paths on GCP buckets with zero production outages. Designed 6 new Wazuh detection rules cutting MTTD for cryptojacking attacks by ~80%. Reduced unmonitored external attack surface by ~40% via OSINT and SpiderFoot mapping.
+---
 
-### Compliance, Automation & SIEM
-* **Context:** Complex compliance landscape (PCI DSS v4.0.1, ISO 27001) required significant manual reporting effort and robust SIEM capabilities.
-* **Action:** Owned 8 end-to-end security audits. Built Python, Bash, and Google Apps Script pipelines for automated VAPT ticket tracking via the JIRA API. Implemented a Wazuh SIEM from scratch across endpoints and cloud services.
-* **Result:** Achieved full audit closure with zero non-conformance carry-overs. Improved high-risk finding closure rates by 35% and reduced manual reporting effort by ~8 hours/week. Authored 20+ custom Wazuh detection rules, reducing false-positive alerts by 45%.
+### **Education**
+**Bachelor of Technology (Computer Science and Engineering)**
+*Veer Surendra Sai University of Technology (2020-2024)*

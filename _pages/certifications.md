@@ -1,39 +1,29 @@
 ---
-title: "Certifications & Education"
 layout: single
+title: "Certifications"
 permalink: /certifications/
 author_profile: true
 ---
 
-## Certifications
+<!-- Note: Update the image src URLs with the direct image links from your actual credential providers (like Credly). -->
 
-<div style="display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 2em;">
-  <!-- Placeholders for direct public credential image embeds -->
-  <img src="https://img.shields.io/badge/eJPT%20v2-eLearnSecurity-red?style=for-the-badge" alt="eJPT v2" style="max-height: 80px;" />
-  <img src="https://img.shields.io/badge/PEH-TCM%20Security-green?style=for-the-badge" alt="PEH" style="max-height: 80px;" />
-  <img src="https://img.shields.io/badge/ICCA-INE%20Security-blue?style=for-the-badge" alt="ICCA" style="max-height: 80px;" />
-</div>
+* **eLearnSecurity Junior Penetration Tester (eJPT v2)**
+  <br><img src="https://images.credly.com/images/19f1af97-ceab-41c3-8822-e4d0811eef4a/eJPT.png" alt="eJPT" width="150" />
 
-* **eJPT v2** - eLearnSecurity Junior Penetration Tester
-* **Practical Ethical Hacker (PEH)** - TCM Security
-* **INE Certified Cloud Associate (ICCA)** - INE Security
-* **Cisco CyberOps Associate** - Cisco Systems
-* **Ethical Hacking Essentials (EHE)** - EC-Council
-* **Network Defence Essentials (NDE)** - EC-Council
-* **Digital Forensics Essentials (DFE)** - EC-Council
-* **Basic to Advanced Kali Linux** - CRAW Security
-* **Cybersecurity Essentials** - Cisco
-* **PCAP** - OpenEDG Python Institute
-* **CCNA v1.7** - Cisco Certified Network Associate
+* **Practical Ethical Hacker (PEH) - TCM Security**
+  <br><img src="https://images.credly.com/size/340x340/images/635d0452-95bd-44fb-9cf9-7cbcfb62e4f0/peh-badge.png" alt="PEH" width="150" />
 
-## Awards
+* **INE Certified Cloud Associate (ICCA)**
+  <br><img src="https://images.credly.com/images/334237f3-e380-482a-a53c-a90a424268e3/ICCA.png" alt="ICCA" width="150" />
 
-* **Rising Performer Award, 2025** - iServeU Technology Pvt. Ltd.
-* **Best Intern Award, 2024** - iServeU Technology Pvt. Ltd.
+* **Cisco CyberOps Associate**
+  <br><img src="https://images.credly.com/images/d37bfb1a-283f-42ee-9e90-c11df5b79659/Cisco_CyberOps_Associate.png" alt="CyberOps" width="150" />
 
-## Education
+* **EC-Council EHE, NDE, and DFE**
+  <br><img src="https://images.credly.com/images/1e49b803-cc2d-4191-add4-9c5c2e17ecbb/EHE_badge.png" alt="EC-Council" width="150" />
 
-* **Bachelor of Technology in Computer Science & Engineering** (2020 – 2024)
-  Veer Surendra Sai University of Technology (VSSUT), Bhubaneswar, India
-* **Intermediate +2 Science (Computer Science as elective)** (2018 – 2020)
-  DAV Public School Pokhariput, Bhubaneswar, India
+* **PCAP Python Institute**
+  <br><img src="https://images.credly.com/images/2237cd7f-38cd-41e9-9742-1e5f8f8b82ec/PCAP_Badge_v2.0.png" alt="PCAP" width="150" />
+
+* **CCNA v1.7**
+  <br><img src="https://images.credly.com/images/569c7cc9-1db7-4870-8772-00df2d23c10a/CCNA_badge.png" alt="CCNA" width="150" />
