@@ -1,0 +1,96 @@
+import React, { useRef, useEffect } from 'react';
+import clsx from 'clsx';
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
+
+interface MatrixRainProps {
+  className?: string;
+  opacity?: number;
+}
+
+export default function MatrixRain({ className, opacity = 0.055 }: MatrixRainProps) {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const prefersReducedMotion = usePrefersReducedMotion();
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas || prefersReducedMotion) return;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let animationFrameId: number;
+    let width: number;
+    let height: number;
+
+    // Matrix characters: katakana + numerals + security symbols
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$+-*/=%""\'#&_(),.;:?!\\|{}<>[]^~ｦｧｨｩｪｫｬｭｮｯｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝ0x&&||>><<';
+    const charArray = chars.split('');
+
+    const fontSize = 18;
+    let columns: number;
+    let drops: number[];
+    let speeds: number[];
+
+    const resize = () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+      columns = Math.floor(width / fontSize);
+
+      drops = [];
+      speeds = [];
+      for (let i = 0; i < columns; i++) {
+        drops[i] = Math.random() * -100; // Start at random negative y positions
+        speeds[i] = 0.3 + Math.random() * 0.6; // Speed between 0.3 and 0.9
+      }
+    };
+
+    window.addEventListener('resize', resize);
+    resize();
+
+    ctx.font = `${fontSize}px "JetBrains Mono", monospace`;
+
+    const draw = () => {
+      // Semi-transparent black to create fade effect
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+      ctx.fillRect(0, 0, width, height);
+
+      ctx.fillStyle = '#00F5FF'; // Cyan text
+
+      for (let i = 0; i < drops.length; i++) {
+        // Draw character
+        const text = charArray[Math.floor(Math.random() * charArray.length)];
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        // Reset drop if at bottom or randomly
+        if (drops[i] * fontSize > height && Math.random() > 0.975) {
+          drops[i] = 0;
+          speeds[i] = 0.3 + Math.random() * 0.6; // Reset speed randomly
+        }
+
+        // Move drop
+        drops[i] += speeds[i];
+      }
+
+      animationFrameId = requestAnimationFrame(draw);
+    };
+
+    draw();
+
+    return () => {
+      window.removeEventListener('resize', resize);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, [prefersReducedMotion]);
+
+  if (prefersReducedMotion) {
+    return null;
+  }
+
+  return (
+    <canvas
+      ref={canvasRef}
+      className={clsx("absolute inset-0 pointer-events-none z-0", className)}
+      style={{ opacity }}
+    />
+  );
+}
