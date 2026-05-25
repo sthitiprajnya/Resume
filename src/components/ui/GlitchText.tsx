@@ -1,0 +1,64 @@
+import React, { useState, useEffect } from 'react';
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
+import clsx from 'clsx';
+
+interface GlitchTextProps {
+  children: React.ReactNode;
+  className?: string;
+}
+
+export function GlitchText({ children, className }: GlitchTextProps) {
+  const [isGlitching, setIsGlitching] = useState(false);
+  const prefersReducedMotion = usePrefersReducedMotion();
+
+  useEffect(() => {
+    if (prefersReducedMotion) return;
+
+    const scheduleNextGlitch = () => {
+      const delay = Math.floor(Math.random() * (15000 - 8000 + 1)) + 8000;
+      return setTimeout(() => {
+        setIsGlitching(true);
+        setTimeout(() => setIsGlitching(false), 200);
+        timeoutId = scheduleNextGlitch();
+      }, delay);
+    };
+
+    let timeoutId = scheduleNextGlitch();
+
+    return () => clearTimeout(timeoutId);
+  }, [prefersReducedMotion]);
+
+  if (prefersReducedMotion) {
+    return <span className={className}>{children}</span>;
+  }
+
+  return (
+    <div
+      className={clsx('relative inline-block', className)}
+      onMouseEnter={() => {
+        setIsGlitching(true);
+        setTimeout(() => setIsGlitching(false), 300);
+      }}
+    >
+      <span className="relative z-10 inherit-text-styles">{children}</span>
+      {isGlitching && (
+        <>
+          <span
+            className="absolute top-0 left-0 z-0 opacity-80"
+            style={{ animation: 'glitch-layer-1 0.2s linear infinite' }}
+            aria-hidden="true"
+          >
+            {children}
+          </span>
+          <span
+            className="absolute top-0 left-0 z-0 opacity-80"
+            style={{ animation: 'glitch-layer-2 0.3s linear infinite' }}
+            aria-hidden="true"
+          >
+            {children}
+          </span>
+        </>
+      )}
+    </div>
+  );
+}

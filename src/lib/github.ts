@@ -1,0 +1,93 @@
+const CACHE_KEY   = 'github_stats_cache';
+const CACHE_TTL   = 60 * 60 * 1000;
+const GITHUB_USER = 'sthitiprajnya';
+
+export interface GitHubStats {
+  followers:   number;
+  publicRepos: number;
+  totalStars:  number;
+  totalForks:  number;
+  languages:   Record<string, number>;
+  topRepos:    TopRepo[];
+  fetchedAt:   number;
+}
+
+export interface TopRepo {
+  name:        string;
+  description: string | null;
+  stars:       number;
+  forks:       number;
+  language:    string | null;
+  url:         string;
+}
+
+const GITHUB_FALLBACK_DATA: GitHubStats = {
+  followers: 0,
+  publicRepos: 10,
+  totalStars: 0,
+  totalForks: 0,
+  languages: { Python: 4, Shell: 3, JavaScript: 2 },
+  topRepos: [],
+  fetchedAt: Date.now(),
+};
+
+export async function fetchGitHubStats(): Promise<GitHubStats> {
+  if (typeof window === 'undefined') return GITHUB_FALLBACK_DATA;
+
+  const cached = localStorage.getItem(CACHE_KEY);
+  if (cached) {
+    const parsed: GitHubStats = JSON.parse(cached);
+    if (Date.now() - parsed.fetchedAt < CACHE_TTL) return parsed;
+  }
+
+  const headers = { 'Accept': 'application/vnd.github.v3+json' };
+
+  try {
+    const [userRes, reposRes] = await Promise.all([
+      fetch(`https://api.github.com/users/${GITHUB_USER}`, { headers }),
+      fetch(`https://api.github.com/users/${GITHUB_USER}/repos?per_page=100&sort=updated`, { headers }),
+    ]);
+
+    if (!userRes.ok || !reposRes.ok) {
+      return GITHUB_FALLBACK_DATA;
+    }
+
+    const user  = await userRes.json();
+    const repos: any[] = await reposRes.json();
+
+    const totalStars = repos.reduce((sum: number, r: any) => sum + r.stargazers_count, 0);
+    const totalForks = repos.reduce((sum: number, r: any) => sum + r.forks_count, 0);
+    const languages  = repos.reduce((acc: Record<string,number>, r: any) => {
+      if (r.language) acc[r.language] = (acc[r.language] || 0) + 1;
+      return acc;
+    }, {});
+
+    const topRepos = [...repos]
+      .sort((a, b) => b.stargazers_count - a.stargazers_count)
+      .slice(0, 3)
+      .map(r => ({
+        name:        r.name,
+        description: r.description,
+        stars:       r.stargazers_count,
+        forks:       r.forks_count,
+        language:    r.language,
+        url:         r.html_url,
+      }));
+
+    const stats: GitHubStats = {
+      followers: user.followers,
+      publicRepos: user.public_repos,
+      totalStars,
+      totalForks,
+      languages,
+      topRepos,
+      fetchedAt: Date.now(),
+    };
+
+    localStorage.setItem(CACHE_KEY, JSON.stringify(stats));
+    return stats;
+  } catch (error) {
+    console.error('Failed to fetch github stats', error);
+    return GITHUB_FALLBACK_DATA;
+  }
+}
