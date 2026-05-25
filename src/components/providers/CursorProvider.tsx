@@ -1,3 +1,4 @@
+"use client";
 import React, { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 import { useMousePosition } from '@/hooks/useMousePosition';
@@ -36,7 +37,7 @@ export function CursorProvider({ children }: CursorProviderProps) {
       ringPos.current.y += (y - ringPos.current.y) * 0.12;
 
       if (ringRef.current) {
-        ringRef.current.style.transform = `translate(calc(${ringPos.current.x}px - 50%), calc(${ringPos.current.y}px - 50%)) ${isClicking ? 'scale(0.7)' : 'scale(1)'}`;
+        ringRef.current.style.transform = `translate(calc(${ringPos.current.x}px - 50%), calc(${ringPos.current.y}px - 50%)) ${isClicking ? 'scale(0.5)' : isHovering ? 'scale(1.5)' : 'scale(1)'}`;
       }
 
       animationFrameId = requestAnimationFrame(render);
@@ -103,7 +104,7 @@ export function CursorProvider({ children }: CursorProviderProps) {
             ref={ringRef}
             className={clsx(
               "custom-cursor-ring custom-cursor",
-              isHovering && "active"
+              isHovering && "bg-cyan/10 border-transparent backdrop-blur-[2px]"
             )}
             style={{
               opacity: x === 0 && y === 0 ? 0 : 1

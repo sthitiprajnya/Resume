@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import clsx from 'clsx';
@@ -25,7 +26,7 @@ export function Projects() {
   );
 
   return (
-    <section id="projects" className="py-24 bg-black relative border-t border-border">
+    <section id="projects" className="py-32 bg-black relative border-t border-border overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <SectionTitle number="04" title="Things I Built." />
 
@@ -53,11 +54,11 @@ export function Projects() {
         {/* Project Grid */}
         <motion.div
           layout={!prefersReducedMotion}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
           <AnimatePresence mode="popLayout">
-            {filteredProjects.map((project) => (
-              <ProjectCard key={project.id} project={project} />
+            {filteredProjects.map((project, idx) => (
+              <ProjectCard key={project.id} project={project} index={idx} />
             ))}
           </AnimatePresence>
         </motion.div>
@@ -67,17 +68,21 @@ export function Projects() {
   );
 }
 
-function ProjectCard({ project }: { project: Project }) {
+function ProjectCard({ project, index }: { project: Project, index: number }) {
   const { ref, rotateX, rotateY } = useCardTilt();
   const prefersReducedMotion = usePrefersReducedMotion();
 
   return (
     <motion.div
       layout={!prefersReducedMotion}
-      initial={{ opacity: 0, scale: 0.9 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.9 }}
-      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+      initial={{ opacity: 0, scale: 0.9, y: 50, filter: 'blur(10px)' }}
+      animate={{ opacity: 1, scale: 1, y: 0, filter: 'blur(0px)' }}
+      exit={{ opacity: 0, scale: 0.9, filter: 'blur(10px)' }}
+      transition={{
+        duration: 0.8,
+        ease: [0.16, 1, 0.3, 1],
+        delay: index * 0.1 // Cinematic stagger reveal based on index
+      }}
       className="h-full flex"
     >
       <GlassCard

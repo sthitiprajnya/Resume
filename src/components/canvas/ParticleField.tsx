@@ -1,3 +1,4 @@
+"use client";
 import React, { useRef, useMemo, useState, useEffect } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
@@ -101,6 +102,7 @@ function Particles() {
       <bufferGeometry>
         <bufferAttribute
           attach="attributes-position"
+          args={[positions, 3]}
           count={particleCount}
           array={positions}
           itemSize={3}

@@ -44,7 +44,7 @@ const config: Config = {
         'card':    ['clamp(1.1rem, 2vw, 1.4rem)', { lineHeight: '1.3', fontWeight: '600' }],
         'body':    ['1rem',                       { lineHeight: '1.7', fontWeight: '400' }],
         'small':   ['0.875rem',                   { lineHeight: '1.6', fontWeight: '400' }],
-        'label':   ['0.7rem',                     { lineHeight: '1.4', letterSpacing: '0.15em', fontWeight: '600', textTransform: 'uppercase' }],
+        'label':   ['0.7rem',                     { lineHeight: '1.4', letterSpacing: '0.15em', fontWeight: '600' }],
         'mono-sm': ['0.8rem',                     { lineHeight: '1.5' }],
       },
       screens: {

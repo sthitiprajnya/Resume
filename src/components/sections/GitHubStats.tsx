@@ -1,3 +1,4 @@
+"use client";
 import React from 'react';
 import { SectionTitle } from '@/components/ui/SectionTitle';
 import { GlassCard } from '@/components/ui/GlassCard';

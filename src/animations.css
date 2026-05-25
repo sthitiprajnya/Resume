@@ -64,3 +64,12 @@
   color: transparent;
   animation: text-shimmer 5s ease infinite;
 }
+
+@keyframes cinematic-mask-reveal {
+  0% { clip-path: inset(100% 0 0 0); transform: translateY(15px); }
+  100% { clip-path: inset(0% 0 0 0); transform: translateY(0); }
+}
+
+.cinematic-reveal {
+  animation: cinematic-mask-reveal 1.5s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+}
