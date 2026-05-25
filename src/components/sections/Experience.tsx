@@ -1,3 +1,4 @@
+"use client";
 import React, { useRef, useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { gsap } from 'gsap';
@@ -33,6 +34,27 @@ export function Experience() {
       ease: "none"
     });
 
+    // Cinematic staggering for the experience cards using GSAP ScrollTrigger
+    const cards = document.querySelectorAll('.experience-card-wrapper');
+    cards.forEach((card, i) => {
+      gsap.fromTo(card,
+        { opacity: 0, y: 100, rotateX: 5, scale: 0.95 },
+        {
+          opacity: 1,
+          y: 0,
+          rotateX: 0,
+          scale: 1,
+          duration: 1.2,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: card,
+            start: "top 80%",
+            toggleActions: "play none none reverse"
+          }
+        }
+      );
+    });
+
     // Animate nodes popping in when line reaches them
     const nodes = document.querySelectorAll('.timeline-node');
     nodes.forEach((node) => {
@@ -41,8 +63,8 @@ export function Experience() {
         {
           scale: 1,
           opacity: 1,
-          duration: 0.4,
-          ease: "back.out(1.7)",
+          duration: 0.6,
+          ease: "elastic.out(1, 0.5)",
           scrollTrigger: {
             trigger: node,
             start: "top 60%", // Triggers slightly before reaching center
@@ -232,18 +254,9 @@ function ExperienceCard({ experience, isFirst }: { experience: typeof EXPERIENCE
     </div>
   );
 
-  if (prefersReducedMotion) {
-    return cardContent;
-  }
-
   return (
-    <motion.div
-      initial={{ opacity: 0, x: 50 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-    >
+    <div className={clsx("experience-card-wrapper", prefersReducedMotion ? "" : "opacity-0")}>
       {cardContent}
-    </motion.div>
+    </div>
   );
 }

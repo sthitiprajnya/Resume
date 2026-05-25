@@ -1,5 +1,6 @@
+'use client';
+
 import React from 'react';
-import { Helmet } from 'react-helmet-async';
 import { Preloader } from '@/components/sections/Preloader';
 import { Navigation } from '@/components/sections/Navigation';
 import { Hero } from '@/components/sections/Hero';
@@ -15,42 +16,13 @@ import { SmoothScrollProvider } from '@/components/providers/SmoothScrollProvide
 import { CursorProvider } from '@/components/providers/CursorProvider';
 import { Toaster } from 'react-hot-toast';
 
-function App() {
+export default function Home() {
   return (
     <>
       <Preloader />
 
       <CursorProvider>
-        <Helmet>
-            <script type="application/ld+json">{JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Person",
-              "name": "Sthitaprajna Biswal",
-              "url": "https://sthitiprajnya.github.io",
-              "image": "https://sthitiprajnya.github.io/images/profile/sthitaprajna.webp",
-              "jobTitle": "Information Security Engineer",
-              "worksFor": {
-                "@type": "Organization",
-                "name": "iServeU Technology Pvt. Ltd."
-              },
-              "description": "Cybersecurity and Application VAPT specialist with 2+ years delivering penetration testing, cloud security, and compliance audits for FinTech and banking clients.",
-              "knowsAbout": [
-                "Application VAPT", "Penetration Testing", "Cloud Security",
-                "GCP Security", "AWS Security", "Kubernetes Security",
-                "PCI DSS", "ISO 27001", "OWASP Top 10", "Burp Suite",
-                "Python", "Security Automation", "Red Team"
-              ],
-              "alumniOf": {
-                "@type": "EducationalOrganization",
-                "name": "Veer Surendra Sai University of Technology (VSSUT)"
-              },
-              "sameAs": [
-                "https://github.com/sthitiprajnya",
-                "https://linkedin.com/in/sthitaprajnabiswal"
-              ]
-            })}</script>
-          </Helmet>
-          <SmoothScrollProvider>
+        <SmoothScrollProvider>
           <Navigation />
 
           <main>
@@ -105,5 +77,3 @@ function App() {
     </>
   );
 }
-
-export default App;

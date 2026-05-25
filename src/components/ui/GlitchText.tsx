@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, useEffect } from 'react';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import clsx from 'clsx';
@@ -5,9 +6,10 @@ import clsx from 'clsx';
 interface GlitchTextProps {
   children: React.ReactNode;
   className?: string;
+  style?: React.CSSProperties;
 }
 
-export function GlitchText({ children, className }: GlitchTextProps) {
+export function GlitchText({ children, className, style }: GlitchTextProps) {
   const [isGlitching, setIsGlitching] = useState(false);
   const prefersReducedMotion = usePrefersReducedMotion();
 
@@ -29,12 +31,13 @@ export function GlitchText({ children, className }: GlitchTextProps) {
   }, [prefersReducedMotion]);
 
   if (prefersReducedMotion) {
-    return <span className={className}>{children}</span>;
+    return <span className={className} style={style}>{children}</span>;
   }
 
   return (
     <div
       className={clsx('relative inline-block', className)}
+      style={style}
       onMouseEnter={() => {
         setIsGlitching(true);
         setTimeout(() => setIsGlitching(false), 300);

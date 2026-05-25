@@ -1,3 +1,4 @@
+"use client";
 import React from 'react';
 
 import CountUp from 'react-countup';
@@ -26,8 +27,8 @@ export function About() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
 
           {/* Left Column: Profile Visual */}
-          <ScrollReveal variants={fadeSlideUp} className="order-2 lg:order-1 relative">
-            <NeonBorder className="p-2 rounded-lg bg-black" color="cyan">
+          <ScrollReveal variants={fadeSlideUp} className="order-2 lg:order-1 relative group">
+            <NeonBorder className="p-2 rounded-lg bg-black transition-transform duration-700 ease-out group-hover:scale-[1.02]" color="cyan">
               <div className="relative aspect-square md:aspect-[4/3] lg:aspect-square overflow-hidden rounded bg-surface">
 
                 {/* Fallback pattern while image loads or if missing */}

@@ -1,3 +1,4 @@
+"use client";
 import React, { lazy, Suspense } from 'react';
 import { motion } from 'framer-motion';
 import { GlitchText } from '@/components/ui/GlitchText';
@@ -41,21 +42,25 @@ export function Hero() {
 
         {/* Name (Glitch & Gradient) */}
         <div className="mb-4 overflow-hidden">
-          <GlitchText className="font-display font-black text-hero tracking-[-0.03em] leading-none z-20">
+          <GlitchText className="font-display font-black text-hero tracking-[-0.03em] leading-none z-20 cinematic-reveal" style={{ perspective: '1000px' }}>
             {
               PERSONAL.nameShort.split('').map((char, i) => (
                 <motion.span
                   key={i}
                   className='inline-block overflow-hidden'
-                  initial={{ clipPath: 'inset(0 100% 0 0)' }}
-                  animate={{ clipPath: 'inset(0 0% 0 0)' }}
-                  transition={{ duration: 0.5, delay: 0.7 + i * 0.045, ease: [0.16, 1, 0.3, 1] }}
+                  initial={{ opacity: 0, rotateX: 90, y: 50, scale: 0.8 }}
+                  animate={{ opacity: 1, rotateX: 0, y: 0, scale: 1 }}
+                  transition={{
+                    duration: 1.2,
+                    delay: 0.5 + i * 0.08,
+                    ease: [0.175, 0.885, 0.32, 1.1] // Cinematic elastic bounce
+                  }}
                 >
                   <motion.span
-                    className='inline-block text-gradient-shimmer'
+                    className='inline-block text-gradient-shimmer hover:scale-110 transition-transform duration-300'
                     initial={{ y: '100%' }}
                     animate={{ y: '0%' }}
-                    transition={{ duration: 0.5, delay: 0.7 + i * 0.045, ease: [0.16, 1, 0.3, 1] }}
+                    transition={{ duration: 0.8, delay: 0.5 + i * 0.08, ease: [0.16, 1, 0.3, 1] }}
                   >
                     {char === ' ' ? '\u00A0' : char}
                   </motion.span>

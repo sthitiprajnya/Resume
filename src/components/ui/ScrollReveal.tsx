@@ -1,43 +1,54 @@
+"use client";
 import React from 'react';
 import { motion, type Variants, type HTMLMotionProps } from 'framer-motion';
 import { useInView } from '@/hooks/useInView';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 
 export const fadeSlideUp: Variants = {
-  hidden:  { opacity: 0, y: 60, filter: 'blur(8px)' },
+  hidden:  { opacity: 0, y: 80, filter: 'blur(10px)', rotateX: 10 },
   visible: {
     opacity: 1,
     y: 0,
     filter: 'blur(0px)',
-    transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
+    rotateX: 0,
+    transition: { duration: 1.2, ease: [0.16, 1, 0.3, 1] }
   },
 };
 
 export const fadeSlideLeft: Variants = {
-  hidden:  { opacity: 0, x: -80, filter: 'blur(6px)' },
+  hidden:  { opacity: 0, x: -100, filter: 'blur(8px)' },
   visible: {
     opacity: 1,
     x: 0,
     filter: 'blur(0px)',
-    transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] }
+    transition: { duration: 1.0, ease: [0.16, 1, 0.3, 1] }
   },
 };
 
 export const scaleReveal: Variants = {
-  hidden:  { opacity: 0, scale: 0.85, filter: 'blur(10px)' },
+  hidden:  { opacity: 0, scale: 0.9, filter: 'blur(12px)' },
   visible: {
     opacity: 1,
     scale: 1,
     filter: 'blur(0px)',
-    transition: { duration: 0.9, ease: [0.16, 1, 0.3, 1] }
+    transition: { duration: 1.4, ease: [0.16, 1, 0.3, 1] }
   },
 };
 
 export const containerStagger: Variants = {
   hidden:  {},
   visible: {
-    transition: { staggerChildren: 0.07, delayChildren: 0.1 }
+    transition: { staggerChildren: 0.15, delayChildren: 0.2 }
   },
+};
+
+export const cinematicReveal: Variants = {
+  hidden: { opacity: 0, clipPath: 'inset(100% 0 0 0)' },
+  visible: {
+    opacity: 1,
+    clipPath: 'inset(0% 0 0 0)',
+    transition: { duration: 1.5, ease: [0.77, 0, 0.175, 1] }
+  }
 };
 
 interface ScrollRevealProps extends HTMLMotionProps<"div"> {

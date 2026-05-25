@@ -1,3 +1,4 @@
+"use client";
 import React, { lazy, Suspense } from 'react';
 import { PERSONAL } from '@/data/portfolio';
 
