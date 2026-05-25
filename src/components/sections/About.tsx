@@ -87,7 +87,13 @@ export function About() {
               {ABOUT_STATS.map((stat, i) => (
                 <ScrollReveal key={i} variants={fadeSlideUp} className="flex flex-col">
                   <div className="font-display text-3xl md:text-4xl text-cyan mb-2">
-                    <CountUp end={stat.value} duration={2.5} enableScrollSpy scrollSpyOnce separator="," />
+                    {/* Handle React CountUp ES module default export issue */}
+                    {typeof CountUp === 'function' ? (
+                      <CountUp end={stat.value} duration={2.5} enableScrollSpy scrollSpyOnce separator="," />
+                    ) : (
+                      // @ts-expect-error CountUp has a weird module export mismatch
+                      <CountUp.default end={stat.value} duration={2.5} enableScrollSpy scrollSpyOnce separator="," />
+                    )}
                     {stat.suffix}
                   </div>
                   <div className="font-mono text-[0.65rem] text-text-muted uppercase tracking-widest leading-snug">

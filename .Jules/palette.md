@@ -1,0 +1,3 @@
+## 2024-05-25 - Linked Error Messages to Inputs via ARIA
+**Learning:** In highly customized floating-label forms, custom error spans are completely invisible to screen readers unless explicitly linked using `aria-describedby` and `aria-live` regions. `aria-invalid` also needs to be synced with the error state.
+**Action:** Always map inline error messages to their inputs using `id` and `aria-describedby`, and use `aria-live="polite"` so screen readers announce validation errors dynamically.

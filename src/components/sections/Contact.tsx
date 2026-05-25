@@ -170,6 +170,10 @@ export function Contact() {
                   value={formData.from_name}
                   onChange={handleChange}
                   onBlur={() => handleBlur()}
+                  required
+                  aria-required="true"
+                  aria-invalid={!!errors.from_name}
+                  aria-describedby={errors.from_name ? "from_name_error" : undefined}
                   className={clsx(
                     "w-full bg-[#020408] border rounded-md px-4 py-4 pt-6 text-text-primary outline-none transition-all peer",
                     errors.from_name
@@ -188,7 +192,7 @@ export function Contact() {
                 >
                   Name
                 </label>
-                {errors.from_name && <span className="absolute -bottom-5 left-0 font-mono text-[0.65rem] text-red">{errors.from_name}</span>}
+                {errors.from_name && <span id="from_name_error" aria-live="polite" className="absolute -bottom-5 left-0 font-mono text-[0.65rem] text-red">{errors.from_name}</span>}
               </div>
 
               <div className="relative group">
@@ -199,6 +203,10 @@ export function Contact() {
                   value={formData.from_email}
                   onChange={handleChange}
                   onBlur={() => handleBlur()}
+                  required
+                  aria-required="true"
+                  aria-invalid={!!errors.from_email}
+                  aria-describedby={errors.from_email ? "from_email_error" : undefined}
                   className={clsx(
                     "w-full bg-[#020408] border rounded-md px-4 py-4 pt-6 text-text-primary outline-none transition-all peer",
                     errors.from_email
@@ -217,7 +225,7 @@ export function Contact() {
                 >
                   Email
                 </label>
-                {errors.from_email && <span className="absolute -bottom-5 left-0 font-mono text-[0.65rem] text-red">{errors.from_email}</span>}
+                {errors.from_email && <span id="from_email_error" aria-live="polite" className="absolute -bottom-5 left-0 font-mono text-[0.65rem] text-red">{errors.from_email}</span>}
               </div>
 
               <div className="relative group">
@@ -251,6 +259,10 @@ export function Contact() {
                   value={formData.message}
                   onChange={handleChange}
                   onBlur={() => handleBlur()}
+                  required
+                  aria-required="true"
+                  aria-invalid={!!errors.message}
+                  aria-describedby={errors.message ? "message_error" : undefined}
                   className={clsx(
                     "w-full bg-[#020408] border rounded-md px-4 py-4 pt-6 text-text-primary outline-none transition-all peer min-h-[140px] resize-y",
                     errors.message
@@ -269,7 +281,7 @@ export function Contact() {
                 >
                   Message
                 </label>
-                {errors.message && <span className="absolute -bottom-5 left-0 font-mono text-[0.65rem] text-red">{errors.message}</span>}
+                {errors.message && <span id="message_error" aria-live="polite" className="absolute -bottom-5 left-0 font-mono text-[0.65rem] text-red">{errors.message}</span>}
               </div>
 
               <CyberButton
