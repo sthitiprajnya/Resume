@@ -38,8 +38,9 @@ export function Projects() {
               <button
                 key={filter.id}
                 onClick={() => setActiveFilter(filter.id)}
+                aria-pressed={isActive}
                 className={clsx(
-                  "font-mono text-xs uppercase tracking-widest px-5 py-2 transition-all duration-300 rounded-sm border",
+                  "font-mono text-xs uppercase tracking-widest px-5 py-2 transition-all duration-300 rounded-sm border focus-visible:outline-2 focus-visible:outline-cyan focus-visible:outline-offset-2",
                   isActive
                     ? "bg-cyan border-cyan text-black shadow-[var(--glow-cyan-sm)] font-bold"
                     : "bg-transparent border-border text-text-secondary hover:text-cyan hover:border-cyan/50"
@@ -108,6 +109,7 @@ function ProjectCard({ project, index }: { project: Project, index: number }) {
               backgroundImage: `url(${project.imageUrl})`,
               filter: 'grayscale(30%) contrast(120%) brightness(80%)'
             }}
+            role="img"
             aria-label={project.imageAlt}
           />
 
@@ -126,8 +128,8 @@ function ProjectCard({ project, index }: { project: Project, index: number }) {
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-text-muted hover:text-white transition-colors"
-              aria-label="View on GitHub"
+              className="text-text-muted hover:text-white transition-colors focus-visible:outline-2 focus-visible:outline-cyan focus-visible:outline-offset-2 rounded-sm"
+              aria-label={`View ${project.title} on GitHub`}
               onClick={(e) => e.stopPropagation()}
             >
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
