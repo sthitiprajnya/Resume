@@ -30,63 +30,52 @@
   font-display: swap;
 }
 
+/* ── Design tokens ──────────────────────────────────────────── */
 :root {
-  /* === BASE COLORS === */
-  --color-void:          #000000;
-  --color-deep:          #020408;
-  --color-surface:       #071018;
-  --color-overlay:       #0A1628;
-  --color-border:        #0D2137;
-  --color-border-glow:   #1B4F72;
+  --color-void:        #000000;
+  --color-deep:        #020408;
+  --color-surface:     #071018;
+  --color-overlay:     #0A1628;
+  --color-border:      #0D2137;
+  --color-border-glow: #1B4F72;
 
-  /* === NEON ACCENTS === */
-  --color-cyan:          #00F5FF;
-  --color-cyan-dim:      #00B4CC;
-  --color-cyan-ghost:    #00F5FF15;
-  --color-green:         #39FF14;
-  --color-green-dim:     #2ACC0F;
-  --color-green-ghost:   #39FF1410;
-  --color-violet:        #BF00FF;
-  --color-violet-dim:    #8B00BB;
-  --color-amber:         #FFB300;
-  --color-red:           #FF0055;
+  --color-cyan:        #00F5FF;
+  --color-cyan-dim:    #00B4CC;
+  --color-cyan-ghost:  #00F5FF15;
+  --color-green:       #39FF14;
+  --color-green-dim:   #2ACC0F;
+  --color-green-ghost: #39FF1410;
+  --color-violet:      #BF00FF;
+  --color-violet-dim:  #8B00BB;
+  --color-amber:       #FFB300;
+  --color-red:         #FF0055;
 
-  /* === TEXT === */
-  --text-primary:        #E8F4F8;
-  --text-secondary:      #7FA8C4;
-  --text-muted:          #3D6680;
-  --text-accent:         #00F5FF;
+  --text-primary:   #E8F4F8;
+  --text-secondary: #7FA8C4;
+  --text-muted:     #3D6680;
+  --text-accent:    #00F5FF;
 
-  /* === GLOW BOX-SHADOWS === */
   --glow-cyan-sm:   0 0 8px #00F5FF55,  0 0 20px #00F5FF22;
   --glow-cyan-md:   0 0 15px #00F5FF88, 0 0 40px #00F5FF33, 0 0 80px #00F5FF11;
   --glow-cyan-lg:   0 0 25px #00F5FFAA, 0 0 70px #00F5FF44, 0 0 140px #00F5FF18;
   --glow-green-sm:  0 0 8px  #39FF1455, 0 0 20px #39FF1422;
   --glow-violet-sm: 0 0 8px  #BF00FF55, 0 0 20px #BF00FF22;
   --glow-amber-sm:  0 0 8px  #FFB30055, 0 0 20px #FFB30022;
+  --glow-red-sm:    0 0 8px  #FF005555, 0 0 20px #FF005522;
 
-  /* === GRADIENTS === */
-  --gradient-hero:     linear-gradient(135deg, #000000 0%, #020408 40%, #071018 100%);
-  --gradient-card:     linear-gradient(145deg, #071018 0%, #0A1628 100%);
-  --gradient-neon:     linear-gradient(90deg, #00F5FF, #BF00FF);
-  --gradient-text:     linear-gradient(90deg, #00F5FF 0%, #39FF14 50%, #BF00FF 100%);
+  --gradient-hero:  linear-gradient(135deg, #000000 0%, #020408 40%, #071018 100%);
+  --gradient-card:  linear-gradient(145deg, #071018 0%, #0A1628 100%);
+  --gradient-neon:  linear-gradient(90deg, #00F5FF, #BF00FF);
+  --gradient-text:  linear-gradient(90deg, #00F5FF 0%, #39FF14 50%, #BF00FF 100%);
 
-  /* === SPACING (8px grid) === */
-  --space-1: 4px; --space-2: 8px;  --space-3: 12px; --space-4: 16px;
-  --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px;
-  --space-12: 48px; --space-16: 64px; --space-20: 80px; --space-24: 96px;
-  --space-32: 128px;
+  --font-display: 'Orbitron', monospace;
+  --font-heading: 'Syne', sans-serif;
+  --font-body:    'DM Sans', sans-serif;
+  --font-mono:    'JetBrains Mono', monospace;
 
-  /* === TYPOGRAPHY === */
-  --font-display:   'Orbitron', monospace;
-  --font-heading:   'Syne', sans-serif;
-  --font-body:      'DM Sans', sans-serif;
-  --font-mono:      'JetBrains Mono', monospace;
-
-  /* === EASING === */
-  --ease-out-expo:      cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-out-quart:     cubic-bezier(0.25, 1, 0.5, 1);
-  --ease-spring:        cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  --ease-out-expo:  cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-spring:    cubic-bezier(0.68, -0.55, 0.27, 1.55);
 }
 
 body {
@@ -102,62 +91,73 @@ body {
   color: #fff;
 }
 
-::-webkit-scrollbar {
-  width: 8px;
-}
+::-webkit-scrollbar       { width: 8px; }
+::-webkit-scrollbar-track { background: var(--color-deep); }
+::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-cyan-dim); }
 
-::-webkit-scrollbar-track {
-  background: var(--color-deep);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--color-border);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-cyan-dim);
-}
-
-.custom-cursor {
-  position: fixed;
-  pointer-events: none;
-  z-index: 10001;
-  transition: transform 0.1s ease;
-}
-
-.custom-cursor-dot {
-  position: fixed;
-  pointer-events: none;
-  z-index: 10002;
-  width: 6px;
-  height: 6px;
-  background-color: var(--color-cyan);
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.custom-cursor-ring {
-  width: 32px;
-  height: 32px;
-  border: 1.5px solid var(--color-cyan);
-  border-radius: 50%;
-  backdrop-filter: invert(10%);
-  transform: translate(-50%, -50%);
-  transition: width 0.3s var(--ease-out-expo), height 0.3s var(--ease-out-expo), border-color 0.3s var(--ease-out-expo);
-}
-
-.custom-cursor-ring.active {
-  width: 56px;
-  height: 56px;
-  border-color: var(--color-green);
-}
+/* ── Custom cursor ─────────────────────────────────────────── */
+.custom-cursor     { position: fixed; pointer-events: none; z-index: 10001; transition: transform 0.1s ease; }
+.custom-cursor-dot { position: fixed; pointer-events: none; z-index: 10002; width: 6px; height: 6px; background-color: var(--color-cyan); border-radius: 50%; transform: translate(-50%, -50%); }
+.custom-cursor-ring { width: 32px; height: 32px; border: 1.5px solid var(--color-cyan); border-radius: 50%; backdrop-filter: invert(10%); transform: translate(-50%, -50%); transition: width 0.3s var(--ease-out-expo), height 0.3s var(--ease-out-expo), border-color 0.3s var(--ease-out-expo); }
+.custom-cursor-ring.active { width: 56px; height: 56px; border-color: var(--color-green); }
 
 @media (pointer: coarse) {
-  .custom-cursor {
-    display: none;
-  }
-  .custom-cursor-dot {
-    display: none;
-  }
+  .custom-cursor, .custom-cursor-dot { display: none; }
+}
+
+/* ── AsciiAvatar scanline sweep ────────────────────────────── */
+@keyframes scan-sweep {
+  0%   { top: 0%;   opacity: 0.8; }
+  90%  { top: 95%;  opacity: 0.8; }
+  100% { top: 100%; opacity: 0;   }
+}
+
+/* ── Hero ticker scroll ────────────────────────────────────── */
+@keyframes ticker-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.ticker-track {
+  animation: ticker-scroll 40s linear infinite;
+}
+
+.ticker-track:hover {
+  animation-play-state: paused;
+}
+
+/* ── CTF skill bar fill ─────────────────────────────────────── */
+@keyframes bar-fill {
+  from { width: 0%; }
+}
+
+/* ── Resume panel redaction reveal ─────────────────────────── */
+.redacted {
+  background: #000;
+  color: transparent;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background 0.4s ease, color 0.4s ease;
+  user-select: none;
+}
+.redacted:hover, .redacted:focus {
+  background: transparent;
+  color: var(--color-amber);
+}
+
+/* ── Scan line on sections ──────────────────────────────────── */
+@keyframes scan-line {
+  0%   { top: 0; }
+  100% { top: 100%; }
+}
+
+.scan-line-effect::after {
+  content: "";
+  position: absolute;
+  left: 0; top: 0; width: 100%; height: 2px;
+  background: var(--color-cyan);
+  opacity: 0.12;
+  animation: scan-line 8s linear infinite;
+  pointer-events: none;
 }
