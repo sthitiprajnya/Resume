@@ -48,7 +48,7 @@ export function CursorProvider({ children }: CursorProviderProps) {
     return () => {
       cancelAnimationFrame(animationFrameId);
     };
-  }, [x, y, isTouchDevice, prefersReducedMotion, isClicking]);
+  }, [x, y, isTouchDevice, prefersReducedMotion, isClicking, isHovering]);
 
   useEffect(() => {
     if (isTouchDevice) return;
