@@ -14,6 +14,7 @@ import { Contact } from '@/components/sections/Contact';
 import { Footer } from '@/components/sections/Footer';
 import { SmoothScrollProvider } from '@/components/providers/SmoothScrollProvider';
 import { CursorProvider } from '@/components/providers/CursorProvider';
+import { AudioProvider } from '@/components/providers/AudioProvider';
 import { Toaster } from 'react-hot-toast';
 
 export default function Home() {
@@ -21,6 +22,7 @@ export default function Home() {
     <>
       <Preloader />
 
+      <AudioProvider>
       <CursorProvider>
         <SmoothScrollProvider>
           <Navigation />
@@ -39,6 +41,7 @@ export default function Home() {
           <Footer />
         </SmoothScrollProvider>
       </CursorProvider>
+      </AudioProvider>
 
       {/* Global Toaster for notifications */}
       <Toaster
