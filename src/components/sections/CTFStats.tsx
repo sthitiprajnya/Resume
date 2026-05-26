@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 import { SectionTitle }  from '@/components/ui/SectionTitle';
 import { GlassCard }     from '@/components/ui/GlassCard';

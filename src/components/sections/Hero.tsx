@@ -47,6 +47,10 @@ export function Hero() {
           <GlitchText
             className="font-display font-black text-hero tracking-[-0.03em] leading-none z-20 break-words"
             style={{ perspective: '1000px', wordBreak: 'keep-all' }}
+        <div className="mb-4 overflow-hidden">
+          <GlitchText
+            className="font-display font-black text-hero tracking-[-0.03em] leading-none z-20"
+            style={{ perspective: '1000px' }}
           >
             {PERSONAL.nameShort.split('').map((char, i) => (
               <motion.span
