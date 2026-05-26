@@ -1,73 +1,124 @@
-# React + TypeScript + Vite
+# Sthitaprajna Biswal — Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, responsive portfolio website built with **Next.js**, **TypeScript**, **Tailwind CSS**, and **Three.js**.
 
-Currently, two official plugins are available:
+## 🚀 Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Framework**: [Next.js 16](https://nextjs.org/) with static export
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/) + [PostCSS](https://postcss.org/)
+- **3D Graphics**: [Three.js](https://threejs.org/) + [@react-three/fiber](https://docs.pmnd.rs/react-three-fiber/)
+- **Animations**: [Framer Motion](https://www.framer.com/motion/) + [GSAP](https://gsap.com/)
+- **Smooth Scroll**: [Lenis](https://lenis.studiofreight.com/)
+- **Linting**: [ESLint](https://eslint.org/) + [TypeScript ESLint](https://typescript-eslint.io/)
 
-## React Compiler
+## 📦 Getting Started
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Prerequisites
+- Node.js 20+
+- npm or pnpm
 
-## Expanding the ESLint configuration
+### Installation
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+```bash
+# Clone the repository
+git clone https://github.com/sthitiprajnya/portfolio.git
+cd portfolio
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Install dependencies
+npm ci
+# or
+pnpm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Development
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run dev
+# or
+pnpm dev
 ```
+
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+
+### Build & Deploy
+
+```bash
+# Type checking
+npm run type-check
+
+# Linting
+npm run lint
+
+# Build for production (static export)
+npm run build
+```
+
+The build output is generated in the `out/` directory, ready for GitHub Pages.
+
+## 🔧 Configuration
+
+### Environment Variables
+
+Required for email functionality via EmailJS:
+- `VITE_EMAILJS_SERVICE_ID`
+- `VITE_EMAILJS_TEMPLATE_ID`
+- `VITE_EMAILJS_PUBLIC_KEY`
+
+Add these to your GitHub repository secrets for CI/CD deployment.
+
+## 📝 Features
+
+✨ Fully responsive design  
+🎨 Custom theme with CSS variables  
+⚡ Optimized performance (static export)  
+♿ Accessible components  
+🔍 SEO optimized with Next.js metadata  
+📱 Mobile-first approach  
+🎬 Smooth scroll & animations  
+🌙 Dark theme optimized  
+
+## 📚 Project Structure
+
+```
+src/
+├── app/              # Next.js app directory
+│   ├── layout.tsx    # Root layout with metadata
+│   └── page.tsx      # Home page
+├── components/       # React components
+│   ├── sections/     # Page sections
+│   └── providers/    # Context providers
+├── data/             # Static data
+├── hooks/            # Custom React hooks
+├── lib/              # Utility functions
+├── types/            # TypeScript type definitions
+├── animations.css    # Animation keyframes
+└── index.css         # Global styles
+```
+
+## 🚀 Deployment
+
+This portfolio is deployed to **GitHub Pages** via GitHub Actions.
+
+### GitHub Pages Configuration
+
+1. Go to **Settings** → **Pages**
+2. Set source to **GitHub Actions**
+3. Deploy workflow automatically builds and deploys on push to `main`
+
+### Secrets Required
+
+Add these in **Settings** → **Secrets and variables** → **Actions**:
+- `VITE_EMAILJS_SERVICE_ID`
+- `VITE_EMAILJS_TEMPLATE_ID`
+- `VITE_EMAILJS_PUBLIC_KEY`
+
+## 📄 License
+
+This project is open source and available under the MIT License.
+
+## 👤 About
+
+Built by **Sthitaprajna Biswal**  
+Cybersecurity & Cloud Security Engineer  
+[Visit Portfolio](https://sthitiprajnya.github.io/portfolio/)
