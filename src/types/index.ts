@@ -85,3 +85,24 @@ export interface Education {
   period: string;
   grade: string;
 }
+
+// ── CTF / War Games ────────────────────────────────────────────
+export interface CTFCompetition {
+  name: string;
+  year: number;
+  placement: string;
+  solved: number;
+  tags: string[];
+}
+
+export interface CTFProfile {
+  htbUsername: string;
+  htbRank: string;
+  htbPoints: number;
+  htbUserOwns: number;
+  htbRootOwns: number;
+  htbChallengesSolved: number;
+  globalPercentile: number; // e.g. top 10 = 10
+  competitions: CTFCompetition[];
+  attackCategories: { label: string; level: number }[]; // level 0-100
+}

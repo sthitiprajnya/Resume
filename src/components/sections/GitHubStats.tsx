@@ -123,13 +123,7 @@ function StatCard({ label, value }: { label: string, value: number }) {
   return (
     <GlassCard className="p-6 flex flex-col items-center justify-center text-center">
       <div className="font-display text-3xl text-cyan mb-2">
-        {/* Handle React CountUp ES module default export issue */}
-        {typeof CountUp === 'function' ? (
-          <CountUp end={value} duration={2} enableScrollSpy scrollSpyOnce />
-        ) : (
-          // @ts-expect-error CountUp has a weird module export mismatch
-          <CountUp.default end={value} duration={2} enableScrollSpy scrollSpyOnce />
-        )}
+        <CountUp end={value} duration={2} enableScrollSpy scrollSpyOnce />
       </div>
       <div className="font-mono text-[0.65rem] uppercase tracking-widest text-text-muted">
         {label}
