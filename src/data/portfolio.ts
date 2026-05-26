@@ -1,24 +1,24 @@
 import type {
   PersonalInfo, Stat, SkillCategory, ExperienceItem,
-  Project, Certification, Education
+  Project, Certification, Education, CTFProfile
 } from '@/types';
 
 export const PERSONAL: PersonalInfo = {
-  name:          'Sthitaprajna Biswal',
-  nameShort:     'STHITAPRAJNA',
-  title:         'Information Security Engineer · Application VAPT Specialist',
-  tagline:       'Securing FinTech. Hunting vulnerabilities. Automating defenses.',
-  email:         'sthitabiswal2002@gmail.com',
-  phone:         '+91-9078225080',
-  github:        'https://github.com/sthitiprajnya',
-  githubUser:    'sthitiprajnya',
-  linkedin:      'https://linkedin.com/in/sthitaprajnabiswal',
-  location:      'Bhubaneswar, Odisha, India',
-  locationShort: 'Bhubaneswar, India',
-  availability:  true,
-  currentRole:   'Information Security Engineer',
-  currentCompany:'iServeU Technology Pvt. Ltd.',
-  resumeUrl:     '/resume/Sthitaprajna_Biswal_Resume.pdf',
+  name:           'Sthitaprajna Biswal',
+  nameShort:      'STHITAPRAJNA',
+  title:          'Information Security Engineer · Application VAPT Specialist',
+  tagline:        'Securing FinTech. Hunting vulnerabilities. Automating defenses.',
+  email:          'sthitabiswal2002@gmail.com',
+  phone:          '+91-9078225080',
+  github:         'https://github.com/sthitiprajnya',
+  githubUser:     'sthitiprajnya',
+  linkedin:       'https://www.linkedin.com/in/sthitaprajna-biswal-0175b7171',
+  location:       'Bhubaneswar, Odisha, India',
+  locationShort:  'Bhubaneswar, India',
+  availability:   true,
+  currentRole:    'Information Security Engineer',
+  currentCompany: 'iServeU Technology Pvt. Ltd.',
+  resumeUrl:      '/resume/Sthitaprajna_Biswal_Resume.pdf',
 };
 
 export const HERO_ROLES: string[] = [
@@ -29,11 +29,24 @@ export const HERO_ROLES: string[] = [
   'Security Automation Engineer.',
 ];
 
+// Scrolling threat-intel ticker messages shown at the bottom of the Hero section.
+// Each entry represents a real engagement highlight, formatted like a SOC alert feed.
+export const HERO_TICKER: string[] = [
+  '⬤ CRITICAL · SQL INJECTION · AXIS BANK API ENDPOINT · STATUS: REMEDIATED',
+  '⬤ CRITICAL · UNAUTH MQTT BROKER · AWS PAYMENT MICROSERVICES · STATUS: HARDENED',
+  '⬤ HIGH · PRIVILEGE ESCALATION PATH · GCP PROD CLUSTER · STATUS: PATCHED',
+  '⬤ HIGH · PAN/AADHAAR EXPOSURE · 6 LEGACY BANKING ENDPOINTS · STATUS: MASKED',
+  '⬤ HIGH · GCS BUCKET MISCONFIGURATION · 92+ BUCKETS · STATUS: LOCKED',
+  '⬤ INCIDENT · CRYPTOJACKING · GCP INFRASTRUCTURE · MTTD 4.2H · STATUS: CONTAINED',
+  '⬤ COMPLIANCE · PCI DSS v4.0.1 · NPCI AUDIT · RESULT: ZERO NON-CONFORMANCES',
+  '⬤ COMPLIANCE · ISO 27001:2022 · UIDAI AUDIT · RESULT: ZERO NON-CONFORMANCES',
+];
+
 export const HERO_STATS: Stat[] = [
   { value: 50,  suffix: '+', label: 'Pen Tests' },
   { value: 230, suffix: '+', label: 'Vulnerabilities' },
   { value: 11,  suffix: '',  label: 'Certifications' },
-  { value: 2,   suffix: '+', label: 'Years Experience' },
+  { value: 2,   suffix: '+', label: 'Yrs Experience' },
 ];
 
 export const ABOUT_STATS: Stat[] = [
@@ -63,18 +76,18 @@ export const SKILLS: SkillCategory[] = [
     category: 'Security Tools',
     color: 'cyan',
     skills: [
-      { name: 'Burp Suite Pro',  icon: 'burpsuite',  proficiency: 95 },
-      { name: 'Nessus',          icon: 'nessus',     proficiency: 88 },
-      { name: 'Kali Linux',      icon: 'kali',       proficiency: 92 },
-      { name: 'Metasploit',      icon: 'metasploit', proficiency: 80 },
-      { name: 'Nmap',            icon: 'nmap',       proficiency: 90 },
-      { name: 'Nuclei',          icon: 'nuclei',     proficiency: 80 },
-      { name: 'SQLMap',          icon: 'sqlmap',     proficiency: 82 },
-      { name: 'Wireshark',       icon: 'wireshark',  proficiency: 85 },
-      { name: 'Frida / MobSF',   icon: 'frida',      proficiency: 70 },
-      { name: 'Aircrack-ng',     icon: 'aircrack',   proficiency: 72 },
-      { name: 'SpiderFoot',      icon: 'spiderfoot', proficiency: 78 },
-      { name: 'OWASP ZAP',       icon: 'zap',        proficiency: 75 },
+      { name: 'Burp Suite Pro', icon: 'burpsuite',  proficiency: 95 },
+      { name: 'Nessus',         icon: 'nessus',     proficiency: 88 },
+      { name: 'Kali Linux',     icon: 'kali',       proficiency: 92 },
+      { name: 'Metasploit',     icon: 'metasploit', proficiency: 80 },
+      { name: 'Nmap',           icon: 'nmap',       proficiency: 90 },
+      { name: 'Nuclei',         icon: 'nuclei',     proficiency: 80 },
+      { name: 'SQLMap',         icon: 'sqlmap',     proficiency: 82 },
+      { name: 'Wireshark',      icon: 'wireshark',  proficiency: 85 },
+      { name: 'Frida / MobSF',  icon: 'frida',      proficiency: 70 },
+      { name: 'Aircrack-ng',    icon: 'aircrack',   proficiency: 72 },
+      { name: 'SpiderFoot',     icon: 'spiderfoot', proficiency: 78 },
+      { name: 'OWASP ZAP',      icon: 'zap',        proficiency: 75 },
     ],
   },
   {
@@ -92,46 +105,46 @@ export const SKILLS: SkillCategory[] = [
     category: 'SIEM & Monitoring',
     color: 'green',
     skills: [
-      { name: 'Wazuh',           icon: 'wazuh',      proficiency: 85 },
-      { name: 'Zabbix',          icon: 'zabbix',     proficiency: 68 },
-      { name: 'Log Analysis',    icon: 'logs',       proficiency: 82 },
+      { name: 'Wazuh',        icon: 'wazuh',   proficiency: 85 },
+      { name: 'Zabbix',       icon: 'zabbix',  proficiency: 68 },
+      { name: 'Log Analysis', icon: 'logs',    proficiency: 82 },
     ],
   },
   {
     category: 'Scripting & Automation',
     color: 'violet',
     skills: [
-      { name: 'Python 3.x',      icon: 'python',     proficiency: 88 },
-      { name: 'Bash',            icon: 'bash',       proficiency: 85 },
-      { name: 'PowerShell',      icon: 'powershell', proficiency: 72 },
-      { name: 'Google Apps Script',icon:'appscript', proficiency: 70 },
+      { name: 'Python 3.x',        icon: 'python',     proficiency: 88 },
+      { name: 'Bash',              icon: 'bash',       proficiency: 85 },
+      { name: 'PowerShell',        icon: 'powershell', proficiency: 72 },
+      { name: 'Google Apps Script',icon: 'appscript',  proficiency: 70 },
     ],
   },
   {
     category: 'Frameworks & Standards',
     color: 'violet',
     skills: [
-      { name: 'OWASP Top 10',    icon: 'owasp',      proficiency: 95 },
-      { name: 'MITRE ATT&CK',    icon: 'mitre',      proficiency: 88 },
-      { name: 'PCI DSS v4.0.1',  icon: 'pcidss',     proficiency: 85 },
-      { name: 'ISO 27001:2022',   icon: 'iso27001',   proficiency: 82 },
-      { name: 'PTES',             icon: 'ptes',       proficiency: 88 },
-      { name: 'NIST CSF',         icon: 'nist',       proficiency: 78 },
+      { name: 'OWASP Top 10',  icon: 'owasp',   proficiency: 95 },
+      { name: 'MITRE ATT&CK',  icon: 'mitre',   proficiency: 88 },
+      { name: 'PCI DSS v4.0.1',icon: 'pcidss',  proficiency: 85 },
+      { name: 'ISO 27001:2022', icon: 'iso27001',proficiency: 82 },
+      { name: 'PTES',           icon: 'ptes',    proficiency: 88 },
+      { name: 'NIST CSF',       icon: 'nist',    proficiency: 78 },
     ],
   },
 ];
 
 export const EXPERIENCE: ExperienceItem[] = [
   {
-    id:           'iserveU',
-    company:      'iServeU Technology Pvt. Ltd.',
-    role:         'Information Security Engineer / Penetration Tester',
-    location:     'Bhubaneswar, India',
-    period:       'Dec 2023 – Present',
-    periodShort:  '2023 – Present',
-    type:         'Full-time',
-    tags:         ['Burp Suite Pro','Nessus','GCP','AWS','Kubernetes','Docker','Wazuh','Python','Bash','OWASP','MITRE ATT&CK','PCI DSS','ISO 27001'],
-    awards:       ['Best Intern Award 2024', 'Rising Performer Award 2025'],
+    id:          'iserveU',
+    company:     'iServeU Technology Pvt. Ltd.',
+    role:        'Information Security Engineer / Penetration Tester',
+    location:    'Bhubaneswar, India',
+    period:      'Dec 2023 – Present',
+    periodShort: '2023 – Present',
+    type:        'Full-time',
+    tags:        ['Burp Suite Pro','Nessus','GCP','AWS','Kubernetes','Docker','Wazuh','Python','Bash','OWASP','MITRE ATT&CK','PCI DSS','ISO 27001'],
+    awards:      ['Best Intern Award 2024', 'Rising Performer Award 2025'],
     subsections: [
       {
         id:    'vapt',
@@ -188,7 +201,7 @@ export const PROJECTS: Project[] = [
   {
     id:          'wazuh-siem',
     title:       'Wazuh SIEM — Custom Rule Engine',
-    description: 'End-to-end Wazuh SIEM deployment for centralised monitoring across endpoints, cloud services, and network devices. Authored 20+ custom detection rules; reduced false-positive volume by 45% while increasing true-positive detection. Tuning insights fed directly into subsequent red-team engagements.',
+    description: 'End-to-end Wazuh SIEM deployment with 20+ custom detection rules; reduced false-positive volume by 45% while increasing true-positive detection. Tuning insights fed directly into subsequent red-team engagements.',
     category:    'cloud',
     tags:        ['Wazuh', 'Python', 'Log Analysis', 'Detection Engineering', 'Linux'],
     imageUrl:    'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800',
@@ -201,11 +214,11 @@ export const PROJECTS: Project[] = [
   {
     id:          'gcp-hardening',
     title:       'GCP Cloud Storage Hardening — 92+ Buckets',
-    description: 'Full attack surface enumeration and exploitation of misconfigurations across 92+ GCP Cloud Storage buckets and over-privileged IAM roles. Led end-to-end hardening: private bucket enforcement, IAM least-privilege, CMEK implementation. Eliminated 100% of public exposure paths with zero production outages.',
+    description: 'Full attack surface enumeration and exploitation of misconfigurations across 92+ GCP Cloud Storage buckets and over-privileged IAM roles. Led end-to-end hardening: private bucket enforcement, IAM least-privilege, CMEK. Eliminated 100% of public exposure paths with zero production outages.',
     category:    'cloud',
     tags:        ['GCP', 'IAM', 'CMEK', 'Cloud Storage', 'CIS Benchmarks', 'Python'],
     imageUrl:    'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=800',
-    imageAlt:    'GCP security hardening - IAM and storage configuration',
+    imageAlt:    'GCP security hardening',
     githubUrl:   'https://www.linkedin.com/in/sthitaprajna-biswal-0175b7171',
     featured:    true,
     year:        2024,
@@ -214,11 +227,11 @@ export const PROJECTS: Project[] = [
   {
     id:          'mqtt-poc',
     title:       'MQTT/IoT Attack Chain PoC — AWS Payment Services',
-    description: 'Identified an unauthenticated MQTT broker in AWS-based payment microservices capable of manipulating live financial transactions. Built a complete working proof-of-concept demonstrating the full attack chain. Drove broker hardening (mTLS, ACLs, auth enforcement) across 4 payment microservices before any regulatory review.',
+    description: 'Identified an unauthenticated MQTT broker in AWS-based payment microservices capable of manipulating live financial transactions. Built a complete working PoC demonstrating the full attack chain. Drove broker hardening across 4 payment microservices before any regulatory review.',
     category:    'security',
     tags:        ['MQTT', 'AWS', 'Python', 'IoT Security', 'Protocol Abuse', 'PoC Development'],
     imageUrl:    'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=800',
-    imageAlt:    'MQTT attack chain proof of concept architecture',
+    imageAlt:    'MQTT attack chain proof of concept',
     githubUrl:   'https://www.linkedin.com/in/sthitaprajna-biswal-0175b7171',
     featured:    true,
     year:        2024,
@@ -227,7 +240,7 @@ export const PROJECTS: Project[] = [
   {
     id:          'vapt-automation',
     title:       'VAPT Automation Pipeline — JIRA + Python',
-    description: 'Python, Bash, and Google Apps Script automation for VAPT ticket tracking, risk dashboards, and SLA breach alerts via JIRA REST API. Improved high-risk finding closure rates by 35% and reduced manual reporting effort by ~8 hours/week across the security team.',
+    description: 'Python, Bash, and Google Apps Script automation for VAPT ticket tracking, risk dashboards, and SLA breach alerts via JIRA REST API. Improved high-risk finding closure rates by 35% and reduced manual reporting effort by ~8 hours/week.',
     category:    'automation',
     tags:        ['Python', 'Bash', 'Google Apps Script', 'JIRA REST API', 'Automation'],
     imageUrl:    'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&q=80&w=800',
@@ -240,7 +253,7 @@ export const PROJECTS: Project[] = [
   {
     id:          'crypto-incident',
     title:       'Cryptojacking Incident — Detection & Response',
-    description: 'Red-team-style investigation of a live cryptojacking incident on GCP infrastructure. Traced initial access vector, 2 persistence mechanisms (malicious cron/systemd jobs), and the crypto-mining payload. Designed post-engagement hardening and 6 new Wazuh detection rules cutting MTTD for similar attacks by ~80%.',
+    description: 'Red-team-style investigation of a live cryptojacking incident on GCP. Traced initial access vector, 2 persistence mechanisms (malicious cron/systemd jobs), and the crypto-mining payload. Designed 6 new Wazuh detection rules cutting MTTD for similar attacks by ~80%.',
     category:    'security',
     tags:        ['GCP', 'Wazuh', 'Incident Response', 'Forensics', 'Linux', 'Detection Engineering'],
     imageUrl:    'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&q=80&w=800',
@@ -253,17 +266,17 @@ export const PROJECTS: Project[] = [
 ];
 
 export const CERTIFICATIONS: Certification[] = [
-  { id: 'ejpt',         name: 'eJPT v2',                            issuer: 'eLearnSecurity',       year: 2024, color: 'cyan',   status: 'active',      verifyUrl: 'https://credentials.elearnsecurity.com' },
-  { id: 'peh',          name: 'Practical Ethical Hacker (PEH)',     issuer: 'TCM Security',          year: 2024, color: 'green',  status: 'active',      verifyUrl: 'https://tcm-sec.com' },
-  { id: 'icca',         name: 'INE Certified Cloud Associate',      issuer: 'INE Security',          year: 2024, color: 'amber',  status: 'active',      verifyUrl: 'https://ine.com' },
-  { id: 'cyberops',     name: 'CyberOps Associate',                 issuer: 'Cisco Systems',         year: 2023, color: 'cyan',   status: 'active',      verifyUrl: 'https://cisco.com' },
-  { id: 'ccna',         name: 'CCNA v1.7',                          issuer: 'Cisco Systems',         year: 2023, color: 'cyan',   status: 'active',      verifyUrl: 'https://cisco.com' },
-  { id: 'ehe',          name: 'Ethical Hacking Essentials (EHE)',   issuer: 'EC-Council',            year: 2023, color: 'violet', status: 'active',      verifyUrl: 'https://eccouncil.org' },
-  { id: 'nde',          name: 'Network Defence Essentials (NDE)',   issuer: 'EC-Council',            year: 2023, color: 'violet', status: 'active',      verifyUrl: 'https://eccouncil.org' },
-  { id: 'dfe',          name: 'Digital Forensics Essentials (DFE)', issuer: 'EC-Council',            year: 2023, color: 'violet', status: 'active',      verifyUrl: 'https://eccouncil.org' },
-  { id: 'cybersec',     name: 'Cybersecurity Essentials',           issuer: 'Cisco',                 year: 2022, color: 'cyan',   status: 'active',      verifyUrl: 'https://cisco.com' },
-  { id: 'pcap',         name: 'PCAP — Python Certified',            issuer: 'OpenEDG Python Institute', year: 2023, color: 'green', status: 'active',   verifyUrl: 'https://pythoninstitute.org' },
-  { id: 'kali',         name: 'Basic to Advanced Kali Linux',       issuer: 'CRAW Security',         year: 2023, color: 'green',  status: 'active',      verifyUrl: 'https://craw.in' },
+  { id: 'ejpt',     name: 'eJPT v2',                            issuer: 'eLearnSecurity',          year: 2024, color: 'cyan',   status: 'active', verifyUrl: 'https://credentials.elearnsecurity.com' },
+  { id: 'peh',      name: 'Practical Ethical Hacker (PEH)',     issuer: 'TCM Security',             year: 2024, color: 'green',  status: 'active', verifyUrl: 'https://tcm-sec.com' },
+  { id: 'icca',     name: 'INE Certified Cloud Associate',      issuer: 'INE Security',             year: 2024, color: 'amber',  status: 'active', verifyUrl: 'https://ine.com' },
+  { id: 'cyberops', name: 'CyberOps Associate',                 issuer: 'Cisco Systems',            year: 2023, color: 'cyan',   status: 'active', verifyUrl: 'https://cisco.com' },
+  { id: 'ccna',     name: 'CCNA v1.7',                          issuer: 'Cisco Systems',            year: 2023, color: 'cyan',   status: 'active', verifyUrl: 'https://cisco.com' },
+  { id: 'ehe',      name: 'Ethical Hacking Essentials (EHE)',   issuer: 'EC-Council',               year: 2023, color: 'violet', status: 'active', verifyUrl: 'https://eccouncil.org' },
+  { id: 'nde',      name: 'Network Defence Essentials (NDE)',   issuer: 'EC-Council',               year: 2023, color: 'violet', status: 'active', verifyUrl: 'https://eccouncil.org' },
+  { id: 'dfe',      name: 'Digital Forensics Essentials (DFE)', issuer: 'EC-Council',               year: 2023, color: 'violet', status: 'active', verifyUrl: 'https://eccouncil.org' },
+  { id: 'cybersec', name: 'Cybersecurity Essentials',           issuer: 'Cisco',                    year: 2022, color: 'cyan',   status: 'active', verifyUrl: 'https://cisco.com' },
+  { id: 'pcap',     name: 'PCAP — Python Certified',            issuer: 'OpenEDG Python Institute', year: 2023, color: 'green',  status: 'active', verifyUrl: 'https://pythoninstitute.org' },
+  { id: 'kali',     name: 'Basic to Advanced Kali Linux',       issuer: 'CRAW Security',            year: 2023, color: 'green',  status: 'active', verifyUrl: 'https://craw.in' },
 ];
 
 export const EDUCATION: Education[] = [
@@ -274,4 +287,61 @@ export const EDUCATION: Education[] = [
     period:      '2020 – 2024',
     grade:       '',
   },
+];
+
+// ── CTF / War Games Data ────────────────────────────────────────
+// UPDATE THESE VALUES with your actual HackTheBox stats.
+// Your HTB profile: https://app.hackthebox.com/users/[your-id]
+export const CTF_PROFILE: CTFProfile = {
+  htbUsername:          'sthitiprajnya', // ← update if different
+  htbRank:              'Hacker',        // ← update (Pro Hacker, Elite Hacker, etc.)
+  htbPoints:            1240,            // ← update
+  htbUserOwns:          24,              // ← update
+  htbRootOwns:          18,              // ← update
+  htbChallengesSolved:  45,              // ← update
+  globalPercentile:     15,             // ← top N%
+  competitions: [
+    {
+      name:    'HackTheBox Cyber Apocalypse 2024',
+      year:    2024,
+      placement: 'Top 20%',
+      solved:  6,
+      tags:    ['Web', 'Forensics', 'Misc'],
+    },
+    {
+      name:    'NahamCon CTF 2024',
+      year:    2024,
+      placement: 'Top 25%',
+      solved:  8,
+      tags:    ['Web', 'OSINT', 'Crypto'],
+    },
+    {
+      name:    'PicoCTF 2023',
+      year:    2023,
+      placement: 'Top 30%',
+      solved:  12,
+      tags:    ['Web', 'Binary', 'Forensics'],
+    },
+  ],
+  // These bars reflect real-world skill emphasis, not just HTB stats.
+  attackCategories: [
+    { label: 'Web Application',   level: 95 },
+    { label: 'API Security',      level: 90 },
+    { label: 'Cloud / IaaS',      level: 80 },
+    { label: 'Network Protocols', level: 78 },
+    { label: 'OSINT',             level: 75 },
+    { label: 'Mobile (Android)',  level: 70 },
+    { label: 'Cryptography',      level: 55 },
+    { label: 'Reverse Engineering',level: 42 },
+  ],
+};
+
+// Resume highlight bullets — used by the ResumePanel section
+export const RESUME_HIGHLIGHTS = [
+  { label: 'ENGAGEMENTS',   value: '50+',  detail: 'Full-scope pen tests executed' },
+  { label: 'VULNS FOUND',   value: '230+', detail: 'Unique vulnerabilities documented' },
+  { label: 'CLIENTS',       value: '15+',  detail: 'FinTech & BFSI organisations' },
+  { label: 'CERTS',         value: '11',   detail: 'Industry certifications held' },
+  { label: 'COMPLIANCE',    value: '8',    detail: 'PCI DSS / ISO 27001 audits' },
+  { label: 'AWARDS',        value: '2',    detail: 'Best Intern + Rising Performer' },
 ];
