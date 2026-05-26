@@ -36,7 +36,7 @@ export function Experience() {
 
     // Cinematic staggering for the experience cards using GSAP ScrollTrigger
     const cards = document.querySelectorAll('.experience-card-wrapper');
-    cards.forEach((card, i) => {
+    cards.forEach((card) => {
       gsap.fromTo(card,
         { opacity: 0, y: 100, rotateX: 5, scale: 0.95 },
         {
