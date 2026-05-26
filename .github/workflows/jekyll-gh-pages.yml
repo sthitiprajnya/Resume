@@ -1,3 +1,0 @@
-# This file has been deprecated and replaced by deploy.yml
-# The Jekyll workflow is not compatible with Next.js static export
-# Please use deploy.yml instead for deployment to GitHub Pages
