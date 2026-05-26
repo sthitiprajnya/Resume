@@ -38,7 +38,7 @@ const config: Config = {
         mono:    ['JetBrains Mono', 'monospace'],
       },
       fontSize: {
-        'hero':    ['clamp(3rem, 8vw, 6.5rem)',   { lineHeight: '1.0', letterSpacing: '-0.03em', fontWeight: '900' }],
+        'hero':    ['clamp(2.1rem, 8vw, 6.5rem)', { lineHeight: '1.0', letterSpacing: '-0.03em', fontWeight: '900' }],
         'display': ['clamp(2rem, 4.5vw, 4rem)',   { lineHeight: '1.1', letterSpacing: '-0.02em', fontWeight: '800' }],
         'section': ['clamp(1.6rem, 3vw, 2.6rem)', { lineHeight: '1.2', letterSpacing: '-0.01em', fontWeight: '700' }],
         'card':    ['clamp(1.1rem, 2vw, 1.4rem)', { lineHeight: '1.3', fontWeight: '600' }],

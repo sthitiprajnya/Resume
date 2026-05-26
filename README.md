@@ -111,6 +111,14 @@ Add these to your GitHub repository secrets for CI/CD deployment.
 
 ## 📝 Features
 
+✨ Fully responsive design
+🎨 Custom theme with CSS variables
+⚡ Optimized performance (static export)
+♿ Accessible components
+🔍 SEO optimized with Next.js metadata
+📱 Mobile-first approach
+🎬 Smooth scroll & animations
+🌙 Dark theme optimized
 ✨ Fully responsive design  
 🎨 Custom theme with CSS variables  
 ⚡ Optimized performance (static export)  
@@ -161,6 +169,8 @@ This project is open source and available under the MIT License.
 
 ## 👤 About
 
+Built by **Sthitaprajna Biswal**
+Cybersecurity & Cloud Security Engineer
 Built by **Sthitaprajna Biswal**  
 Cybersecurity & Cloud Security Engineer  
 [Visit Portfolio](https://sthitiprajnya.github.io/portfolio/)
