@@ -19,6 +19,7 @@ function Particles() {
 
   const particleCount = isMobile ? 500 : 1800;
   const radius = 180;
+  const radiusSq = useMemo(() => radius * radius, [radius]);
 
   const [positions, velocities] = useMemo(() => {
     const positions = new Float32Array(particleCount * 3);
@@ -68,8 +69,9 @@ function Particles() {
       const pz = posArray[idx + 2];
 
       // Boundary check - wrap around sphere
-      const distToCenter = Math.sqrt(px*px + py*py + pz*pz);
-      if (distToCenter > radius) {
+      // BOLT: Using squared distance to avoid expensive Math.sqrt calls in hot loop
+      const distToCenterSq = px * px + py * py + pz * pz;
+      if (distToCenterSq > radiusSq) {
         posArray[idx] = -px * 0.99;
         posArray[idx + 1] = -py * 0.99;
         posArray[idx + 2] = -pz * 0.99;
@@ -80,10 +82,11 @@ function Particles() {
         const dx = px - mouseX;
         const dy = py - mouseY;
         // Ignore z for repulsion since mouse is 2D
-        const distToMouseSq = dx*dx + dy*dy;
+        const distToMouseSq = dx * dx + dy * dy;
 
         // Repel threshold (90 units squared = 8100)
         if (distToMouseSq < 8100) {
+          // BOLT: Only compute sqrt when within threshold to save ~1800 calls per frame
           const dist = Math.sqrt(distToMouseSq);
           // Force inversely proportional to distance
           const force = Math.min(0.8, 50 / (distToMouseSq + 1));
