@@ -1,7 +1,5 @@
 "use client";
 import React, { useState } from 'react';
-import clsx from 'clsx';
-import { motion } from 'framer-motion';
 import { SectionTitle } from '@/components/ui/SectionTitle';
 import { GlassCard }    from '@/components/ui/GlassCard';
 import { CyberButton }  from '@/components/ui/CyberButton';
