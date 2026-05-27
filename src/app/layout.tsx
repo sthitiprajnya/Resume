@@ -9,16 +9,16 @@ export const metadata: Metadata = {
   authors: [{ name: 'Sthitaprajna Biswal' }],
   robots: 'index, follow, max-image-preview:large',
   alternates: {
-    canonical: 'https://sthitiprajnya.github.io/',
+    canonical: 'https://sthitiprajnya.github.io/portfolio/',
   },
   openGraph: {
     type: 'website',
-    url: 'https://sthitiprajnya.github.io/',
+    url: 'https://sthitiprajnya.github.io/portfolio/',
     title: 'Sthitaprajna Biswal — Cybersecurity & Cloud Security Engineer',
     description: 'Information Security Engineer with 2+ years in application VAPT, cloud security, and red team operations for major Indian FinTech and banking clients.',
     siteName: 'Sthitaprajna Biswal Portfolio',
     images: [{
-      url: 'https://sthitiprajnya.github.io/og-image.png',
+      url: 'https://sthitiprajnya.github.io/portfolio/og-image.png',
       width: 1200,
       height: 630,
     }],
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Sthitaprajna Biswal — Cybersecurity Engineer',
     description: '50+ pen tests · 230+ vulnerabilities · NPCI · UIDAI · Axis Bank · Kotak Mahindra',
-    images: ['https://sthitiprajnya.github.io/og-image.png'],
+    images: ['https://sthitiprajnya.github.io/portfolio/og-image.png'],
   },
 };
 

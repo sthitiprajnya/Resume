@@ -18,7 +18,7 @@ export const PERSONAL: PersonalInfo = {
   availability:   true,
   currentRole:    'Information Security Engineer',
   currentCompany: 'iServeU Technology Pvt. Ltd.',
-  resumeUrl:      '/resume/Sthitaprajna_Biswal_Resume.pdf',
+  resumeUrl:      '/portfolio/resume/Sthitaprajna_Biswal_Resume.pdf',
 };
 
 export const HERO_ROLES: string[] = [
