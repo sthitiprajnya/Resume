@@ -1,11 +1,10 @@
 "use client";
 import React, { useEffect, useState } from 'react';
-import React, { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
 import { SectionTitle }  from '@/components/ui/SectionTitle';
 import { GlassCard }     from '@/components/ui/GlassCard';
 import { ScrollReveal, fadeSlideUp, fadeSlideLeft, containerStagger } from '@/components/ui/ScrollReveal';
-import { useInView }     from '@/hooks/useInView';
+import { useInView }     from 'react-intersection-observer';
 import { CTF_PROFILE }   from '@/data/portfolio';
 
 export function CTFStats() {
@@ -154,12 +153,12 @@ export function CTFStats() {
 // ── Sub-components ─────────────────────────────────────────────
 
 function SkillBar({ label, level }: { label: string; level: number }) {
-  const { ref, isInView } = useInView();
+  const { ref, inView } = useInView({ threshold: 0.12, triggerOnce: true });
   const [animated, setAnimated] = useState(false);
 
   useEffect(() => {
-    if (isInView && !animated) setAnimated(true);
-  }, [isInView, animated]);
+    if (inView && !animated) setAnimated(true);
+  }, [inView, animated]);
 
   const colorClass =
     level >= 85 ? 'bg-cyan shadow-[var(--glow-cyan-sm)]'  :
@@ -185,13 +184,13 @@ function SkillBar({ label, level }: { label: string; level: number }) {
 }
 
 function OwnsBar({ label, value, max, color }: { label: string; value: number; max: number; color: 'cyan' | 'green' }) {
-  const { ref, isInView } = useInView();
+  const { ref, inView } = useInView({ threshold: 0.12, triggerOnce: true });
   const [animated, setAnimated] = useState(false);
   const pct = Math.min(100, (value / max) * 100);
 
   useEffect(() => {
-    if (isInView && !animated) setAnimated(true);
-  }, [isInView, animated]);
+    if (inView && !animated) setAnimated(true);
+  }, [inView, animated]);
 
   const barClass = color === 'cyan'
     ? 'bg-cyan shadow-[var(--glow-cyan-sm)]'

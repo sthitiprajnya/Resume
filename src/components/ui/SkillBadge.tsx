@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { useInView } from '@/hooks/useInView';
+import { useInView } from 'react-intersection-observer';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 
 interface SkillBadgeProps {
@@ -13,7 +13,10 @@ interface SkillBadgeProps {
 }
 
 export function SkillBadge({ name, icon, proficiency, color, delay = 0 }: SkillBadgeProps) {
-  const { ref, isInView } = useInView();
+  const { ref, inView } = useInView({
+    threshold: 0.12,
+    triggerOnce: true,
+  });
   const prefersReducedMotion = usePrefersReducedMotion();
   const [hasAnimated, setHasAnimated] = useState(false);
 
@@ -22,10 +25,10 @@ export function SkillBadge({ name, icon, proficiency, color, delay = 0 }: SkillB
   const strokeDashoffset = circumference - (proficiency / 100) * circumference;
 
   useEffect(() => {
-    if (isInView && !hasAnimated) {
+    if (inView && !hasAnimated) {
       setHasAnimated(true);
     }
-  }, [isInView, hasAnimated]);
+  }, [inView, hasAnimated]);
 
   const colorMap = {
     cyan:   'var(--color-cyan)',

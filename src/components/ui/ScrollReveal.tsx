@@ -1,7 +1,7 @@
 "use client";
 import React from 'react';
 import { motion, type Variants, type HTMLMotionProps } from 'framer-motion';
-import { useInView } from '@/hooks/useInView';
+import { useInView } from 'react-intersection-observer';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 
 export const fadeSlideUp: Variants = {
@@ -65,7 +65,10 @@ export function ScrollReveal({
   delay,
   ...props
 }: ScrollRevealProps) {
-  const { ref, isInView } = useInView();
+  const { ref, inView } = useInView({
+    threshold: 0.12,
+    triggerOnce: true,
+  });
   const prefersReducedMotion = usePrefersReducedMotion();
 
   let activeVariants = variants;
@@ -92,7 +95,7 @@ export function ScrollReveal({
       ref={ref}
       variants={activeVariants}
       initial="hidden"
-      animate={isInView ? "visible" : "hidden"}
+      animate={inView ? "visible" : "hidden"}
       className={className}
       {...props}
     >
