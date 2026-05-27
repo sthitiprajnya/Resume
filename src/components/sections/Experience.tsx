@@ -195,8 +195,6 @@ function ExperienceCard({ experience, isFirst }: { experience: typeof EXPERIENCE
                     isOpen ? "border-b" : "border-b-0"
                   )}
                   aria-expanded={isOpen}
-                  aria-controls={`content-${sub.id}`}
-                  aria-label={`${isOpen ? 'Collapse' : 'Expand'} ${sub.label} section`}
                 >
                   <span>{sub.label}</span>
                   <motion.svg
@@ -214,7 +212,6 @@ function ExperienceCard({ experience, isFirst }: { experience: typeof EXPERIENCE
                 <AnimatePresence initial={false}>
                   {isOpen && (
                     <motion.div
-                      id={`content-${sub.id}`}
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: 'auto', opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}

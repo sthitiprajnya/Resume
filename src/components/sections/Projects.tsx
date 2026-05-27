@@ -44,8 +44,6 @@ export function Projects() {
                     ? "bg-cyan border-cyan text-black shadow-[var(--glow-cyan-sm)] font-bold"
                     : "bg-transparent border-border text-text-secondary hover:text-cyan hover:border-cyan/50"
                 )}
-                aria-pressed={isActive}
-                aria-label={`Filter by ${filter.label}`}
               >
                 {filter.label}
               </button>

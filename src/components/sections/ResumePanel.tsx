@@ -89,7 +89,6 @@ export function ResumePanel() {
                         title="Hover / tap to reveal"
                         role="button"
                         tabIndex={0}
-                        aria-label="Reveal Salary Range"
                       >
                         ████ NEGOTIABLE — DISCUSS DIRECTLY ████
                       </span>
