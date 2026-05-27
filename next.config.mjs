@@ -4,6 +4,9 @@ const nextConfig = {
   // This is what GitHub Pages needs — a folder of plain HTML/CSS/JS files.
   output: 'export',
 
+  // Apply basePath since GitHub Pages serves the app at /portfolio
+  basePath: '/portfolio',
+
   // GitHub Pages serves files with a trailing slash, so /about becomes /about/index.html
   trailingSlash: true,
 

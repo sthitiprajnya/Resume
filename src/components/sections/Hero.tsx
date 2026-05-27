@@ -43,7 +43,7 @@ export function Hero() {
         </motion.div>
 
         {/* Name with per-character cinematic reveal */}
-        <div className="mb-4 overflow-hidden">
+        <div className="mb-4 overflow-hidden w-full text-center">
           <GlitchText
             className="font-display font-black text-hero tracking-[-0.03em] leading-none z-20"
             style={{ perspective: '1000px' }}
