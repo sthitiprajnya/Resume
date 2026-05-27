@@ -182,10 +182,10 @@ export function Contact() {
                 </div>
               )}
 
-              <FloatingInput id="from_name"  name="from_name"  type="text"  label="Name"             value={form.from_name}  onChange={handleChange} error={errors.from_name}  required />
-              <FloatingInput id="from_email" name="from_email" type="email" label="Email"            value={form.from_email} onChange={handleChange} error={errors.from_email} required />
-              <FloatingInput id="subject"    name="subject"    type="text"  label="Subject (optional)" value={form.subject}   onChange={handleChange} />
-              <FloatingTextarea id="message" name="message" label="Message" value={form.message} onChange={handleChange} error={errors.message} required />
+              <FloatingInput id="from_name"  name="from_name"  type="text"  label="Name"             value={form.from_name}  onChange={handleChange} error={errors.from_name}  required maxLength={100} />
+              <FloatingInput id="from_email" name="from_email" type="email" label="Email"            value={form.from_email} onChange={handleChange} error={errors.from_email} required maxLength={100} />
+              <FloatingInput id="subject"    name="subject"    type="text"  label="Subject (optional)" value={form.subject}   onChange={handleChange} maxLength={200} />
+              <FloatingTextarea id="message" name="message" label="Message" value={form.message} onChange={handleChange} error={errors.message} required maxLength={2000} />
 
               <CyberButton
                 type="submit"
@@ -224,14 +224,15 @@ interface FloatingInputProps {
   id: string; name: string; type: string; label: string;
   value: string; onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   error?: string; required?: boolean;
+  maxLength?: number;
 }
 
-function FloatingInput({ id, name, type, label, value, onChange, error, required }: FloatingInputProps) {
+function FloatingInput({ id, name, type, label, value, onChange, error, required, maxLength }: FloatingInputProps) {
   return (
     <div className="relative">
       <input
         id={id} name={name} type={type} value={value} onChange={onChange}
-        required={required}
+        required={required} maxLength={maxLength}
         aria-required={required} aria-invalid={!!error}
         aria-describedby={error ? `${id}-error` : undefined}
         placeholder=" "
@@ -251,12 +252,15 @@ function FloatingInput({ id, name, type, label, value, onChange, error, required
         )}
       >
         {label}
+        {required && <span className="text-red ml-1">*</span>}
       </label>
-      {error && (
-        <span id={`${id}-error`} aria-live="polite" className="absolute -bottom-5 left-0 font-mono text-[0.65rem] text-red">
-          {error}
-        </span>
-      )}
+      <div className="mt-1 px-1">
+        {error && (
+          <span id={`${id}-error`} aria-live="polite" className="font-mono text-[0.65rem] text-red">
+            {error}
+          </span>
+        )}
+      </div>
     </div>
   );
 }
@@ -265,16 +269,22 @@ interface FloatingTextareaProps {
   id: string; name: string; label: string;
   value: string; onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   error?: string; required?: boolean;
+  maxLength?: number;
 }
 
-function FloatingTextarea({ id, name, label, value, onChange, error, required }: FloatingTextareaProps) {
+function FloatingTextarea({ id, name, label, value, onChange, error, required, maxLength }: FloatingTextareaProps) {
+  const charCount = value.length;
+
   return (
     <div className="relative">
       <textarea
         id={id} name={name} value={value} onChange={onChange}
-        required={required}
+        required={required} maxLength={maxLength}
         aria-required={required} aria-invalid={!!error}
-        aria-describedby={error ? `${id}-error` : undefined}
+        aria-describedby={clsx(
+          error && `${id}-error`,
+          maxLength && `${id}-counter`
+        )}
         placeholder=" "
         className={clsx(
           'w-full bg-[#020408] border rounded-md px-4 py-4 pt-6 text-text-primary outline-none transition-all peer min-h-[140px] resize-y',
@@ -292,12 +302,29 @@ function FloatingTextarea({ id, name, label, value, onChange, error, required }:
         )}
       >
         {label}
+        {required && <span className="text-red ml-1">*</span>}
       </label>
-      {error && (
-        <span id={`${id}-error`} aria-live="polite" className="absolute -bottom-5 left-0 font-mono text-[0.65rem] text-red">
-          {error}
-        </span>
-      )}
+      <div className="flex justify-between items-start mt-1 px-1">
+        <div>
+          {error && (
+            <span id={`${id}-error`} aria-live="polite" className="font-mono text-[0.65rem] text-red">
+              {error}
+            </span>
+          )}
+        </div>
+        {maxLength && (
+          <span
+            id={`${id}-counter`}
+            aria-live="polite"
+            className={clsx(
+              "font-mono text-[0.65rem] transition-colors",
+              charCount >= maxLength ? "text-red" : "text-text-muted"
+            )}
+          >
+            {charCount} / {maxLength}
+          </span>
+        )}
+      </div>
     </div>
   );
 }
