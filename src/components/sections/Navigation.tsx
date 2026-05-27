@@ -58,7 +58,7 @@ export function Navigation() {
         <div className="w-full max-w-7xl mx-auto flex items-center justify-between">
 
           {/* Logo */}
-          <button onClick={() => scrollTo('hero')} className="flex items-center space-x-2 group">
+          <button onClick={() => scrollTo('hero')} className="flex items-center space-x-2 group" aria-label="Scroll to top">
             <span className="text-cyan font-mono font-bold">{'>_'}</span>
             <span className="font-display font-bold text-white tracking-widest text-sm md:text-base group-hover:text-cyan transition-colors">
               {PERSONAL.nameShort}
@@ -78,6 +78,7 @@ export function Navigation() {
                         'relative font-mono text-[0.72rem] uppercase tracking-widest py-2 transition-colors group',
                         isActive ? 'text-cyan' : 'text-text-secondary hover:text-cyan'
                       )}
+                      aria-label={`Scroll to ${link.label} section`}
                     >
                       {link.label}
                       <span className={clsx(
@@ -142,6 +143,7 @@ export function Navigation() {
                       'font-mono text-xl uppercase tracking-widest text-left w-full',
                       activeSection === link.id ? 'text-cyan' : 'text-text-secondary'
                     )}
+                    aria-label={`Scroll to ${link.label} section`}
                   >
                     <span className="opacity-40 mr-4 text-xs">// 0{i + 1}</span>
                     {link.label}
