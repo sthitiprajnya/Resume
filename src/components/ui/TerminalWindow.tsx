@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from 'react';
-import { useInView } from '@/hooks/useInView';
+import { useInView } from 'react-intersection-observer';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import clsx from 'clsx';
 
@@ -20,14 +20,14 @@ export function TerminalWindow({ lines, className }: TerminalWindowProps) {
   const [currentLineIndex, setCurrentLineIndex] = useState(0);
   const [currentCharIndex, setCurrentCharIndex] = useState(0);
   const [started, setStarted] = useState(false);
-  const { ref, isInView } = useInView({ amount: 0.5 });
+  const { ref, inView } = useInView({ threshold: 0.5, triggerOnce: true });
   const prefersReducedMotion = usePrefersReducedMotion();
 
   useEffect(() => {
-    if (isInView && !started) {
+    if (inView && !started) {
       setStarted(true);
     }
-  }, [isInView, started]);
+  }, [inView, started]);
 
   useEffect(() => {
     if (!started || prefersReducedMotion) return;
