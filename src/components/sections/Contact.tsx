@@ -48,6 +48,19 @@ export function Contact() {
     e.preventDefault();
     if (!validate()) return;
 
+    // Security: Basic submission cooldown (60 seconds) to prevent spamming
+    const LAST_SUBMISSION_KEY = 'last_submission_time';
+    const COOLDOWN_MS = 60 * 1000;
+    const lastSubmission = localStorage.getItem(LAST_SUBMISSION_KEY);
+    const now = Date.now();
+
+    if (lastSubmission && now - parseInt(lastSubmission) < COOLDOWN_MS) {
+      const remaining = Math.ceil((COOLDOWN_MS - (now - parseInt(lastSubmission))) / 1000);
+      setErrors({ message: `Submission rate limited. Please wait ${remaining}s.` });
+      setStatus('error');
+      return;
+    }
+
     setStatus('transmitting');
 
     try {
@@ -74,6 +87,7 @@ export function Contact() {
       );
 
       setStatus('sent');
+      localStorage.setItem(LAST_SUBMISSION_KEY, Date.now().toString());
       setForm({ from_name: '', from_email: '', subject: '', message: '' });
       setTimeout(() => setStatus('idle'), 6000);
     } catch (error) {
