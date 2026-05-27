@@ -192,20 +192,8 @@ export function Contact() {
 
               <FloatingInput id="from_name"  name="from_name"  type="text"  label="Name"             value={form.from_name}  onChange={handleChange} error={errors.from_name}  required maxLength={100} />
               <FloatingInput id="from_email" name="from_email" type="email" label="Email"            value={form.from_email} onChange={handleChange} error={errors.from_email} required maxLength={100} />
-              <FloatingInput id="subject"    name="subject"    type="text"  label="Subject (optional)" value={form.subject}   onChange={handleChange} maxLength={200} />
-              <FloatingTextarea id="message" name="message" label="Message" value={form.message} onChange={handleChange} error={errors.message} required maxLength={5000} />
-
-      {/* Honeypot field - hidden from users */}
-      <div className="hidden" aria-hidden="true">
-        <input
-          type="text"
-          name="hp_field"
-          value={form.hp_field}
-          onChange={handleChange}
-          tabIndex={-1}
-          autoComplete="off"
-        />
-      </div>
+              <FloatingInput id="subject"    name="subject"    type="text"  label="Subject (optional)" value={form.subject}   onChange={handleChange} maxLength={150} />
+              <FloatingTextarea id="message" name="message" label="Message" value={form.message} onChange={handleChange} error={errors.message} required maxLength={2000} />
 
               <CyberButton
                 type="submit"
@@ -270,7 +258,7 @@ function FloatingInput({ id, name, type, label, value, onChange, error, required
           value && 'top-2 text-[0.6rem] text-text-secondary'
         )}
       >
-        {label}
+        {label} {required && <span className="text-red ml-0.5">*</span>}
       </label>
       {error && (
         <span id={`${id}-error`} aria-live="polite" className="absolute -bottom-5 left-0 font-mono text-[0.65rem] text-red">
@@ -311,7 +299,7 @@ function FloatingTextarea({ id, name, label, value, onChange, error, required, m
           value && 'top-2 text-[0.6rem] text-text-secondary'
         )}
       >
-        {label}
+        {label} {required && <span className="text-red ml-0.5">*</span>}
       </label>
       {error && (
         <span id={`${id}-error`} aria-live="polite" className="absolute -bottom-5 left-0 font-mono text-[0.65rem] text-red">
