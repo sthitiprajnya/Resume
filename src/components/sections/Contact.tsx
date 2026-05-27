@@ -18,6 +18,7 @@ export function Contact() {
     from_email: '',
     subject:    '',
     message:    '',
+    hp_field:   '', // Honeypot field
   });
 
   const [errors, setErrors]   = useState<Partial<typeof form>>({});
@@ -47,6 +48,13 @@ export function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
+
+    // Security: Honeypot check
+    if (form.hp_field) {
+      console.warn("Honeypot triggered. Bot suspected.");
+      setStatus('sent'); // Silently fail by pretending to send
+      return;
+    }
 
     // Security: Basic submission cooldown (60 seconds) to prevent spamming
     const LAST_SUBMISSION_KEY = 'last_submission_time';
@@ -88,7 +96,7 @@ export function Contact() {
 
       setStatus('sent');
       localStorage.setItem(LAST_SUBMISSION_KEY, Date.now().toString());
-      setForm({ from_name: '', from_email: '', subject: '', message: '' });
+      setForm({ from_name: '', from_email: '', subject: '', message: '', hp_field: '' });
       setTimeout(() => setStatus('idle'), 6000);
     } catch (error) {
       console.error("EmailJS Error:", error);
