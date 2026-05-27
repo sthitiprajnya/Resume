@@ -18,6 +18,7 @@ export function Contact() {
     from_email: '',
     subject:    '',
     message:    '',
+    hp_field:   '', // Honeypot field
   });
 
   const [errors, setErrors]   = useState<Partial<typeof form>>({});
@@ -47,6 +48,13 @@ export function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
+
+    // Security: Honeypot check
+    if (form.hp_field) {
+      console.warn("Honeypot triggered. Bot suspected.");
+      setStatus('sent'); // Silently fail by pretending to send
+      return;
+    }
 
     // Security: Basic submission cooldown (60 seconds) to prevent spamming
     const LAST_SUBMISSION_KEY = 'last_submission_time';
@@ -88,7 +96,7 @@ export function Contact() {
 
       setStatus('sent');
       localStorage.setItem(LAST_SUBMISSION_KEY, Date.now().toString());
-      setForm({ from_name: '', from_email: '', subject: '', message: '' });
+      setForm({ from_name: '', from_email: '', subject: '', message: '', hp_field: '' });
       setTimeout(() => setStatus('idle'), 6000);
     } catch (error) {
       console.error("EmailJS Error:", error);
@@ -182,10 +190,22 @@ export function Contact() {
                 </div>
               )}
 
-              <FloatingInput id="from_name"  name="from_name"  type="text"  label="Name"             value={form.from_name}  onChange={handleChange} error={errors.from_name}  required />
-              <FloatingInput id="from_email" name="from_email" type="email" label="Email"            value={form.from_email} onChange={handleChange} error={errors.from_email} required />
-              <FloatingInput id="subject"    name="subject"    type="text"  label="Subject (optional)" value={form.subject}   onChange={handleChange} />
-              <FloatingTextarea id="message" name="message" label="Message" value={form.message} onChange={handleChange} error={errors.message} required />
+              <FloatingInput id="from_name"  name="from_name"  type="text"  label="Name"             value={form.from_name}  onChange={handleChange} error={errors.from_name}  required maxLength={100} />
+              <FloatingInput id="from_email" name="from_email" type="email" label="Email"            value={form.from_email} onChange={handleChange} error={errors.from_email} required maxLength={100} />
+              <FloatingInput id="subject"    name="subject"    type="text"  label="Subject (optional)" value={form.subject}   onChange={handleChange} maxLength={200} />
+              <FloatingTextarea id="message" name="message" label="Message" value={form.message} onChange={handleChange} error={errors.message} required maxLength={5000} />
+
+      {/* Honeypot field - hidden from users */}
+      <div className="hidden" aria-hidden="true">
+        <input
+          type="text"
+          name="hp_field"
+          value={form.hp_field}
+          onChange={handleChange}
+          tabIndex={-1}
+          autoComplete="off"
+        />
+      </div>
 
               <CyberButton
                 type="submit"
@@ -223,15 +243,15 @@ export function Contact() {
 interface FloatingInputProps {
   id: string; name: string; type: string; label: string;
   value: string; onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  error?: string; required?: boolean;
+  error?: string; required?: boolean; maxLength?: number;
 }
 
-function FloatingInput({ id, name, type, label, value, onChange, error, required }: FloatingInputProps) {
+function FloatingInput({ id, name, type, label, value, onChange, error, required, maxLength }: FloatingInputProps) {
   return (
     <div className="relative">
       <input
         id={id} name={name} type={type} value={value} onChange={onChange}
-        required={required}
+        required={required} maxLength={maxLength}
         aria-required={required} aria-invalid={!!error}
         aria-describedby={error ? `${id}-error` : undefined}
         placeholder=" "
@@ -264,15 +284,15 @@ function FloatingInput({ id, name, type, label, value, onChange, error, required
 interface FloatingTextareaProps {
   id: string; name: string; label: string;
   value: string; onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  error?: string; required?: boolean;
+  error?: string; required?: boolean; maxLength?: number;
 }
 
-function FloatingTextarea({ id, name, label, value, onChange, error, required }: FloatingTextareaProps) {
+function FloatingTextarea({ id, name, label, value, onChange, error, required, maxLength }: FloatingTextareaProps) {
   return (
     <div className="relative">
       <textarea
         id={id} name={name} value={value} onChange={onChange}
-        required={required}
+        required={required} maxLength={maxLength}
         aria-required={required} aria-invalid={!!error}
         aria-describedby={error ? `${id}-error` : undefined}
         placeholder=" "
