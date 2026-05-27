@@ -55,12 +55,18 @@ export async function fetchGitHubStats(): Promise<GitHubStats> {
     const user  = await userRes.json();
     const repos: any[] = await reposRes.json();
 
-    const totalStars = repos.reduce((sum: number, r: any) => sum + r.stargazers_count, 0);
-    const totalForks = repos.reduce((sum: number, r: any) => sum + r.forks_count, 0);
-    const languages  = repos.reduce((acc: Record<string,number>, r: any) => {
-      if (r.language) acc[r.language] = (acc[r.language] || 0) + 1;
-      return acc;
-    }, {});
+    let totalStars = 0;
+    let totalForks = 0;
+    const languages: Record<string, number> = {};
+
+    for (let i = 0; i < repos.length; i++) {
+      const r = repos[i];
+      if (r.stargazers_count) totalStars += r.stargazers_count;
+      if (r.forks_count) totalForks += r.forks_count;
+      if (r.language) {
+        languages[r.language] = (languages[r.language] || 0) + 1;
+      }
+    }
 
     const topRepos = [...repos]
       .sort((a, b) => b.stargazers_count - a.stargazers_count)
