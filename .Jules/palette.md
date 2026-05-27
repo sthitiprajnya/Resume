@@ -1,3 +1,1 @@
-## 2024-05-25 - Linked Error Messages to Inputs via ARIA
-**Learning:** In highly customized floating-label forms, custom error spans are completely invisible to screen readers unless explicitly linked using `aria-describedby` and `aria-live` regions. `aria-invalid` also needs to be synced with the error state.
-**Action:** Always map inline error messages to their inputs using `id` and `aria-describedby`, and use `aria-live="polite"` so screen readers announce validation errors dynamically.
+## 2026-05-27 - Added ARIA labels to interactive elements\n**Learning:** Found several buttons and clickable elements missing accessible names or structural aria tags (like aria-controls, aria-pressed).\n**Action:** Applied aria-labels to navigation buttons, filter controls, expandable content headers, and interactive spans to ensure robust screen reader support.
