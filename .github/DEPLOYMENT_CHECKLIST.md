@@ -9,9 +9,9 @@
 
 ### 2. GitHub Secrets Setup
 Add these in **Settings** → **Secrets and variables** → **Actions**:
-- [ ] `VITE_EMAILJS_SERVICE_ID` - Your EmailJS Service ID
-- [ ] `VITE_EMAILJS_TEMPLATE_ID` - Your EmailJS Template ID
-- [ ] `VITE_EMAILJS_PUBLIC_KEY` - Your EmailJS Public Key
+- [ ] `NEXT_PUBLIC_EMAILJS_SERVICE_ID` - Your EmailJS Service ID
+- [ ] `NEXT_PUBLIC_EMAILJS_TEMPLATE_ID` - Your EmailJS Template ID
+- [ ] `NEXT_PUBLIC_EMAILJS_PUBLIC_KEY` - Your EmailJS Public Key
 
 Get these from [EmailJS Console](https://dashboard.emailjs.com/)
 

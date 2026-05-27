@@ -1,5 +1,5 @@
 const NUM_REPOS = 10000;
-const repos = Array.from({ length: NUM_REPOS }, (_, i) => ({
+const repos = Array.from({ length: NUM_REPOS }, () => ({
     stargazers_count: Math.floor(Math.random() * 100),
     forks_count: Math.floor(Math.random() * 50),
     language: ['TypeScript', 'Python', 'JavaScript', null][Math.floor(Math.random() * 4)]

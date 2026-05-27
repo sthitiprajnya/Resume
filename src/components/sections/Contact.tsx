@@ -9,10 +9,9 @@ import { PERSONAL } from '@/data/portfolio';
 
 type Status = 'idle' | 'transmitting' | 'sent' | 'error';
 
-// This form uses a mailto: approach — no backend, no API keys, no secrets.
-// On submit we encode the form fields into a mailto: URL which opens the
-// user's native email client with everything pre-filled. Clean, reliable,
-// and impossible to break on a static host.
+import emailjs from '@emailjs/browser';
+
+// This form uses EmailJS to send emails directly from the browser.
 export function Contact() {
   const [form, setForm] = useState({
     from_name:  '',
@@ -45,30 +44,42 @@ export function Contact() {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
 
     setStatus('transmitting');
 
-    // Build the mailto: URL. encodeURIComponent handles special chars (newlines, etc.)
-    const subject = encodeURIComponent(form.subject || 'Portfolio Contact');
-    const body = encodeURIComponent(
-      `Name: ${form.from_name}\nEmail: ${form.from_email}\n\n${form.message}`
-    );
-    const mailtoUrl = `mailto:${PERSONAL.email}?subject=${subject}&body=${body}`;
+    try {
+      const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+      const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
+      const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
 
-    // Brief artificial delay so the "TRANSMITTING" state is visible
-    setTimeout(() => {
-      try {
-        window.location.href = mailtoUrl;
-        setStatus('sent');
-        setForm({ from_name: '', from_email: '', subject: '', message: '' });
-        setTimeout(() => setStatus('idle'), 6000);
-      } catch {
+      if (!serviceId || !templateId || !publicKey) {
+        console.error("EmailJS environment variables are missing.");
         setStatus('error');
+        return;
       }
-    }, 600);
+
+      await emailjs.send(
+        serviceId,
+        templateId,
+        {
+          from_name: form.from_name,
+          from_email: form.from_email,
+          subject: form.subject || 'Portfolio Contact',
+          message: form.message,
+        },
+        publicKey
+      );
+
+      setStatus('sent');
+      setForm({ from_name: '', from_email: '', subject: '', message: '' });
+      setTimeout(() => setStatus('idle'), 6000);
+    } catch (error) {
+      console.error("EmailJS Error:", error);
+      setStatus('error');
+    }
   };
 
   return (
@@ -139,11 +150,6 @@ export function Contact() {
               </span>
             </div>
 
-            {/* Helper note explaining mailto: behaviour */}
-            <p className="font-mono text-[0.65rem] text-text-muted leading-relaxed border border-border/50 rounded p-3 bg-surface/30">
-              // Clicking TRANSMIT opens your local email client with the form pre-filled.
-              No data leaves your browser until you press Send in your mail app.
-            </p>
           </ScrollReveal>
 
           {/* ── Right: form ── */}
@@ -154,11 +160,10 @@ export function Contact() {
               {status === 'sent' && (
                 <div className="p-4 border border-green/50 rounded-md bg-green-ghost">
                   <div className="font-mono text-sm text-green font-bold mb-1">
-                    ✓ MAIL_CLIENT_INITIATED
+                    ✓ TRANSMISSION_SUCCESSFUL
                   </div>
                   <div className="font-mono text-[0.7rem] text-text-secondary">
-                    Your email client should have opened with the message pre-filled.
-                    Just hit Send from there.
+                    Your message has been securely delivered. I will respond shortly.
                   </div>
                 </div>
               )}
@@ -187,7 +192,7 @@ export function Contact() {
                     PREPARING_TRANSMISSION...
                   </span>
                 )}
-                {status === 'sent'         && 'CLIENT_LAUNCHED ✓'}
+                {status === 'sent'         && 'MESSAGE_DELIVERED ✓'}
                 {status === 'error'        && 'RETRY_TRANSMISSION'}
               </CyberButton>
             </form>
