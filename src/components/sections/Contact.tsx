@@ -6,6 +6,7 @@ import { GlassCard }    from '@/components/ui/GlassCard';
 import { CyberButton }  from '@/components/ui/CyberButton';
 import { ScrollReveal, fadeSlideUp, fadeSlideLeft } from '@/components/ui/ScrollReveal';
 import { PERSONAL } from '@/data/portfolio';
+import { toast } from 'react-hot-toast';
 
 type Status = 'idle' | 'transmitting' | 'sent' | 'error';
 
@@ -31,9 +32,11 @@ export function Contact() {
     try {
       await navigator.clipboard.writeText(PERSONAL.email);
       setEmailCopied(true);
+      toast.success('Email copied to clipboard! 📋');
       setTimeout(() => setEmailCopied(false), 2000);
     } catch (err) {
       console.error('Failed to copy email:', err);
+      toast.error('Failed to copy email. Please try again.');
     }
   };
 
@@ -240,6 +243,18 @@ export function Contact() {
                   </div>
                 </div>
               )}
+
+              {/* Security: Honeypot field - invisible to humans, bot-attractive */}
+              <div style={{ position: 'absolute', left: '-9999px' }} aria-hidden="true">
+                <input
+                  type="text"
+                  name="hp_field"
+                  value={form.hp_field}
+                  onChange={handleChange}
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+              </div>
 
               <FloatingInput id="from_name"  name="from_name"  type="text"  label="Name"             value={form.from_name}  onChange={handleChange} error={errors.from_name}  required maxLength={100} />
               <FloatingInput id="from_email" name="from_email" type="email" label="Email"            value={form.from_email} onChange={handleChange} error={errors.from_email} required maxLength={100} />
