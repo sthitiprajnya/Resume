@@ -101,7 +101,9 @@ export function Contact() {
         serviceId,
         templateId,
         formRef.current,
-        publicKey
+        {
+          publicKey: publicKey,
+        }
       );
 
       setStatus('sent');
