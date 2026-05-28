@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import clsx from 'clsx';
 import { CyberButton } from '@/components/ui/CyberButton';
@@ -21,23 +21,44 @@ export function Navigation() {
   const [scrolled,       setScrolled]       = useState(false);
   const [activeSection,  setActiveSection]  = useState('hero');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const sentinelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 80);
+    // BOLT: Use IntersectionObserver instead of scroll listeners and getBoundingClientRect
+    // for much better performance (avoids main-thread layout thrashing)
+    const sections = ['hero', ...NAV_LINKS.map(l => l.id)];
 
-      const sections = ['hero', ...NAV_LINKS.map(l => l.id)];
-      for (const section of sections) {
-        const el = document.getElementById(section);
-        if (el) {
-          const { top, bottom } = el.getBoundingClientRect();
-          if (top <= 100 && bottom >= 100) { setActiveSection(section); break; }
-        }
-      }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: '-30% 0px -60% 0px', threshold: 0 }
+    );
+
+    sections.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    // Separate observer for the navbar "scrolled" state
+    const heroEl = document.getElementById('hero');
+    const scrolledObserver = new IntersectionObserver(
+      ([entry]) => {
+        setScrolled(!entry.isIntersecting);
+      },
+      { rootMargin: '-80px 0px 0px 0px', threshold: 0 }
+    );
+
+    if (heroEl) scrolledObserver.observe(heroEl);
+
+    return () => {
+      observer.disconnect();
+      scrolledObserver.disconnect();
     };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const scrollTo = (id: string) => {
@@ -47,6 +68,8 @@ export function Navigation() {
 
   return (
     <>
+      {/* BOLT: Sentinel element to detect scroll position without scroll event listeners */}
+      <div ref={sentinelRef} className="absolute top-0 left-0 w-px h-px pointer-events-none" />
       <nav
         aria-label="Main navigation"
         className={clsx(
@@ -106,6 +129,8 @@ export function Navigation() {
           <button
             className="lg:hidden text-cyan p-2"
             onClick={() => setMobileMenuOpen(true)}
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-menu"
             aria-label="Open menu"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -119,6 +144,7 @@ export function Navigation() {
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
+            id="mobile-menu"
             initial={{ opacity: 0, x: '100%' }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: '100%' }}
