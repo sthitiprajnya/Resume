@@ -7,7 +7,6 @@
 ## 2026-05-27 - Added ARIA labels to interactive elements
 **Learning:** Found several buttons and clickable elements missing accessible names or structural aria tags (like aria-controls, aria-pressed).
 **Action:** Applied aria-labels to navigation buttons, filter controls, expandable content headers, and interactive spans to ensure robust screen reader support.
-
-## 2025-06-01 - Keyboard Navigation Visibility for Custom Buttons
-**Learning:** High-contrast glow effects and custom borders often obscure default browser focus outlines. Users navigating via keyboard lose their place without explicit, high-visibility focus rings that contrast with the dark background and the component's own borders.
-**Action:** Always implement `focus-visible:ring-2 focus-visible:ring-offset-2` on custom interactive components, using a ring-offset that matches the background color to ensure the indicator remains clearly visible.
+## 2025-05-25 - Copy-to-Clipboard Feedback Pattern
+**Learning:** Providing immediate visual and accessibility feedback for "Copy to Clipboard" actions (like changing an icon and ARIA label for 2 seconds) significantly improves the perceived reliability of the feature.
+**Action:** When implementing copy-to-clipboard, always include a temporary success state that updates both the visual icon and the `aria-label` to confirm the action to all users.
