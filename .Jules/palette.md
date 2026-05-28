@@ -10,3 +10,6 @@
 ## 2025-05-25 - Copy-to-Clipboard Feedback Pattern
 **Learning:** Providing immediate visual and accessibility feedback for "Copy to Clipboard" actions (like changing an icon and ARIA label for 2 seconds) significantly improves the perceived reliability of the feature.
 **Action:** When implementing copy-to-clipboard, always include a temporary success state that updates both the visual icon and the `aria-label` to confirm the action to all users.
+## 2026-05-28 - Native Accessibility via Tailwind Utilities
+**Learning:** In projects using utility-first frameworks like Tailwind, "Skip to Content" links can be implemented entirely through utility classes (using `sr-only focus:not-sr-only`) instead of custom CSS. This keeps the global stylesheet clean and leverages the framework's built-in focus management.
+**Action:** Always prioritize Tailwind's accessibility and focus utilities (`sr-only`, `focus:not-sr-only`, `focus:fixed`) for structural accessibility improvements to maintain architectural consistency.
