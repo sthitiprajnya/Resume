@@ -50,6 +50,12 @@ export default function RootLayout({
         />
       </head>
       <body>
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[10001] focus:bg-cyan focus:text-black focus:px-4 focus:py-2 focus:font-mono focus:text-xs focus:uppercase focus:tracking-widest focus:rounded-sm focus:shadow-[var(--glow-cyan-md)] outline-none"
+        >
+          Skip to content
+        </a>
         <div id="root">{children}</div>
       </body>
     </html>
