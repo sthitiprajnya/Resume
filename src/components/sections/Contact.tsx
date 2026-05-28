@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import clsx from 'clsx';
 import { SectionTitle } from '@/components/ui/SectionTitle';
 import { GlassCard }    from '@/components/ui/GlassCard';
@@ -13,6 +13,8 @@ import emailjs from '@emailjs/browser';
 
 // This form uses EmailJS to send emails directly from the browser.
 export function Contact() {
+  const formRef = useRef<HTMLFormElement>(null);
+
   const [form, setForm] = useState({
     from_name:  '',
     from_email: '',
@@ -56,7 +58,7 @@ export function Contact() {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!validate()) return;
 
@@ -93,15 +95,12 @@ export function Contact() {
         return;
       }
 
-      await emailjs.send(
+      if (!formRef.current) return;
+
+      await emailjs.sendForm(
         serviceId,
         templateId,
-        {
-          from_name: form.from_name,
-          from_email: form.from_email,
-          subject: form.subject || 'Portfolio Contact',
-          message: form.message,
-        },
+        formRef.current,
         publicKey
       );
 
@@ -214,7 +213,7 @@ export function Contact() {
 
           {/* ── Right: form ── */}
           <ScrollReveal variants={fadeSlideLeft}>
-            <form onSubmit={handleSubmit} noValidate className="space-y-6">
+            <form ref={formRef} onSubmit={handleSubmit} noValidate className="space-y-6">
 
               {/* Success overlay */}
               {status === 'sent' && (
