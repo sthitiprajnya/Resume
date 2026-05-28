@@ -12,7 +12,7 @@ export const PERSONAL: PersonalInfo = {
   phone:          '+91-9078225080',
   github:         'https://github.com/sthitiprajnya',
   githubUser:     'sthitiprajnya',
-  linkedin:       'https://linkedin.com/in/sthitaprajnabiswal',
+  linkedin:       'https://www.linkedin.com/in/sthitaprajna-biswal-0175b7171/',
   location:       'Bhubaneswar, Odisha, India',
   locationShort:  'Bhubaneswar, India',
   availability:   true,

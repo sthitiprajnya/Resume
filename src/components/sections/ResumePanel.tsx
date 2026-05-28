@@ -66,85 +66,23 @@ export function ResumePanel() {
                 </div>
               </div>
 
-              {/* Document body */}
-              <div className="p-6 space-y-6 font-mono text-sm">
+              {/* Document body / PDF viewer */}
+              <div className="w-full bg-black/40">
+                <iframe
+                  src={PERSONAL.resumeUrl}
+                  className="w-full h-[600px] border-none"
+                  title="Resume PDF"
+                />
+              </div>
 
-                {/* Section: Identity */}
-                <div>
-                  <div className="text-[0.6rem] text-text-muted uppercase tracking-widest mb-2">§ 1.0 SUBJECT IDENTITY</div>
-                  <div className="space-y-1 text-text-secondary">
-                    <div><span className="text-cyan">NAME_FULL    :</span> Sthitaprajna Biswal</div>
-                    <div><span className="text-cyan">ROLE_CURRENT :</span> Information Security Engineer</div>
-                    <div><span className="text-cyan">ORGANISATION :</span> iServeU Technology Pvt. Ltd.</div>
-                    <div><span className="text-cyan">LOCATION     :</span> Bhubaneswar, Odisha, India</div>
-                    <div>
-                      <span className="text-cyan">CONTACT      :</span>{' '}
-                      {/* Email visible — it's public already */}
-                      sthitabiswal2002@gmail.com
-                    </div>
-                    <div>
-                      <span className="text-cyan">SALARY_RANGE :</span>{' '}
-                      <span
-                        className="redacted cursor-pointer"
-                        title="Hover / tap to reveal"
-                        role="button"
-                        tabIndex={0}
-                        aria-label="Reveal Salary Range"
-                      >
-                        ████ NEGOTIABLE — DISCUSS DIRECTLY ████
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Section: Clearances (certifications summary) */}
-                <div>
-                  <div className="text-[0.6rem] text-text-muted uppercase tracking-widest mb-2">§ 2.0 CLEARANCES &amp; CREDENTIALS</div>
-                  <div className="text-text-secondary space-y-1">
-                    <div>eJPT v2 · Practical Ethical Hacker · INE Certified Cloud Associate</div>
-                    <div>CCNA v1.7 · CyberOps Associate · EHE / NDE / DFE (EC-Council)</div>
-                    <div>PCAP Python · Basic to Advanced Kali Linux (CRAW Security)</div>
-                  </div>
-                </div>
-
-                {/* Section: Notable engagements */}
-                <div>
-                  <div className="text-[0.6rem] text-text-muted uppercase tracking-widest mb-2">§ 3.0 NOTABLE ENGAGEMENTS</div>
-                  <div className="space-y-1 text-text-secondary">
-                    {[
-                      { client: 'NPCI',          type: 'PCI DSS v4.0.1 + VAPT',         year: '2024' },
-                      { client: 'UIDAI',          type: 'ISO 27001 Audit + Cloud Sec',    year: '2024' },
-                      { client: 'Axis Bank',       type: 'Full-scope Web + API VAPT',      year: '2024' },
-                      { client: 'Kotak Mahindra',  type: 'API Security Assessment',        year: '2023' },
-                      { client: '[REDACTED]',      type: '████ ████ ███ ██ ████',          year: '2024', redact: true },
-                    ].map(({ client, type, year, redact }) => (
-                      <div key={client} className="flex justify-between">
-                        <span>
-                          {redact
-                            ? <span className="redacted">{client}</span>
-                            : <span className="text-white">{client}</span>
-                          }
-                          {' — '}
-                          {redact
-                            ? <span className="redacted">{type}</span>
-                            : type
-                          }
-                        </span>
-                        <span className="text-text-muted ml-4 shrink-0">{year}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Footer stamp */}
-                <div className="pt-4 border-t border-border flex justify-between items-center">
-                  <span className="text-[0.6rem] text-text-muted">
-                    DOC_ID: SB-RESUME-2025-v3 · SHA256: 8f2a…d91c
-                  </span>
-                  <span className="text-[0.6rem] text-green font-bold uppercase tracking-widest">
-                    ● INTEGRITY OK
-                  </span>
-                </div>
+              {/* Footer stamp */}
+              <div className="px-6 py-4 border-t border-border flex justify-between items-center bg-black/60">
+                <span className="text-[0.6rem] text-text-muted font-mono">
+                  DOC_ID: SB-RESUME-2025-v3 · SHA256: 8f2a…d91c
+                </span>
+                <span className="text-[0.6rem] text-green font-bold font-mono uppercase tracking-widest">
+                  ● INTEGRITY OK
+                </span>
               </div>
             </GlassCard>
           </ScrollReveal>
