@@ -23,6 +23,17 @@ export function Contact() {
 
   const [errors, setErrors]   = useState<Partial<typeof form>>({});
   const [status, setStatus]   = useState<Status>('idle');
+  const [emailCopied, setEmailCopied] = useState(false);
+
+  const handleCopyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(PERSONAL.email);
+      setEmailCopied(true);
+      setTimeout(() => setEmailCopied(false), 2000);
+    } catch (err) {
+      console.error('Failed to copy email:', err);
+    }
+  };
 
   const validate = (): boolean => {
     const errs: Partial<typeof form> = {};
@@ -114,49 +125,76 @@ export function Contact() {
           {/* ── Left: contact info cards ── */}
           <ScrollReveal variants={fadeSlideUp} className="space-y-6">
 
-            <GlassCard className="p-6 flex items-center space-x-4 hover:shadow-[var(--glow-cyan-sm)]">
-              <div className="w-12 h-12 rounded bg-cyan-ghost border border-cyan/30 flex items-center justify-center text-cyan shrink-0">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                </svg>
-              </div>
-              <div>
-                <div className="font-mono text-[0.65rem] text-text-muted uppercase tracking-widest mb-1">Email</div>
-                <a href={`mailto:${PERSONAL.email}`} className="font-body text-text-primary hover:text-cyan transition-colors">
-                  {PERSONAL.email}
-                </a>
+            <GlassCard className="hover:shadow-[var(--glow-cyan-sm)] group/email">
+              <div className="p-6 flex items-center space-x-4">
+                <div className="w-12 h-12 rounded bg-cyan-ghost border border-cyan/30 flex items-center justify-center text-cyan shrink-0">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                  </svg>
+                </div>
+                <div className="flex-grow min-w-0">
+                  <div className="font-mono text-[0.65rem] text-text-muted uppercase tracking-widest mb-1">Email</div>
+                  <a href={`mailto:${PERSONAL.email}`} className="font-body text-text-primary hover:text-cyan transition-colors block truncate">
+                    {PERSONAL.email}
+                  </a>
+                </div>
+                <button
+                  onClick={handleCopyEmail}
+                  className={clsx(
+                    "p-2 rounded-md border transition-all duration-300 outline-none focus-visible:ring-2 focus-visible:ring-cyan focus-visible:ring-offset-2 focus-visible:ring-offset-black shrink-0",
+                    emailCopied
+                      ? "bg-green/10 border-green text-green shadow-[var(--glow-green-sm)]"
+                      : "border-border text-text-muted hover:border-cyan hover:text-cyan group-hover/email:border-cyan/50"
+                  )}
+                  aria-label={emailCopied ? "Email copied to clipboard" : "Copy email address"}
+                  title="Copy email address"
+                >
+                  {emailCopied ? (
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                  ) : (
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                    </svg>
+                  )}
+                </button>
               </div>
             </GlassCard>
 
-            <GlassCard className="p-6 flex items-center space-x-4 hover:shadow-[var(--glow-violet-sm)]">
-              <div className="w-12 h-12 rounded bg-[rgba(191,0,255,0.1)] border border-violet/30 flex items-center justify-center text-violet shrink-0">
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                </svg>
-              </div>
-              <div>
-                <div className="font-mono text-[0.65rem] text-text-muted uppercase tracking-widest mb-1">LinkedIn</div>
-                <a href={PERSONAL.linkedin} target="_blank" rel="noopener noreferrer"
-                   className="font-body text-text-primary hover:text-violet transition-colors">
-                  {PERSONAL.linkedin.replace('https://', '')}
-                </a>
+            <GlassCard className="hover:shadow-[var(--glow-violet-sm)]">
+              <div className="p-6 flex items-center space-x-4">
+                <div className="w-12 h-12 rounded bg-[rgba(191,0,255,0.1)] border border-violet/30 flex items-center justify-center text-violet shrink-0">
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                  </svg>
+                </div>
+                <div className="min-w-0">
+                  <div className="font-mono text-[0.65rem] text-text-muted uppercase tracking-widest mb-1">LinkedIn</div>
+                  <a href={PERSONAL.linkedin} target="_blank" rel="noopener noreferrer"
+                     className="font-body text-text-primary hover:text-violet transition-colors block truncate">
+                    {PERSONAL.linkedin.replace('https://', '')}
+                  </a>
+                </div>
               </div>
             </GlassCard>
 
-            <GlassCard className="p-6 flex items-center space-x-4">
-              <div className="w-12 h-12 rounded bg-surface border border-border flex items-center justify-center text-text-primary shrink-0">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-                </svg>
-              </div>
-              <div>
-                <div className="font-mono text-[0.65rem] text-text-muted uppercase tracking-widest mb-1">Location</div>
-                <div className="font-body text-text-primary">
-                  {PERSONAL.location}{' '}
-                  <span className="text-text-secondary text-sm">(Open to Remote)</span>
+            <GlassCard>
+              <div className="p-6 flex items-center space-x-4">
+                <div className="w-12 h-12 rounded bg-surface border border-border flex items-center justify-center text-text-primary shrink-0">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                      d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                  </svg>
+                </div>
+                <div className="min-w-0">
+                  <div className="font-mono text-[0.65rem] text-text-muted uppercase tracking-widest mb-1">Location</div>
+                  <div className="font-body text-text-primary block truncate">
+                    {PERSONAL.location}{' '}
+                    <span className="text-text-secondary text-sm">(Open to Remote)</span>
+                  </div>
                 </div>
               </div>
             </GlassCard>
@@ -192,7 +230,7 @@ export function Contact() {
 
               <FloatingInput id="from_name"  name="from_name"  type="text"  label="Name"             value={form.from_name}  onChange={handleChange} error={errors.from_name}  required maxLength={100} />
               <FloatingInput id="from_email" name="from_email" type="email" label="Email"            value={form.from_email} onChange={handleChange} error={errors.from_email} required maxLength={100} />
-              <FloatingInput id="subject"    name="subject"    type="text"  label="Subject (optional)" value={form.subject}   onChange={handleChange} maxLength={150} />
+              <FloatingInput id="subject"    name="subject"    type="text"  label="Subject (optional)" value={form.subject}   onChange={handleChange} maxLength={200} />
               <FloatingTextarea id="message" name="message" label="Message" value={form.message} onChange={handleChange} error={errors.message} required maxLength={2000} />
 
               <CyberButton
@@ -231,7 +269,8 @@ export function Contact() {
 interface FloatingInputProps {
   id: string; name: string; type: string; label: string;
   value: string; onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  error?: string; required?: boolean; maxLength?: number;
+  error?: string; required?: boolean;
+  maxLength?: number;
 }
 
 function FloatingInput({ id, name, type, label, value, onChange, error, required, maxLength }: FloatingInputProps) {
@@ -258,13 +297,16 @@ function FloatingInput({ id, name, type, label, value, onChange, error, required
           value && 'top-2 text-[0.6rem] text-text-secondary'
         )}
       >
-        {label} {required && <span className="text-red ml-0.5">*</span>}
+        {label}
+        {required && <span className="text-red ml-1">*</span>}
       </label>
-      {error && (
-        <span id={`${id}-error`} aria-live="polite" className="absolute -bottom-5 left-0 font-mono text-[0.65rem] text-red">
-          {error}
-        </span>
-      )}
+      <div className="mt-1 px-1">
+        {error && (
+          <span id={`${id}-error`} aria-live="polite" className="font-mono text-[0.65rem] text-red">
+            {error}
+          </span>
+        )}
+      </div>
     </div>
   );
 }
@@ -272,17 +314,23 @@ function FloatingInput({ id, name, type, label, value, onChange, error, required
 interface FloatingTextareaProps {
   id: string; name: string; label: string;
   value: string; onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  error?: string; required?: boolean; maxLength?: number;
+  error?: string; required?: boolean;
+  maxLength?: number;
 }
 
 function FloatingTextarea({ id, name, label, value, onChange, error, required, maxLength }: FloatingTextareaProps) {
+  const charCount = value.length;
+
   return (
     <div className="relative">
       <textarea
         id={id} name={name} value={value} onChange={onChange}
         required={required} maxLength={maxLength}
         aria-required={required} aria-invalid={!!error}
-        aria-describedby={error ? `${id}-error` : undefined}
+        aria-describedby={clsx(
+          error && `${id}-error`,
+          maxLength && `${id}-counter`
+        )}
         placeholder=" "
         className={clsx(
           'w-full bg-[#020408] border rounded-md px-4 py-4 pt-6 text-text-primary outline-none transition-all peer min-h-[140px] resize-y',
@@ -299,13 +347,30 @@ function FloatingTextarea({ id, name, label, value, onChange, error, required, m
           value && 'top-2 text-[0.6rem] text-text-secondary'
         )}
       >
-        {label} {required && <span className="text-red ml-0.5">*</span>}
+        {label}
+        {required && <span className="text-red ml-1">*</span>}
       </label>
-      {error && (
-        <span id={`${id}-error`} aria-live="polite" className="absolute -bottom-5 left-0 font-mono text-[0.65rem] text-red">
-          {error}
-        </span>
-      )}
+      <div className="flex justify-between items-start mt-1 px-1">
+        <div>
+          {error && (
+            <span id={`${id}-error`} aria-live="polite" className="font-mono text-[0.65rem] text-red">
+              {error}
+            </span>
+          )}
+        </div>
+        {maxLength && (
+          <span
+            id={`${id}-counter`}
+            aria-live="polite"
+            className={clsx(
+              "font-mono text-[0.65rem] transition-colors",
+              charCount >= maxLength ? "text-red" : "text-text-muted"
+            )}
+          >
+            {charCount} / {maxLength}
+          </span>
+        )}
+      </div>
     </div>
   );
 }

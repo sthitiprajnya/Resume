@@ -13,6 +13,7 @@ export function CursorProvider({ children }: CursorProviderProps) {
 
   const dotRef = useRef<HTMLDivElement>(null);
   const ringRef = useRef<HTMLDivElement>(null);
+  const mousePos = useRef({ x: 0, y: 0 });
 
   // Use refs for positions and states to avoid any re-renders from cursor interactions
   const mousePos = useRef({ x: 0, y: 0 });
