@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useRef, useState } from 'react';
-import clsx from 'clsx';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 
 interface CursorProviderProps {
@@ -8,9 +7,6 @@ interface CursorProviderProps {
 }
 
 export function CursorProvider({ children }: CursorProviderProps) {
-  const [isHovering, setIsHovering] = useState(false);
-  const [isClicking, setIsClicking] = useState(false);
-
   // Custom logic to handle touch detection beyond media queries
   const [isTouchDevice, setIsTouchDevice] = useState(false);
   const prefersReducedMotion = usePrefersReducedMotion();
@@ -19,8 +15,12 @@ export function CursorProvider({ children }: CursorProviderProps) {
   const ringRef = useRef<HTMLDivElement>(null);
   const mousePos = useRef({ x: 0, y: 0 });
 
-  // Smooth follow state for ring
+  // Use refs for positions and states to avoid any re-renders from cursor interactions
+  const mousePos = useRef({ x: 0, y: 0 });
   const ringPos = useRef({ x: 0, y: 0 });
+  const isHovering = useRef(false);
+  const isClicking = useRef(false);
+  const isInitial = useRef(true);
 
   useEffect(() => {
     setIsTouchDevice(window.matchMedia('(pointer: coarse)').matches);
@@ -31,30 +31,74 @@ export function CursorProvider({ children }: CursorProviderProps) {
 
     const handleMouseMove = (e: MouseEvent) => {
       mousePos.current = { x: e.clientX, y: e.clientY };
+      if (isInitial.current) {
+        if (dotRef.current) dotRef.current.style.opacity = '1';
+        if (ringRef.current) ringRef.current.style.opacity = '1';
+        isInitial.current = false;
+      }
     };
 
-    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    const handleMouseOver = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      const isInteractive = !!(
+        target.tagName.toLowerCase() === 'a' ||
+        target.tagName.toLowerCase() === 'button' ||
+        target.closest('a') ||
+        target.closest('button') ||
+        target.closest('[role="button"]') ||
+        target.closest('input') ||
+        target.closest('textarea')
+      );
+
+      isHovering.current = isInteractive;
+      if (ringRef.current) {
+        if (isInteractive) {
+          ringRef.current.classList.add('bg-cyan/10', 'border-transparent', 'backdrop-blur-[2px]');
+        } else {
+          ringRef.current.classList.remove('bg-cyan/10', 'border-transparent', 'backdrop-blur-[2px]');
+        }
+      }
+    };
+
+    const handleMouseDown = () => {
+      isClicking.current = true;
+    };
+    const handleMouseUp = () => {
+      isClicking.current = false;
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mouseover', handleMouseOver);
+    window.addEventListener('mousedown', handleMouseDown);
+    window.addEventListener('mouseup', handleMouseUp);
 
     let animationFrameId: number;
 
     const render = () => {
-      const { x, y } = mousePos.current;
+      // Lerp for smooth follow (lag)
+      ringPos.current.x += (mousePos.current.x - ringPos.current.x) * 0.15;
+      ringPos.current.y += (mousePos.current.y - ringPos.current.y) * 0.15;
 
-      // Update dot position directly
       if (dotRef.current) {
-        dotRef.current.style.left = `${x}px`;
-        dotRef.current.style.top = `${y}px`;
-        dotRef.current.style.opacity = x === 0 && y === 0 ? '0' : '1';
+        const dotScale = isClicking.current ? 0.75 : 1;
+        dotRef.current.style.transform = `translate(calc(${mousePos.current.x}px - 50%), calc(${mousePos.current.y}px - 50%)) scale(${dotScale})`;
+        // Ensure opacity is 1 after initial movement
+        if (!isInitial.current) dotRef.current.style.opacity = '1';
       }
 
-      // Lerp for smooth follow (lag)
-      ringPos.current.x += (x - ringPos.current.x) * 0.12;
-      ringPos.current.y += (y - ringPos.current.y) * 0.12;
-
       if (ringRef.current) {
-        const scale = isClicking ? '0.5' : isHovering ? '1.5' : '1';
+        const scale = isClicking.current ? 0.5 : isHovering.current ? 1.5 : 1;
         ringRef.current.style.transform = `translate(calc(${ringPos.current.x}px - 50%), calc(${ringPos.current.y}px - 50%)) scale(${scale})`;
-        ringRef.current.style.opacity = x === 0 && y === 0 ? '0' : '1';
+
+        // Ensure opacity and classes are correct after potential React re-renders
+        if (!isInitial.current) {
+          ringRef.current.style.opacity = '1';
+          if (isHovering.current) {
+            ringRef.current.classList.add('bg-cyan/10', 'border-transparent', 'backdrop-blur-[2px]');
+          } else {
+            ringRef.current.classList.remove('bg-cyan/10', 'border-transparent', 'backdrop-blur-[2px]');
+          }
+        }
       }
 
       animationFrameId = requestAnimationFrame(render);
@@ -64,44 +108,12 @@ export function CursorProvider({ children }: CursorProviderProps) {
 
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
-      cancelAnimationFrame(animationFrameId);
-    };
-  }, [isTouchDevice, prefersReducedMotion, isClicking, isHovering]);
-
-  useEffect(() => {
-    if (isTouchDevice) return;
-
-    const handleMouseOver = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      // Check if hovering over an interactive element
-      if (
-        target.tagName.toLowerCase() === 'a' ||
-        target.tagName.toLowerCase() === 'button' ||
-        target.closest('a') ||
-        target.closest('button') ||
-        target.closest('[role="button"]') ||
-        target.closest('input') ||
-        target.closest('textarea')
-      ) {
-        setIsHovering(true);
-      } else {
-        setIsHovering(false);
-      }
-    };
-
-    const handleMouseDown = () => setIsClicking(true);
-    const handleMouseUp = () => setIsClicking(false);
-
-    window.addEventListener('mouseover', handleMouseOver);
-    window.addEventListener('mousedown', handleMouseDown);
-    window.addEventListener('mouseup', handleMouseUp);
-
-    return () => {
       window.removeEventListener('mouseover', handleMouseOver);
       window.removeEventListener('mousedown', handleMouseDown);
       window.removeEventListener('mouseup', handleMouseUp);
+      cancelAnimationFrame(animationFrameId);
     };
-  }, [isTouchDevice]);
+  }, [isTouchDevice, prefersReducedMotion]);
 
   return (
     <>
@@ -109,19 +121,21 @@ export function CursorProvider({ children }: CursorProviderProps) {
         <>
           <div
             ref={dotRef}
-            className={clsx(
-              "custom-cursor-dot",
-              isClicking && "scale-75 transition-transform"
-            )}
-            style={{ opacity: 0 }}
+            className="custom-cursor-dot"
+            style={{
+              opacity: 0,
+              top: 0,
+              left: 0
+            }}
           />
           <div
             ref={ringRef}
-            className={clsx(
-              "custom-cursor-ring custom-cursor",
-              isHovering && "bg-cyan/10 border-transparent backdrop-blur-[2px]"
-            )}
-            style={{ opacity: 0 }}
+            className="custom-cursor-ring custom-cursor"
+            style={{
+              opacity: 0,
+              top: 0,
+              left: 0
+            }}
           />
         </>
       )}
