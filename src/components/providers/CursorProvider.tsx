@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useState } from 'react';
 import clsx from 'clsx';
-import { useMousePosition } from '@/hooks/useMousePosition';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 
 interface CursorProviderProps {
@@ -9,7 +8,6 @@ interface CursorProviderProps {
 }
 
 export function CursorProvider({ children }: CursorProviderProps) {
-  const { x, y } = useMousePosition();
   const [isHovering, setIsHovering] = useState(false);
   const [isClicking, setIsClicking] = useState(false);
 
@@ -17,7 +15,9 @@ export function CursorProvider({ children }: CursorProviderProps) {
   const [isTouchDevice, setIsTouchDevice] = useState(false);
   const prefersReducedMotion = usePrefersReducedMotion();
 
+  const dotRef = useRef<HTMLDivElement>(null);
   const ringRef = useRef<HTMLDivElement>(null);
+  const mousePos = useRef({ x: 0, y: 0 });
 
   // Smooth follow state for ring
   const ringPos = useRef({ x: 0, y: 0 });
@@ -29,15 +29,32 @@ export function CursorProvider({ children }: CursorProviderProps) {
   useEffect(() => {
     if (isTouchDevice || prefersReducedMotion) return;
 
+    const handleMouseMove = (e: MouseEvent) => {
+      mousePos.current = { x: e.clientX, y: e.clientY };
+    };
+
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+
     let animationFrameId: number;
 
     const render = () => {
+      const { x, y } = mousePos.current;
+
+      // Update dot position directly
+      if (dotRef.current) {
+        dotRef.current.style.left = `${x}px`;
+        dotRef.current.style.top = `${y}px`;
+        dotRef.current.style.opacity = x === 0 && y === 0 ? '0' : '1';
+      }
+
       // Lerp for smooth follow (lag)
       ringPos.current.x += (x - ringPos.current.x) * 0.12;
       ringPos.current.y += (y - ringPos.current.y) * 0.12;
 
       if (ringRef.current) {
-        ringRef.current.style.transform = `translate(calc(${ringPos.current.x}px - 50%), calc(${ringPos.current.y}px - 50%)) ${isClicking ? 'scale(0.5)' : isHovering ? 'scale(1.5)' : 'scale(1)'}`;
+        const scale = isClicking ? '0.5' : isHovering ? '1.5' : '1';
+        ringRef.current.style.transform = `translate(calc(${ringPos.current.x}px - 50%), calc(${ringPos.current.y}px - 50%)) scale(${scale})`;
+        ringRef.current.style.opacity = x === 0 && y === 0 ? '0' : '1';
       }
 
       animationFrameId = requestAnimationFrame(render);
@@ -46,9 +63,10 @@ export function CursorProvider({ children }: CursorProviderProps) {
     render();
 
     return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
       cancelAnimationFrame(animationFrameId);
     };
-  }, [x, y, isTouchDevice, prefersReducedMotion, isClicking, isHovering]);
+  }, [isTouchDevice, prefersReducedMotion, isClicking, isHovering]);
 
   useEffect(() => {
     if (isTouchDevice) return;
@@ -90,15 +108,12 @@ export function CursorProvider({ children }: CursorProviderProps) {
       {!isTouchDevice && !prefersReducedMotion && (
         <>
           <div
+            ref={dotRef}
             className={clsx(
               "custom-cursor-dot",
               isClicking && "scale-75 transition-transform"
             )}
-            style={{
-              left: `${x}px`,
-              top: `${y}px`,
-              opacity: x === 0 && y === 0 ? 0 : 1
-            }}
+            style={{ opacity: 0 }}
           />
           <div
             ref={ringRef}
@@ -106,9 +121,7 @@ export function CursorProvider({ children }: CursorProviderProps) {
               "custom-cursor-ring custom-cursor",
               isHovering && "bg-cyan/10 border-transparent backdrop-blur-[2px]"
             )}
-            style={{
-              opacity: x === 0 && y === 0 ? 0 : 1
-            }}
+            style={{ opacity: 0 }}
           />
         </>
       )}
