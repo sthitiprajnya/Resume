@@ -52,7 +52,7 @@ export default function RootLayout({
       <body>
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[10001] focus:bg-cyan focus:text-black focus:px-4 focus:py-2 focus:font-mono focus:text-xs focus:uppercase focus:tracking-widest focus:rounded-sm focus:shadow-[var(--glow-cyan-md)] outline-none"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-0 focus:left-1/2 focus:-translate-x-1/2 focus:z-[10003] focus:bg-surface focus:text-cyan focus:px-6 focus:py-3 focus:border focus:border-cyan focus:border-t-0 focus:rounded-b-md focus:font-mono focus:text-xs focus:uppercase focus:tracking-widest focus:shadow-[var(--glow-cyan-md)] focus:outline-none"
         >
           Skip to content
         </a>
