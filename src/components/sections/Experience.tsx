@@ -204,6 +204,7 @@ function ExperienceCard({ experience, isFirst }: { experience: typeof EXPERIENCE
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
+                    aria-hidden="true"
                     animate={{ rotate: isOpen ? 180 : 0 }}
                     transition={{ duration: 0.3 }}
                   >
