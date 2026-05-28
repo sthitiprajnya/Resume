@@ -218,7 +218,19 @@ export function Contact() {
 
           {/* ── Right: form ── */}
           <ScrollReveal variants={fadeSlideLeft}>
-            <form ref={formRef} onSubmit={handleSubmit} noValidate className="space-y-6">
+            <form ref={formRef} onSubmit={handleSubmit} noValidate className="space-y-6 relative">
+
+              {/* Honeypot field - hidden from human users */}
+              <div className="absolute -left-[9999px]" aria-hidden="true">
+                <input
+                  type="text"
+                  name="hp_field"
+                  value={form.hp_field}
+                  onChange={handleChange}
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+              </div>
 
               {/* Success overlay */}
               {status === 'sent' && (
