@@ -12,7 +12,7 @@ import type { Project } from '@/types';
 
 const FILTERS = [
   { id: 'all', label: 'ALL' },
-  { id: 'vapt', label: 'VAPT' },
+  { id: 'security', label: 'SECURITY' },
   { id: 'cloud', label: 'CLOUD' },
   { id: 'automation', label: 'AUTOMATION' },
 ];
@@ -29,6 +29,11 @@ export function Projects() {
     <section id="projects" className="py-32 bg-black relative border-t border-border overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <SectionTitle number="04" title="Things I Built." />
+
+        {/* Accessibility: Announce number of filtered results */}
+        <div className="sr-only" aria-live="polite">
+          Showing {filteredProjects.length} projects in {activeFilter === 'all' ? 'all categories' : activeFilter}
+        </div>
 
         {/* Filter Tabs */}
         <ScrollReveal variants={fadeSlideUp} className="flex flex-wrap gap-3 mb-12">
