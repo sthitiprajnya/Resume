@@ -6,6 +6,7 @@ import { GlassCard }    from '@/components/ui/GlassCard';
 import { CyberButton }  from '@/components/ui/CyberButton';
 import { ScrollReveal, fadeSlideUp, fadeSlideLeft } from '@/components/ui/ScrollReveal';
 import { PERSONAL } from '@/data/portfolio';
+import { toast } from 'react-hot-toast';
 
 type Status = 'idle' | 'transmitting' | 'sent' | 'error';
 
@@ -31,9 +32,11 @@ export function Contact() {
     try {
       await navigator.clipboard.writeText(PERSONAL.email);
       setEmailCopied(true);
+      toast.success('Email copied to clipboard! 📋');
       setTimeout(() => setEmailCopied(false), 2000);
     } catch (err) {
       console.error('Failed to copy email:', err);
+      toast.error('Failed to copy email. Please try again.');
     }
   };
 

@@ -10,6 +10,6 @@
 ## 2025-05-25 - Copy-to-Clipboard Feedback Pattern
 **Learning:** Providing immediate visual and accessibility feedback for "Copy to Clipboard" actions (like changing an icon and ARIA label for 2 seconds) significantly improves the perceived reliability of the feature.
 **Action:** When implementing copy-to-clipboard, always include a temporary success state that updates both the visual icon and the `aria-label` to confirm the action to all users.
-## 2026-05-28 - Add ARIA Attributes to Mobile Navigation Menu
-**Learning:** The mobile hamburger menu lacked `aria-expanded` and `aria-controls` attributes, which are crucial for screen readers to understand the state (open/closed) and the target element of the toggle button.
-**Action:** When creating or modifying toggle buttons (like mobile menus, accordions, or dropdowns), always ensure they have `aria-expanded` indicating their current state and `aria-controls` pointing to the ID of the element they control.
+## 2025-05-28 - Layered Feedback for Copy-to-Clipboard
+**Learning:** While icon changes and ARIA label updates provide immediate local feedback, a global toast notification ensures users notice the success even if their focus is not directly on the button (e.g. on larger screens). Human-readable messages in toasts (including emojis) add a "touch of delight" and make the system feel more responsive.
+**Action:** Supplement local interactive state changes with global toast notifications for critical "invisible" actions like clipboard copying, ensuring messages are friendly and human-readable.
