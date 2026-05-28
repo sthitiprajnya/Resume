@@ -1,10 +1,11 @@
 "use client";
 import React, { useRef, useMemo, useState, useEffect } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { useInView } from 'react-intersection-observer';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 import * as THREE from 'three';
 
-function Particles() {
+function Particles({ inView }: { inView: boolean }) {
   const pointsRef = useRef<THREE.Points>(null);
   const { mouse, viewport } = useThree();
 
@@ -47,7 +48,7 @@ function Particles() {
   }, [particleCount, radius]);
 
   useFrame(() => {
-    if (!pointsRef.current) return;
+    if (!pointsRef.current || !inView) return;
 
     const positionsAttr = pointsRef.current.geometry.attributes.position;
     const posArray = positionsAttr.array as Float32Array;
@@ -125,6 +126,7 @@ function Particles() {
 
 export default function ParticleField() {
   const prefersReducedMotion = usePrefersReducedMotion();
+  const { ref, inView } = useInView({ threshold: 0 });
 
   if (prefersReducedMotion) {
     return (
@@ -133,9 +135,9 @@ export default function ParticleField() {
   }
 
   return (
-    <div className="absolute inset-0 z-0 pointer-events-none fade-in" style={{ animation: 'fadeIn 1.2s ease-in-out forwards' }}>
+    <div ref={ref} className="absolute inset-0 z-0 pointer-events-none fade-in" style={{ animation: 'fadeIn 1.2s ease-in-out forwards' }}>
       <Canvas camera={{ position: [0, 0, 150], fov: 75 }}>
-        <Particles />
+        <Particles inView={inView} />
       </Canvas>
       <style>{`
         @keyframes fadeIn {

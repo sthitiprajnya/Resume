@@ -17,8 +17,20 @@ export function useCardTilt() {
     const el = ref.current;
     if (!el) return;
 
+    let rect: DOMRect | null = null;
+
+    const updateRect = () => {
+      rect = el.getBoundingClientRect();
+    };
+
+    const handleMouseEnter = () => {
+      updateRect();
+    };
+
     const handleMouseMove = (e: MouseEvent) => {
-      const rect = el.getBoundingClientRect();
+      if (!rect) updateRect();
+      if (!rect) return;
+
       const centerX = rect.left + rect.width / 2;
       const centerY = rect.top + rect.height / 2;
 
@@ -40,18 +52,25 @@ export function useCardTilt() {
     };
 
     const handleMouseLeave = () => {
+      rect = null;
       x.set(0);
       y.set(0);
       el.style.setProperty('--mouse-x', `-1000px`);
       el.style.setProperty('--mouse-y', `-1000px`);
     };
 
+    el.addEventListener('mouseenter', handleMouseEnter);
     el.addEventListener('mousemove', handleMouseMove);
     el.addEventListener('mouseleave', handleMouseLeave);
+    window.addEventListener('resize', updateRect);
+    window.addEventListener('scroll', updateRect, { passive: true });
 
     return () => {
+      el.removeEventListener('mouseenter', handleMouseEnter);
       el.removeEventListener('mousemove', handleMouseMove);
       el.removeEventListener('mouseleave', handleMouseLeave);
+      window.removeEventListener('resize', updateRect);
+      window.removeEventListener('scroll', updateRect);
     };
   }, [x, y, mouseX, mouseY]);
 
