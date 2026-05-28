@@ -42,7 +42,7 @@ describe('emailjs library', () => {
         'test_service_id',
         'test_template_id',
         testData as any,
-        'test_public_key'
+        { publicKey: 'test_public_key' }
       );
 
       vi.unstubAllEnvs();
