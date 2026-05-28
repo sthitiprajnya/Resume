@@ -229,8 +229,8 @@ export function Contact() {
                 </div>
               )}
 
-              {/* Honeypot field - Hidden from users */}
-              <div className="absolute left-[-9999px]" aria-hidden="true">
+              {/* Security: Honeypot field - invisible to humans, bot-attractive */}
+              <div style={{ position: 'absolute', left: '-9999px' }} aria-hidden="true">
                 <input
                   type="text"
                   name="hp_field"
