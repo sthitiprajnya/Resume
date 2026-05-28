@@ -24,52 +24,40 @@ export function Navigation() {
   const sentinelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    /**
-     * BOLT: PERFORMANCE OPTIMIZATION
-     * Replaced O(N) scroll event listener with IntersectionObserver.
-     * Original implementation called getBoundingClientRect on 10+ sections every scroll tick (60fps),
-     * causing significant main-thread layout thrashing and CPU usage.
-     * This IntersectionObserver approach is handled by the browser's compositor thread,
-     * reducing scroll-related CPU overhead by ~95%.
-     */
+    // BOLT: Use IntersectionObserver instead of scroll listeners and getBoundingClientRect
+    // for much better performance (avoids main-thread layout thrashing)
     const sections = ['hero', ...NAV_LINKS.map(l => l.id)];
 
-    // Observer for active section tracking
-    const sectionObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          setActiveSection(entry.target.id);
-        }
-      });
-    }, {
-      rootMargin: '-20% 0% -70% 0%', // Trigger when section is roughly in the top part of the viewport
-      threshold: 0
-    });
-
-    // Observer for navbar background transition (scrolled state) using a sentinel element at the top
-    const navObserver = new IntersectionObserver((entries) => {
-      const [entry] = entries;
-      setScrolled(!entry.isIntersecting);
-    }, {
-      // Trigger scrolled state after 80px of scrolling
-      rootMargin: '80px 0% 0% 0%',
-      threshold: 0
-    });
-
-    if (sentinelRef.current) {
-      navObserver.observe(sentinelRef.current);
-    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: '-30% 0px -60% 0px', threshold: 0 }
+    );
 
     sections.forEach((id) => {
       const el = document.getElementById(id);
-      if (el) {
-        sectionObserver.observe(el);
-      }
+      if (el) observer.observe(el);
     });
 
+    // Separate observer for the navbar "scrolled" state
+    const heroEl = document.getElementById('hero');
+    const scrolledObserver = new IntersectionObserver(
+      ([entry]) => {
+        setScrolled(!entry.isIntersecting);
+      },
+      { rootMargin: '-80px 0px 0px 0px', threshold: 0 }
+    );
+
+    if (heroEl) scrolledObserver.observe(heroEl);
+
     return () => {
-      sectionObserver.disconnect();
-      navObserver.disconnect();
+      observer.disconnect();
+      scrolledObserver.disconnect();
     };
   }, []);
 
