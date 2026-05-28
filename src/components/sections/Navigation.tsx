@@ -23,21 +23,41 @@ export function Navigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 80);
+    // BOLT: Use IntersectionObserver instead of scroll listeners and getBoundingClientRect
+    // for much better performance (avoids main-thread layout thrashing)
+    const sections = ['hero', ...NAV_LINKS.map(l => l.id)];
 
-      const sections = ['hero', ...NAV_LINKS.map(l => l.id)];
-      for (const section of sections) {
-        const el = document.getElementById(section);
-        if (el) {
-          const { top, bottom } = el.getBoundingClientRect();
-          if (top <= 100 && bottom >= 100) { setActiveSection(section); break; }
-        }
-      }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: '-30% 0px -60% 0px', threshold: 0 }
+    );
+
+    sections.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    // Separate observer for the navbar "scrolled" state
+    const heroEl = document.getElementById('hero');
+    const scrolledObserver = new IntersectionObserver(
+      ([entry]) => {
+        setScrolled(!entry.isIntersecting);
+      },
+      { rootMargin: '-80px 0px 0px 0px', threshold: 0 }
+    );
+
+    if (heroEl) scrolledObserver.observe(heroEl);
+
+    return () => {
+      observer.disconnect();
+      scrolledObserver.disconnect();
     };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const scrollTo = (id: string) => {
