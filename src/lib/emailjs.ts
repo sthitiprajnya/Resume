@@ -12,5 +12,5 @@ export interface ContactFormData {
 }
 
 export async function sendContactEmail(data: ContactFormData): Promise<void> {
-  await emailjs.send(SERVICE_ID, TEMPLATE_ID, data as any, PUBLIC_KEY);
+  await emailjs.send(SERVICE_ID, TEMPLATE_ID, data as any, { publicKey: PUBLIC_KEY });
 }
