@@ -15,6 +15,13 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+
+  // Expose VITE_ environment variables to the browser since Next.js only exposes NEXT_PUBLIC_ by default
+  env: {
+    VITE_EMAILJS_SERVICE_ID: process.env.VITE_EMAILJS_SERVICE_ID,
+    VITE_EMAILJS_TEMPLATE_ID: process.env.VITE_EMAILJS_TEMPLATE_ID,
+    VITE_EMAILJS_PUBLIC_KEY: process.env.VITE_EMAILJS_PUBLIC_KEY,
+  },
 };
 
 export default nextConfig;
