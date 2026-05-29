@@ -56,7 +56,12 @@ export function Skills() {
         <div className="absolute top-0 right-0 bottom-0 w-24 bg-gradient-to-l from-deep to-transparent z-10 pointer-events-none" />
 
         {/* Row 1 - scrolling left */}
-        <div className="flex w-max animate-marquee-left">
+        <div
+          className="flex w-max animate-marquee-left"
+          tabIndex={0}
+          role="region"
+          aria-label="Skills marquee row 1"
+        >
           {[...marqueeTags, ...marqueeTags].map((tag, i) => (
             <div
               key={`row1-${i}`}
@@ -68,8 +73,13 @@ export function Skills() {
         </div>
 
         {/* Row 2 - scrolling right */}
-        <div className="flex w-max animate-marquee-right">
-          {[...marqueeTags.reverse(), ...marqueeTags].map((tag, i) => (
+        <div
+          className="flex w-max animate-marquee-right"
+          tabIndex={0}
+          role="region"
+          aria-label="Skills marquee row 2"
+        >
+          {[...marqueeTags].reverse().concat(marqueeTags).map((tag, i) => (
             <div
               key={`row2-${i}`}
               className="mx-3 px-4 py-1.5 rounded-sm bg-surface border border-border font-mono text-[0.75rem] text-text-secondary whitespace-nowrap"
@@ -94,6 +104,10 @@ export function Skills() {
         }
         .animate-marquee-right {
           animation: marqueeRight 40s linear infinite;
+        }
+        .animate-marquee-left:hover, .animate-marquee-left:focus-within,
+        .animate-marquee-right:hover, .animate-marquee-right:focus-within {
+          animation-play-state: paused;
         }
         @media (prefers-reduced-motion: reduce) {
           .animate-marquee-left, .animate-marquee-right {
