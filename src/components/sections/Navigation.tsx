@@ -133,7 +133,7 @@ export function Navigation() {
             aria-controls="mobile-menu"
             aria-label="Open menu"
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"/>
             </svg>
           </button>
@@ -145,6 +145,8 @@ export function Navigation() {
         {mobileMenuOpen && (
           <motion.div
             id="mobile-menu"
+            role="dialog"
+            aria-modal="true"
             initial={{ opacity: 0, x: '100%' }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: '100%' }}

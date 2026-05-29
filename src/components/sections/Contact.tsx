@@ -132,7 +132,7 @@ export function Contact() {
             <GlassCard className="hover:shadow-[var(--glow-cyan-sm)] group/email">
               <div className="p-6 flex items-center space-x-4">
                 <div className="w-12 h-12 rounded bg-cyan-ghost border border-cyan/30 flex items-center justify-center text-cyan shrink-0">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
                       d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                   </svg>
@@ -155,11 +155,11 @@ export function Contact() {
                   title="Copy email address"
                 >
                   {emailCopied ? (
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
                     </svg>
                   ) : (
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
                     </svg>
                   )}
@@ -170,7 +170,7 @@ export function Contact() {
             <GlassCard className="hover:shadow-[var(--glow-violet-sm)]">
               <div className="p-6 flex items-center space-x-4">
                 <div className="w-12 h-12 rounded bg-[rgba(191,0,255,0.1)] border border-violet/30 flex items-center justify-center text-violet shrink-0">
-                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
                   </svg>
                 </div>
@@ -187,7 +187,7 @@ export function Contact() {
             <GlassCard>
               <div className="p-6 flex items-center space-x-4">
                 <div className="w-12 h-12 rounded bg-surface border border-border flex items-center justify-center text-text-primary shrink-0">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
                       d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
@@ -234,7 +234,7 @@ export function Contact() {
 
               {/* Success overlay */}
               {status === 'sent' && (
-                <div className="p-4 border border-green/50 rounded-md bg-green-ghost">
+                <div className="p-4 border border-green/50 rounded-md bg-green-ghost" role="alert" aria-live="assertive">
                   <div className="font-mono text-sm text-green font-bold mb-1">
                     ✓ TRANSMISSION_SUCCESSFUL
                   </div>
@@ -243,18 +243,6 @@ export function Contact() {
                   </div>
                 </div>
               )}
-
-              {/* Security: Honeypot field - invisible to humans, bot-attractive */}
-              <div style={{ position: 'absolute', left: '-9999px' }} aria-hidden="true">
-                <input
-                  type="text"
-                  name="hp_field"
-                  value={form.hp_field}
-                  onChange={handleChange}
-                  tabIndex={-1}
-                  autoComplete="off"
-                />
-              </div>
 
               <FloatingInput id="from_name"  name="from_name"  type="text"  label="Name"             value={form.from_name}  onChange={handleChange} error={errors.from_name}  required maxLength={100} />
               <FloatingInput id="from_email" name="from_email" type="email" label="Email"            value={form.from_email} onChange={handleChange} error={errors.from_email} required maxLength={100} />

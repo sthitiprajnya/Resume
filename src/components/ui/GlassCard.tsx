@@ -1,6 +1,6 @@
 "use client";
 import React from 'react';
-import clsx from 'clsx';
+import { cn } from '@/lib/utils';
 import { motion, type HTMLMotionProps } from 'framer-motion';
 
 interface GlassCardProps extends HTMLMotionProps<"div"> {
@@ -16,7 +16,7 @@ export const GlassCard = React.forwardRef<HTMLDivElement, GlassCardProps>(
     return (
       <motion.div
         ref={ref}
-        className={clsx(
+        className={cn(
           "relative rounded-xl overflow-hidden backdrop-blur-md border transition-all duration-300",
           "bg-[var(--gradient-card)] border-border hover:border-border-glow",
           {
