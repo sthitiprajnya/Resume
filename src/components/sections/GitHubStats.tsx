@@ -17,8 +17,13 @@ export function GitHubStats() {
         <SectionTitle number="06" title="Open Source Activity." />
 
         {loading ? (
-          <div className="h-64 flex items-center justify-center">
+          <div
+            className="h-64 flex items-center justify-center"
+            role="status"
+            aria-live="polite"
+          >
             <div className="font-mono text-cyan animate-pulse">FETCHING_DATA...</div>
+            <span className="sr-only">Loading GitHub statistics</span>
           </div>
         ) : (
           <div className="space-y-8">
