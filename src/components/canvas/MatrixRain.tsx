@@ -1,6 +1,7 @@
 "use client";
 import React, { useRef, useEffect } from 'react';
 import clsx from 'clsx';
+import { useInView } from 'react-intersection-observer';
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
 
 interface MatrixRainProps {
@@ -10,11 +11,18 @@ interface MatrixRainProps {
 
 export default function MatrixRain({ className, opacity = 0.055 }: MatrixRainProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const { ref: inViewRef, inView } = useInView({ threshold: 0 });
   const prefersReducedMotion = usePrefersReducedMotion();
+
+  // Combine refs for the canvas element
+  const setRefs = (node: HTMLCanvasElement | null) => {
+    canvasRef.current = node;
+    inViewRef(node);
+  };
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas || prefersReducedMotion) return;
+    if (!canvas || prefersReducedMotion || !inView) return;
 
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
@@ -81,7 +89,7 @@ export default function MatrixRain({ className, opacity = 0.055 }: MatrixRainPro
       window.removeEventListener('resize', resize);
       cancelAnimationFrame(animationFrameId);
     };
-  }, [prefersReducedMotion]);
+  }, [prefersReducedMotion, inView]);
 
   if (prefersReducedMotion) {
     return null;
@@ -89,7 +97,7 @@ export default function MatrixRain({ className, opacity = 0.055 }: MatrixRainPro
 
   return (
     <canvas
-      ref={canvasRef}
+      ref={setRefs}
       className={clsx("absolute inset-0 pointer-events-none z-0", className)}
       style={{ opacity }}
     />

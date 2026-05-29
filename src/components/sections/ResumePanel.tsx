@@ -78,7 +78,7 @@ export function ResumePanel() {
               {/* Footer stamp */}
               <div className="px-6 py-4 border-t border-border flex justify-between items-center bg-black/60">
                 <span className="text-[0.6rem] text-text-muted font-mono">
-                  DOC_ID: SB-RESUME-2025-v3 · SHA256: 8f2a…d91c
+                  DOC_ID: <span className="redacted" tabIndex={0} title="Hover or focus to reveal">SB-RESUME-2025-v3</span> · SHA256: <span className="redacted" tabIndex={0} title="Hover or focus to reveal">8f2a…d91c</span>
                 </span>
                 <span className="text-[0.6rem] text-green font-bold font-mono uppercase tracking-widest">
                   ● INTEGRITY OK
