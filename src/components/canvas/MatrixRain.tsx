@@ -31,25 +31,31 @@ export default function MatrixRain({ className, opacity = 0.055 }: MatrixRainPro
     let width: number;
     let height: number;
 
-    // Matrix characters: katakana + numerals + security symbols
+    // BOLT: Hoisting character array and length lookup outside the hot loop
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$+-*/=%""\'#&_(),.;:?!\\|{}<>[]^~ｦｧｨｩｪｫｬｭｮｯｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝ0x&&||>><<';
     const charArray = chars.split('');
+    const charLength = charArray.length;
 
     const fontSize = 18;
     let columns: number;
-    let drops: number[];
-    let speeds: number[];
+    // BOLT: Using Float32Array for better performance and memory efficiency
+    let drops: Float32Array;
+    let speeds: Float32Array;
+    let xPositions: Float32Array;
 
     const resize = () => {
       width = canvas.width = window.innerWidth;
       height = canvas.height = window.innerHeight;
       columns = Math.floor(width / fontSize);
 
-      drops = [];
-      speeds = [];
+      drops = new Float32Array(columns);
+      speeds = new Float32Array(columns);
+      xPositions = new Float32Array(columns);
       for (let i = 0; i < columns; i++) {
         drops[i] = Math.random() * -100; // Start at random negative y positions
         speeds[i] = 0.3 + Math.random() * 0.6; // Speed between 0.3 and 0.9
+        // BOLT: Pre-calculate X-positions to avoid multiplication in hot loop
+        xPositions[i] = i * fontSize;
       }
     };
 
@@ -65,13 +71,17 @@ export default function MatrixRain({ className, opacity = 0.055 }: MatrixRainPro
 
       ctx.fillStyle = '#00F5FF'; // Cyan text
 
-      for (let i = 0; i < drops.length; i++) {
+      // BOLT: Hoist property lookup (drops.length)
+      const len = drops.length;
+      for (let i = 0; i < len; i++) {
         // Draw character
-        const text = charArray[Math.floor(Math.random() * charArray.length)];
-        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+        const text = charArray[Math.floor(Math.random() * charLength)];
+        // BOLT: Reuse calculated Y position
+        const yPos = drops[i] * fontSize;
+        ctx.fillText(text, xPositions[i], yPos);
 
         // Reset drop if at bottom or randomly
-        if (drops[i] * fontSize > height && Math.random() > 0.975) {
+        if (yPos > height && Math.random() > 0.975) {
           drops[i] = 0;
           speeds[i] = 0.3 + Math.random() * 0.6; // Reset speed randomly
         }

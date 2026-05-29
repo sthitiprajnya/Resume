@@ -7,3 +7,7 @@
 ## 2025-05-16 - [Visibility-aware Animations & Layout Thrashing]
 **Learning:** Heavy background animations (Canvas, Three.js) continue to consume significant CPU/GPU resources even when scrolled out of view. Pausing these loops via `IntersectionObserver` can drastically reduce energy consumption and improve framerates for other page elements. Additionally, calling `getBoundingClientRect()` inside a `mousemove` handler triggers synchronous layout reflows (layout thrashing). Caching the bounding box on `mouseenter` and updating it only on `scroll`/`resize` events keeps the main thread clear.
 **Action:** Use `react-intersection-observer` to gate `requestAnimationFrame` or `useFrame` loops. Avoid layout-reading APIs in high-frequency event handlers; cache measurements and update them only when the environment changes.
+
+## 2025-05-17 - [Typed Arrays and Pre-calculation in 60fps Loops]
+**Learning:** Standard JavaScript arrays in high-frequency (60fps) animation loops can lead to unpredictable garbage collection pauses and slower access compared to TypedArrays. Pre-calculating constant values (like X-positions) during initialization or resize handlers and using `Float32Array` for numerical state significantly reduces the per-frame arithmetic and memory overhead.
+**Action:** For all canvas or WebGL animation loops, use `Float32Array` for numerical state and pre-calculate all possible constant values outside the `requestAnimationFrame` callback.
