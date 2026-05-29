@@ -25,19 +25,35 @@ export function Navigation() {
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 80);
-
-      const sections = ['hero', ...NAV_LINKS.map(l => l.id)];
-      for (const section of sections) {
-        const el = document.getElementById(section);
-        if (el) {
-          const { top, bottom } = el.getBoundingClientRect();
-          if (top <= 100 && bottom >= 100) { setActiveSection(section); break; }
-        }
-      }
     };
 
+    // BOLT: Using IntersectionObserver instead of getBoundingClientRect in scroll listener
+    // to prevent layout thrashing and improve main thread performance.
+    const observerOptions = {
+      root: null,
+      rootMargin: '-20% 0px -70% 0px',
+      threshold: 0
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    }, observerOptions);
+
+    const sections = ['hero', ...NAV_LINKS.map(l => l.id)];
+    sections.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      observer.disconnect();
+    };
   }, []);
 
   const scrollTo = (id: string) => {
