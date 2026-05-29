@@ -39,6 +39,7 @@ export default function MatrixRain({ className, opacity = 0.055 }: MatrixRainPro
     let columns: number;
     let drops: number[];
     let speeds: number[];
+    let xCoords: number[];
 
     const resize = () => {
       width = canvas.width = window.innerWidth;
@@ -47,9 +48,11 @@ export default function MatrixRain({ className, opacity = 0.055 }: MatrixRainPro
 
       drops = [];
       speeds = [];
+      xCoords = [];
       for (let i = 0; i < columns; i++) {
         drops[i] = Math.random() * -100; // Start at random negative y positions
         speeds[i] = 0.3 + Math.random() * 0.6; // Speed between 0.3 and 0.9
+        xCoords[i] = i * fontSize;
       }
     };
 
@@ -65,13 +68,20 @@ export default function MatrixRain({ className, opacity = 0.055 }: MatrixRainPro
 
       ctx.fillStyle = '#00F5FF'; // Cyan text
 
-      for (let i = 0; i < drops.length; i++) {
+      // BOLT: Hoist length lookups and cache calculations to optimize hot loop (~60fps)
+      const numDrops = drops.length;
+      const numChars = charArray.length;
+
+      for (let i = 0; i < numDrops; i++) {
+        const x = xCoords[i];
+        const y = drops[i] * fontSize;
+
         // Draw character
-        const text = charArray[Math.floor(Math.random() * charArray.length)];
-        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+        const text = charArray[Math.floor(Math.random() * numChars)];
+        ctx.fillText(text, x, y);
 
         // Reset drop if at bottom or randomly
-        if (drops[i] * fontSize > height && Math.random() > 0.975) {
+        if (y > height && Math.random() > 0.975) {
           drops[i] = 0;
           speeds[i] = 0.3 + Math.random() * 0.6; // Reset speed randomly
         }
