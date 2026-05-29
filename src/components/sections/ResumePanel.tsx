@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { SectionTitle } from '@/components/ui/SectionTitle';
 import { GlassCard }    from '@/components/ui/GlassCard';
 import { CyberButton }  from '@/components/ui/CyberButton';
@@ -15,6 +16,23 @@ export function ResumePanel() {
   const handleDownload = () => {
     setDownloadStarted(true);
     setTimeout(() => setDownloadStarted(false), 3000);
+  };
+
+  const handleCopy = async (text: string, label: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      toast.success(`${label} copied to clipboard!`);
+    } catch (err) {
+      console.error(`Failed to copy ${label}:`, err);
+      toast.error(`Failed to copy ${label}.`);
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent, text: string, label: string) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      if (e.key === ' ') e.preventDefault();
+      handleCopy(text, label);
+    }
   };
 
   return (
@@ -78,7 +96,23 @@ export function ResumePanel() {
               {/* Footer stamp */}
               <div className="px-6 py-4 border-t border-border flex justify-between items-center bg-black/60">
                 <span className="text-[0.6rem] text-text-muted font-mono">
-                  DOC_ID: <span className="redacted" tabIndex={0} title="Hover or focus to reveal">SB-RESUME-2025-v3</span> · SHA256: <span className="redacted" tabIndex={0} title="Hover or focus to reveal">8f2a…d91c</span>
+                  DOC_ID: <span
+                    role="button"
+                    className="redacted cursor-copy focus-visible:ring-2 focus-visible:ring-amber focus-visible:ring-offset-2 focus-visible:ring-offset-black outline-none"
+                    tabIndex={0}
+                    title="Click to copy ID"
+                    aria-label="Copy Document ID"
+                    onClick={() => handleCopy('SB-RESUME-2025-v3', 'Document ID')}
+                    onKeyDown={(e) => handleKeyDown(e, 'SB-RESUME-2025-v3', 'Document ID')}
+                  >SB-RESUME-2025-v3</span> · SHA256: <span
+                    role="button"
+                    className="redacted cursor-copy focus-visible:ring-2 focus-visible:ring-amber focus-visible:ring-offset-2 focus-visible:ring-offset-black outline-none"
+                    tabIndex={0}
+                    title="Click to copy hash"
+                    aria-label="Copy SHA256 hash"
+                    onClick={() => handleCopy('8f2a…d91c', 'SHA256 hash')}
+                    onKeyDown={(e) => handleKeyDown(e, '8f2a…d91c', 'SHA256 hash')}
+                  >8f2a…d91c</span>
                 </span>
                 <span className="text-[0.6rem] text-green font-bold font-mono uppercase tracking-widest">
                   ● INTEGRITY OK
