@@ -10,7 +10,7 @@ interface MatrixRainProps {
 }
 
 export default function MatrixRain({ className, opacity = 0.055 }: MatrixRainProps) {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const { ref: inViewRef, inView } = useInView({ threshold: 0 });
   const prefersReducedMotion = usePrefersReducedMotion();
 
