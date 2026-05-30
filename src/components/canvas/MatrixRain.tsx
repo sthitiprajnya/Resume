@@ -9,6 +9,10 @@ interface MatrixRainProps {
   opacity?: number;
 }
 
+// BOLT: Hoist static data outside component to avoid redundant creation on every mount/effect run
+const MATRIX_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$+-*/=%""\'#&_(),.;:?!\\|{}<>[]^~ｦｧｨｩｪｫｬｭｮｯｱｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝ0x&&||>><<'.split('');
+const MATRIX_CHAR_LEN = MATRIX_CHARS.length;
+
 export default function MatrixRain({ className, opacity = 0.055 }: MatrixRainProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const { ref: inViewRef, inView } = useInView({ threshold: 0 });
