@@ -1,3 +1,3 @@
-## 2026-05-29 - Accessible loading state
-**Learning:** The loading states in the async components (like GitHubStats.tsx) missed screen reader announcements.
-**Action:** To ensure loading states are perceived by screen readers without interrupting the user unnecessarily, adding `role="status"`, `aria-live="polite"`, and an `.sr-only` screen reader string helps significantly.
+## 2025-05-30 - Add descriptive aria-labels for repeated, generic link text
+**Learning:** Screen reader users navigating by link lists struggle when multiple links on a page have the same generic text, such as "VERIFY" for certifications or "View on GitHub" for projects. This is a common accessibility issue in grid or list components where the visible text is kept concise for design purposes.
+**Action:** Always provide specific context using `aria-label` for links with generic text (e.g., `aria-label={"Verify " + cert.name + " certification"}` instead of just "VERIFY"). Additionally, ensure decorative icons inside links (like the "↗" arrow or GitHub SVG) are hidden from screen readers using `aria-hidden="true"` to prevent unnecessary noise.

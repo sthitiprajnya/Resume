@@ -80,17 +80,18 @@ function CertCard({ cert }: { cert: typeof CERTIFICATIONS[0] }) {
             href={cert.verifyUrl}
             target="_blank"
             rel="noopener noreferrer"
+            aria-label={`Verify ${cert.name} certification`}
             className={clsx(
               "font-mono text-[0.65rem] uppercase tracking-widest flex items-center transition-colors",
               style.text,
               "hover:text-white"
             )}
           >
-            VERIFY <span className="ml-1 text-[10px]">↗</span>
+            VERIFY <span aria-hidden="true" className="ml-1 text-[10px]">↗</span>
           </a>
         ) : (
-          <span className="font-mono text-[0.65rem] text-text-muted uppercase tracking-widest">
-            VERIFY ↗
+          <span className="font-mono text-[0.65rem] text-text-muted uppercase tracking-widest flex items-center">
+            VERIFY <span aria-hidden="true" className="ml-1 text-[10px]">↗</span>
           </span>
         )}
       </div>
