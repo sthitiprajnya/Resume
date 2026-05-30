@@ -5,18 +5,24 @@ import { SkillBadge } from '@/components/ui/SkillBadge';
 import { ScrollReveal, fadeSlideUp, containerStagger } from '@/components/ui/ScrollReveal';
 import { SKILLS } from '@/data/portfolio';
 
-export function Skills() {
-  // Generate flat list of tags for marquee
-  const marqueeTags = [
-    'Burp Suite Pro', 'Nessus', 'IDOR/BOLA', 'Auth Bypass', 'SSRF', 'XSS',
-    'SQL Injection', 'XXE', 'Business Logic Flaws', 'API Pentesting', 'Android VAPT',
-    'Certificate Pinning Bypass', 'GCP Hardening', 'IAM Least-Privilege', 'CMEK',
-    'K8s Security', 'Docker Scanning', 'Wazuh Rules', 'Python Automation',
-    'JIRA REST API', 'DLP API', 'SpiderFoot', 'OSINT', 'Red Team', 'Threat Modeling',
-    'PCI DSS', 'ISO 27001', 'SOC 2', 'MITRE ATT&CK', 'PTES', 'Privilege Escalation',
-    'Lateral Movement', 'MQTT Attack Chain', 'Cryptojacking Response', 'CVE Triage', 'PoC Writing'
-  ];
+// BOLT: Move static data outside component to avoid redundant allocations on every render
+const MARQUEE_TAGS = [
+  'Burp Suite Pro', 'Nessus', 'IDOR/BOLA', 'Auth Bypass', 'SSRF', 'XSS',
+  'SQL Injection', 'XXE', 'Business Logic Flaws', 'API Pentesting', 'Android VAPT',
+  'Certificate Pinning Bypass', 'GCP Hardening', 'IAM Least-Privilege', 'CMEK',
+  'K8s Security', 'Docker Scanning', 'Wazuh Rules', 'Python Automation',
+  'JIRA REST API', 'DLP API', 'SpiderFoot', 'OSINT', 'Red Team', 'Threat Modeling',
+  'PCI DSS', 'ISO 27001', 'SOC 2', 'MITRE ATT&CK', 'PTES', 'Privilege Escalation',
+  'Lateral Movement', 'MQTT Attack Chain', 'Cryptojacking Response', 'CVE Triage', 'PoC Writing'
+];
 
+// BOLT: Pre-calculate doubled and reversed arrays to avoid O(n) work and mutation bugs during render
+const MARQUEE_ROW_1 = [...MARQUEE_TAGS, ...MARQUEE_TAGS];
+// Create reversed copy first to match original behavior (reversed sequence doubled for seamless loop)
+const REVERSED_TAGS = [...MARQUEE_TAGS].reverse();
+const MARQUEE_ROW_2 = [...REVERSED_TAGS, ...REVERSED_TAGS];
+
+export function Skills() {
   return (
     <section id="skills" className="py-24 bg-black overflow-hidden relative">
       <div className="max-w-7xl mx-auto px-6 relative z-10">
