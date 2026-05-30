@@ -25,7 +25,6 @@ export const metadata: Metadata = {
     }],
     locale: 'en_US',
   },
-  referrer: 'strict-origin-when-cross-origin',
   twitter: {
     card: 'summary_large_image',
     title: 'Sthitaprajna Biswal — Cybersecurity Engineer',

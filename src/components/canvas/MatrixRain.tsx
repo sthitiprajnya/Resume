@@ -73,7 +73,7 @@ export default function MatrixRain({ className, opacity = 0.055 }: MatrixRainPro
 
       for (let i = 0; i < dropsLen; i++) {
         // BOLT: Cache calculations and hoist length lookups to optimize 60fps loop
-        const x = i * fontSize;
+        const x = xCoords[i];
         const y = drops[i] * fontSize;
 
         // Draw character
