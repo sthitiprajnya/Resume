@@ -34,7 +34,6 @@ export default function MatrixRain({ className, opacity = 0.055 }: MatrixRainPro
     // Matrix characters: katakana + numerals + security symbols
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$+-*/=%""\'#&_(),.;:?!\\|{}<>[]^~ｦｧｨｩｪｫｬｭｮｯｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝ0x&&||>><<';
     const charArray = chars.split('');
-    const charLen = charArray.length;
 
     const fontSize = 18;
     let columns: number;
@@ -70,7 +69,7 @@ export default function MatrixRain({ className, opacity = 0.055 }: MatrixRainPro
       ctx.fillStyle = '#00F5FF'; // Cyan text
 
       const dropsLen = drops.length;
-      const charLen = charArray.length;
+      const charCount = charArray.length;
 
       for (let i = 0; i < dropsLen; i++) {
         // BOLT: Cache calculations and hoist length lookups to optimize 60fps loop
@@ -78,8 +77,8 @@ export default function MatrixRain({ className, opacity = 0.055 }: MatrixRainPro
         const y = drops[i] * fontSize;
 
         // Draw character
-        const text = charArray[Math.floor(Math.random() * charLen)];
-        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+        const text = charArray[Math.floor(Math.random() * charCount)];
+        ctx.fillText(text, x, y);
 
         // Reset drop if at bottom or randomly
         if (y > height && Math.random() > 0.975) {
