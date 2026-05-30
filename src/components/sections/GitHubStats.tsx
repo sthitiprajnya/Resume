@@ -48,6 +48,8 @@ export function GitHubStats() {
                       src={`https://github-readme-stats.vercel.app/api/contribution?username=sthitiprajnya&theme=tokyonight`}
                       alt={`${PERSONAL.name}'s GitHub Stats`}
                       className="w-full h-auto object-cover"
+                      width={495}
+                      height={195}
                       loading="lazy"
                     />
                   </div>
@@ -59,6 +61,8 @@ export function GitHubStats() {
                       src={`https://streak-stats.demolab.com/?user=sthitiprajnya&theme=highcontrast&hide_border=true`}
                       alt="Top Languages"
                       className="w-full h-auto object-cover"
+                      width={495}
+                      height={195}
                       loading="lazy"
                     />
                   </div>

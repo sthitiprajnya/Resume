@@ -11,6 +11,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://sthitiprajnya.github.io/portfolio/',
   },
+  referrer: 'strict-origin-when-cross-origin',
   openGraph: {
     type: 'website',
     url: 'https://sthitiprajnya.github.io/portfolio/',
@@ -24,6 +25,7 @@ export const metadata: Metadata = {
     }],
     locale: 'en_US',
   },
+  referrer: 'strict-origin-when-cross-origin',
   twitter: {
     card: 'summary_large_image',
     title: 'Sthitaprajna Biswal — Cybersecurity Engineer',

@@ -2,6 +2,6 @@
 **Learning:** The loading states in the async components (like GitHubStats.tsx) missed screen reader announcements.
 **Action:** To ensure loading states are perceived by screen readers without interrupting the user unnecessarily, adding `role="status"`, `aria-live="polite"`, and an `.sr-only` screen reader string helps significantly.
 
-## 2025-05-15 - Marquee Accessibility (WCAG 2.2.2)
-**Learning:** Scrolling marquees can be distracting or impossible to read for some users. They must provide a way to pause the motion and be keyboard accessible.
-**Action:** Implement `tabIndex={0}`, `role="region"`, and `aria-label` for keyboard navigation. Use CSS `animation-play-state: paused` on `:hover` and `:focus-within` to allow users to stop the movement at will.
+## 2026-05-30 - Interactive Redacted Elements
+**Learning:** Decorative elements like "redacted" text can be turned into delightful micro-interactions. However, when making them interactive, it's critical to provide clear feedback (toasts) and full keyboard accessibility (Enter/Space support with preventDefault).
+**Action:** Always use `role="button"` and `aria-label` for interactive non-button elements, and ensure both mouse and keyboard users receive consistent visual and functional feedback.
