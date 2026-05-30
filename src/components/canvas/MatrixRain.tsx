@@ -9,6 +9,10 @@ interface MatrixRainProps {
   opacity?: number;
 }
 
+// BOLT: Hoist static data outside component to avoid redundant creation on every mount/effect run
+const MATRIX_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$+-*/=%""\'#&_(),.;:?!\\|{}<>[]^~ｦｧｨｩｪｫｬｭｮｯｱｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝ0x&&||>><<'.split('');
+const MATRIX_CHAR_LEN = MATRIX_CHARS.length;
+
 export default function MatrixRain({ className, opacity = 0.055 }: MatrixRainProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const { ref: inViewRef, inView } = useInView({ threshold: 0 });
@@ -31,7 +35,7 @@ export default function MatrixRain({ className, opacity = 0.055 }: MatrixRainPro
     let width: number;
     let height: number;
 
-    // Matrix characters: katakana + numerals + security symbols
+    // BOLT: Hoisting character array and length lookup outside the hot loop
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$+-*/=%""\'#&_(),.;:?!\\|{}<>[]^~ｦｧｨｩｪｫｬｭｮｯｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝ0x&&||>><<';
     const charArray = chars.split('');
 
@@ -69,15 +73,16 @@ export default function MatrixRain({ className, opacity = 0.055 }: MatrixRainPro
       ctx.fillStyle = '#00F5FF'; // Cyan text
 
       const dropsLen = drops.length;
-      const charLen = charArray.length;
+      const charCount = charArray.length;
 
       for (let i = 0; i < dropsLen; i++) {
         // BOLT: Cache calculations and hoist length lookups to optimize 60fps loop
+        const x = xCoords[i];
         const y = drops[i] * fontSize;
 
         // Draw character
-        const text = charArray[Math.floor(Math.random() * charLen)];
-        ctx.fillText(text, xCoords[i], y);
+        const text = charArray[Math.floor(Math.random() * charCount)];
+        ctx.fillText(text, x, y);
 
         // Reset drop if at bottom or randomly
         if (y > height && Math.random() > 0.975) {
