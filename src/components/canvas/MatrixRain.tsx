@@ -40,6 +40,7 @@ export default function MatrixRain({ className, opacity = 0.055 }: MatrixRainPro
     let columns: number;
     let drops: number[];
     let speeds: number[];
+    let xCoords: number[];
 
     const resize = () => {
       width = canvas.width = window.innerWidth;
@@ -48,9 +49,11 @@ export default function MatrixRain({ className, opacity = 0.055 }: MatrixRainPro
 
       drops = [];
       speeds = [];
+      xCoords = [];
       for (let i = 0; i < columns; i++) {
         drops[i] = Math.random() * -100; // Start at random negative y positions
         speeds[i] = 0.3 + Math.random() * 0.6; // Speed between 0.3 and 0.9
+        xCoords[i] = i * fontSize;
       }
     };
 
