@@ -6,6 +6,7 @@ import { GlassCard }    from '@/components/ui/GlassCard';
 import { CyberButton }  from '@/components/ui/CyberButton';
 import { ScrollReveal, fadeSlideUp, fadeSlideLeft, containerStagger } from '@/components/ui/ScrollReveal';
 import { PERSONAL, RESUME_HIGHLIGHTS } from '@/data/portfolio';
+import { toast } from 'react-hot-toast';
 
 // The resume section is styled like a "classified document viewer" inside a terminal.
 // Redacted sections reveal on hover — a small UX easter egg that reinforces the
@@ -21,17 +22,10 @@ export function ResumePanel() {
   const handleCopy = async (text: string, label: string) => {
     try {
       await navigator.clipboard.writeText(text);
-      toast.success(`${label} copied to clipboard!`);
+      toast.success(`${label} copied to clipboard! 📋`);
     } catch (err) {
-      console.error(`Failed to copy ${label}:`, err);
-      toast.error(`Failed to copy ${label}.`);
-    }
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent, text: string, label: string) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      if (e.key === ' ') e.preventDefault();
-      handleCopy(text, label);
+      console.error('Failed to copy:', err);
+      toast.error('Failed to copy. Please try again.');
     }
   };
 
@@ -97,21 +91,31 @@ export function ResumePanel() {
               <div className="px-6 py-4 border-t border-border flex justify-between items-center bg-black/60">
                 <span className="text-[0.6rem] text-text-muted font-mono">
                   DOC_ID: <span
-                    role="button"
-                    className="redacted cursor-copy focus-visible:ring-2 focus-visible:ring-amber focus-visible:ring-offset-2 focus-visible:ring-offset-black outline-none"
+                    className="redacted"
                     tabIndex={0}
-                    title="Click to copy ID"
-                    aria-label="Copy Document ID"
+                    role="button"
+                    aria-label="Reveal and copy document ID"
+                    title="Reveal and copy document ID"
                     onClick={() => handleCopy('SB-RESUME-2025-v3', 'Document ID')}
-                    onKeyDown={(e) => handleKeyDown(e, 'SB-RESUME-2025-v3', 'Document ID')}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        handleCopy('SB-RESUME-2025-v3', 'Document ID');
+                      }
+                    }}
                   >SB-RESUME-2025-v3</span> · SHA256: <span
-                    role="button"
-                    className="redacted cursor-copy focus-visible:ring-2 focus-visible:ring-amber focus-visible:ring-offset-2 focus-visible:ring-offset-black outline-none"
+                    className="redacted"
                     tabIndex={0}
-                    title="Click to copy hash"
-                    aria-label="Copy SHA256 hash"
+                    role="button"
+                    aria-label="Reveal and copy SHA256 hash"
+                    title="Reveal and copy SHA256 hash"
                     onClick={() => handleCopy('8f2a…d91c', 'SHA256 hash')}
-                    onKeyDown={(e) => handleKeyDown(e, '8f2a…d91c', 'SHA256 hash')}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        handleCopy('8f2a…d91c', 'SHA256 hash');
+                      }
+                    }}
                   >8f2a…d91c</span>
                 </span>
                 <span className="text-[0.6rem] text-green font-bold font-mono uppercase tracking-widest">

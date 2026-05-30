@@ -21,6 +21,15 @@ export interface TopRepo {
   url:         string;
 }
 
+export interface GitHubApiRepo {
+  name: string;
+  description: string | null;
+  stargazers_count: number;
+  forks_count: number;
+  language: string | null;
+  html_url: string;
+}
+
 const GITHUB_FALLBACK_DATA: GitHubStats = {
   followers: 0,
   publicRepos: 10,
@@ -53,7 +62,7 @@ export async function fetchGitHubStats(): Promise<GitHubStats> {
     }
 
     const user  = await userRes.json();
-    const repos: any[] = await reposRes.json();
+    const repos: GitHubApiRepo[] = await reposRes.json();
 
     let totalStars = 0;
     let totalForks = 0;
