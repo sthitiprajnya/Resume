@@ -31,7 +31,7 @@ export default function MatrixRain({ className, opacity = 0.055 }: MatrixRainPro
     let width: number;
     let height: number;
 
-    // Matrix characters: katakana + numerals + security symbols
+    // BOLT: Hoisting character array and length lookup outside the hot loop
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$+-*/=%""\'#&_(),.;:?!\\|{}<>[]^~ｦｧｨｩｪｫｬｭｮｯｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝ0x&&||>><<';
     const charArray = chars.split('');
     const charLen = charArray.length;
