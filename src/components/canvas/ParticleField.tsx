@@ -90,10 +90,10 @@ function Particles({ inView }: { inView: boolean }) {
           // BOLT: Only compute sqrt when within threshold to save ~1800 calls per frame
           const dist = Math.sqrt(distToMouseSq);
           // Force inversely proportional to distance
-          const force = Math.min(0.8, 50 / (distToMouseSq + 1));
+          const forceOverDist = Math.min(0.8, 50 / (distToMouseSq + 1)) / (dist || 1);
 
-          posArray[idx] += (dx / dist) * force;
-          posArray[idx + 1] += (dy / dist) * force;
+          posArray[idx] += dx * forceOverDist;
+          posArray[idx + 1] += dy * forceOverDist;
         }
       }
     }
