@@ -55,8 +55,12 @@ export function Skills() {
       </div>
 
       {/* Marquee Tags */}
-      <div className="relative w-full border-y border-border bg-deep py-6 overflow-hidden flex flex-col space-y-4">
-
+      <div
+        className="relative w-full border-y border-border bg-deep py-6 overflow-hidden flex flex-col space-y-4 group/marquee outline-none focus-within:ring-1 focus-within:ring-cyan/30"
+        role="region"
+        aria-label="Technologies and skills marquee"
+        tabIndex={0}
+      >
         {/* Left/Right fading edges */}
         <div className="absolute top-0 left-0 bottom-0 w-24 bg-gradient-to-r from-deep to-transparent z-10 pointer-events-none" />
         <div className="absolute top-0 right-0 bottom-0 w-24 bg-gradient-to-l from-deep to-transparent z-10 pointer-events-none" />
