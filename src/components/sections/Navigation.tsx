@@ -24,6 +24,17 @@ export function Navigation() {
   const sentinelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && mobileMenuOpen) {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [mobileMenuOpen]);
+
+  useEffect(() => {
     // BOLT: Use IntersectionObserver instead of scroll listeners and getBoundingClientRect
     // for much better performance (avoids main-thread layout thrashing)
     const sections = ['hero', ...NAV_LINKS.map(l => l.id)];
@@ -106,6 +117,7 @@ export function Navigation() {
                         isActive ? 'text-cyan' : 'text-text-secondary hover:text-cyan'
                       )}
                       aria-label={`Scroll to ${link.label} section`}
+                      aria-current={isActive ? 'page' : undefined}
                     >
                       {link.label}
                       <span className={clsx(
@@ -176,6 +188,7 @@ export function Navigation() {
                       activeSection === link.id ? 'text-cyan' : 'text-text-secondary'
                     )}
                     aria-label={`Scroll to ${link.label} section`}
+                    aria-current={activeSection === link.id ? 'page' : undefined}
                   >
                     <span className="opacity-40 mr-4 text-xs">// 0{i + 1}</span>
                     {link.label}
