@@ -72,7 +72,7 @@ export function Skills() {
           role="region"
           aria-label="Skills marquee row 1"
         >
-          {[...marqueeTags, ...marqueeTags].map((tag, i) => (
+          {MARQUEE_ROW_1.map((tag, i) => (
             <div
               key={`row1-${i}`}
               className="mx-3 px-4 py-1.5 rounded-sm bg-surface border border-border font-mono text-[0.75rem] text-text-secondary whitespace-nowrap"
@@ -89,7 +89,7 @@ export function Skills() {
           role="region"
           aria-label="Skills marquee row 2"
         >
-          {[...marqueeTags].reverse().concat(marqueeTags).map((tag, i) => (
+          {MARQUEE_ROW_2.map((tag, i) => (
             <div
               key={`row2-${i}`}
               className="mx-3 px-4 py-1.5 rounded-sm bg-surface border border-border font-mono text-[0.75rem] text-text-secondary whitespace-nowrap"
