@@ -34,7 +34,6 @@ export default function MatrixRain({ className, opacity = 0.055 }: MatrixRainPro
     // BOLT: Hoisting character array and length lookup outside the hot loop
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$+-*/=%""\'#&_(),.;:?!\\|{}<>[]^~ｦｧｨｩｪｫｬｭｮｯｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝ0x&&||>><<';
     const charArray = chars.split('');
-    const charLen = charArray.length;
 
     const fontSize = 18;
     let columns: number;
@@ -74,7 +73,7 @@ export default function MatrixRain({ className, opacity = 0.055 }: MatrixRainPro
 
       for (let i = 0; i < dropsLen; i++) {
         // BOLT: Cache calculations and hoist length lookups to optimize 60fps loop
-        const x = i * fontSize;
+
         const y = drops[i] * fontSize;
 
         // Draw character
