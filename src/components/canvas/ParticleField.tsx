@@ -102,7 +102,7 @@ export default function ParticleField() {
         const y = (Math.random() * ((canvas.height - size * 2) - (size * 2)) + size * 2);
         const directionX = (Math.random() * 1) - 0.5; // Speed
         const directionY = (Math.random() * 1) - 0.5; // Speed
-        const color = '#ffffff'; // White dots
+        const color = '#00F5FF'; // Cyan dots
 
         particlesArray.push(new Particle(x, y, directionX, directionY, size, color));
       }
@@ -121,7 +121,7 @@ export default function ParticleField() {
 
           if (distance < connectionDistance) {
             opacityValue = 1 - (distance / connectionDistance);
-            ctx.strokeStyle = 'rgba(255, 255, 255,' + opacityValue * 0.5 + ')'; // Slightly lower opacity for lines
+            ctx.strokeStyle = 'rgba(0, 245, 255,' + opacityValue * 0.5 + ')'; // Slightly lower opacity for cyan lines
             ctx.lineWidth = 1;
             ctx.beginPath();
             ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
@@ -136,7 +136,7 @@ export default function ParticleField() {
                             + ((particlesArray[a].y - mouse.y) * (particlesArray[a].y - mouse.y));
           if (mouseDistance < connectionDistance) {
             opacityValue = 1 - (mouseDistance / connectionDistance);
-            ctx.strokeStyle = 'rgba(255, 255, 255,' + opacityValue * 0.8 + ')';
+            ctx.strokeStyle = 'rgba(0, 245, 255,' + opacityValue * 0.8 + ')';
             ctx.lineWidth = 1;
             ctx.beginPath();
             ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
