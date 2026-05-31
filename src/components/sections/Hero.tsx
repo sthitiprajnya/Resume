@@ -9,13 +9,16 @@ import { PERSONAL, HERO_ROLES, HERO_STATS, HERO_TICKER } from '@/data/portfolio'
 const ParticleField = lazy(() => import('@/components/canvas/ParticleField'));
 const MatrixRain    = lazy(() => import('@/components/canvas/MatrixRain'));
 
+// BOLT: Hoist static data transformations to module level to avoid redundant allocations on every render
+const TICKER_CONTENT = [...HERO_TICKER, ...HERO_TICKER];
+const PRIMARY_ROLE = PERSONAL.title.split(' · ')[0];
+const NAME_CHARS = PERSONAL.nameShort.split('');
+const TYPEWRITER_SEQUENCE = HERO_ROLES.flatMap(role => [role, 2000]);
+
 export function Hero() {
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   };
-
-  // Duplicate ticker content so the CSS animation loops seamlessly
-  const tickerContent = [...HERO_TICKER, ...HERO_TICKER];
 
   return (
     <section
@@ -39,7 +42,7 @@ export function Hero() {
           transition={{ duration: 0.7, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
           className="mb-8 px-5 py-1.5 rounded-full border border-cyan/30 bg-cyan-ghost text-cyan font-mono text-[0.7rem] uppercase tracking-wider"
         >
-          // {PERSONAL.title.split(' · ')[0]}
+          // {PRIMARY_ROLE}
         </motion.div>
 
         {/* Name with per-character cinematic reveal */}
@@ -48,7 +51,7 @@ export function Hero() {
             className="font-display font-black text-hero tracking-[-0.03em] leading-none z-20"
             style={{ perspective: '1000px' }}
           >
-            {PERSONAL.nameShort.split('').map((char, i) => (
+            {NAME_CHARS.map((char, i) => (
               <motion.span
                 key={i}
                 className="inline-block overflow-hidden"
@@ -77,7 +80,7 @@ export function Hero() {
           className="h-[2em] mb-6"
         >
           <TypewriterText
-            sequence={HERO_ROLES.flatMap(role => [role, 2000])}
+            sequence={TYPEWRITER_SEQUENCE}
             className="font-heading font-bold text-[clamp(1.1rem,2.5vw,1.7rem)] text-text-secondary"
           />
         </motion.div>
@@ -157,7 +160,7 @@ export function Hero() {
         {/* Scrolling messages */}
         <div className="pl-20 flex whitespace-nowrap overflow-hidden">
           <div className="ticker-track flex gap-12">
-            {tickerContent.map((msg, i) => (
+            {TICKER_CONTENT.map((msg, i) => (
               <span key={i} className="font-mono text-[0.65rem] text-text-secondary tracking-wide">
                 {msg}
               </span>
