@@ -5,8 +5,8 @@
   "type": "module",
   "pnpm": {
     "overrides": {
+      "postcss": "^8.5.15",
       "glob": "^10.5.0",
-      "postcss": "^8.5.10",
       "@eslint/plugin-kit": "^0.3.4"
     }
   },
@@ -64,12 +64,5 @@
     "tailwindcss": "^3.4.6",
     "typescript": "^5.7.2",
     "vitest": "^4.1.7"
-  },
-  "pnpm": {
-    "overrides": {
-      "postcss": "^8.5.15",
-      "glob": "^10.5.0",
-      "@eslint/plugin-kit": "^0.3.4"
-    }
   }
 }
